@@ -246,6 +246,10 @@
                                             <option value="CIP">CIP</option>
                                             <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
                                             <option value="POR CIP">POR CIP</option>
+                                            <option value="LECHE COMPLETA">LECHE COMPLETA</option>
+                                            <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
+                                            <option value="LECHE BARISTA">LECHE BARISTA</option>
+                                            <option value="LECHE DESCREMADA PARA DESLACTOSADA">LECHE DESCREMADA PARA DESLACTOSADA</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
                                         <input type="text" id="otro-silo1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstatusSilo(1)">
@@ -820,8 +824,8 @@
                                 <select id="almix-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('almix'); toggleOtroInput('otro-almix', this.value)">
                                     <option value="PRODUCCION CON EL TANQUE 01">PRODUCCION CON EL TANQUE 01</option>
                                     <option value="PRODUCCION CON EL TANQUE 02">PRODUCCION CON EL TANQUE 02</option>
-                                    <option value="CIP">CIP</option>
-                                    <option value="POR CIP">POR CIP</option>
+                                    <option value="6P">6P (CIP)</option>
+                                    <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
                                     <option value="INACTIVO" selected>INACTIVO</option>
                                     <option value="OTRO">OTRO</option>
