@@ -45,11 +45,15 @@
         .hmi-input, .hmi-select { background-color: #ffffff; border: 2.5px solid #94a3b8; color: #0f172a; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; border-radius: 0.6rem; padding: 0 0.5rem; font-size: 1rem; height: 44px; line-height: 38px; outline: none; transition: all 0.2s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
         .hmi-select { color: #c2410c; font-weight: 900; font-size: 0.95rem; text-align: center !important; }
         .hmi-input:focus, .hmi-select:focus { border-color: #ea580c; box-shadow: 0 0 10px rgba(234, 88, 12, 0.35); background-color: #fff7ed; }
-        .status-badge-container { min-height: 46px; border-width: 2px; border-radius: 0.75rem; padding: 0.4rem 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; margin-bottom: 0.5rem; overflow: hidden; }
+        .status-badge-container { min-height: 48px; border-width: 2px; border-radius: 0.75rem; padding: 0.35rem 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; margin-bottom: 0.5rem; overflow: hidden; }
         .status-badge-text { font-size: 0.72rem; line-height: 1.1; font-weight: 900; text-transform: uppercase; text-align: left; overflow: hidden; word-break: break-word; }
         @keyframes waveFlow { 0% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(-25%) rotate(4deg); } 100% { transform: translateX(-50%) rotate(0deg); } }
         .input-group { margin-top: 0.85rem; padding-top: 0.35rem; }
-        body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; }
+        
+        /* Normalización crítica para exportación fiel con html-to-image sin desbordamiento */
+        body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; text-overflow: ellipsis !important; overflow: hidden !important; white-space: nowrap !important; }
+        body.capturing-mode .status-badge-container { min-height: 48px !important; height: auto !important; overflow: hidden !important; }
+        body.capturing-mode .status-badge-text { font-size: 0.68rem !important; line-height: 1.1 !important; word-break: break-word !important; white-space: normal !important; overflow: hidden !important; }
     </style>
 </head>
 <body class="uppercase">
@@ -242,9 +246,11 @@
                                             <option value="LECHE COMPLETA">LECHE COMPLETA</option>
                                             <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
                                             <option value="LECHE DESCREMADA PARA DESLACTOSADA">LECHE DESCREMADA PARA DESLACTOSADA</option>
-                                            <option value="CIP">CIP</option>
-                                            <option value="POR CIP">POR CIP</option>
+                                            <option value="6P">6P (CIP)</option>
+                                            <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
+                                            <option value="AIC POR 6P">AIC POR 6P</option>
                                             <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
+                                            <option value="VACIO">VACIO</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
                                         <input type="text" id="otro-silo1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstatusSilo(1)">
@@ -338,9 +344,11 @@
                                             <option value="LECHE CRUDA">LECHE CRUDA</option>
                                             <option value="LECHE COMPLETA">LECHE COMPLETA</option>
                                             <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
-                                            <option value="CIP">CIP</option>
-                                            <option value="POR CIP">POR CIP</option>
+                                            <option value="6P">6P (CIP)</option>
+                                            <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
+                                            <option value="AIC POR 6P">AIC POR 6P</option>
                                             <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
+                                            <option value="VACIO">VACIO</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
                                         <input type="text" id="otro-silo2" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstatusSilo(2)">
@@ -431,9 +439,10 @@
                                     <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
                                         <span class="silo-label text-orange-700 text-xs">PRODUCTO / ESTATUS:</span>
                                         <select id="silo3-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo3', this.value); evaluarEstatusSilo(3)">
-                                            <option value="CIP">CIP</option>
+                                            <option value="6P">6P (CIP)</option>
+                                            <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
+                                            <option value="AIC POR 6P">AIC POR 6P</option>
                                             <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
-                                            <option value="POR CIP">POR CIP</option>
                                             <option value="LECHE COMPLETA">LECHE COMPLETA</option>
                                             <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
                                             <option value="LECHE DESCREMADA PARA DESLACTOSADA" selected>LECHE DESCREMADA PARA DESLACTOSADA</option>
@@ -611,8 +620,8 @@
                                     <select id="tq01-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01')">
                                         <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
                                         <option value="VACIO">VACIO</option>
-                                        <option value="CIP">CIP</option>
-                                        <option value="POR CIP">POR CIP</option>
+                                        <option value="6P">6P (CIP)</option>
+                                        <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
                                         <option value="NECTAR DE DURAZNO">NECTAR DE DURAZNO</option>
                                         <option value="NECTAR DE PERA">NECTAR DE PERA</option>
                                         <option value="TE DE DURAZNO">TE DE DURAZNO</option>
@@ -712,8 +721,8 @@
                                     <select id="tq02-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02')">
                                         <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
                                         <option value="VACIO">VACIO</option>
-                                        <option value="CIP">CIP</option>
-                                        <option value="POR CIP">POR CIP</option>
+                                        <option value="6P">6P (CIP)</option>
+                                        <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
                                         <option value="NECTAR DE DURAZNO">NECTAR DE DURAZNO</option>
                                         <option value="NECTAR DE PERA" selected>NECTAR DE PERA</option>
                                         <option value="TE DE DURAZNO">TE DE DURAZNO</option>
@@ -816,8 +825,8 @@
                                 <select id="almix-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('almix'); toggleOtroInput('otro-almix', this.value)">
                                     <option value="PRODUCCION CON EL TANQUE 01">PRODUCCION CON EL TANQUE 01</option>
                                     <option value="PRODUCCION CON EL TANQUE 02">PRODUCCION CON EL TANQUE 02</option>
-                                    <option value="CIP">CIP</option>
-                                    <option value="POR CIP">POR CIP</option>
+                                    <option value="6P">6P (CIP)</option>
+                                    <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
                                     <option value="INACTIVO" selected>INACTIVO</option>
                                     <option value="OTRO">OTRO</option>
@@ -882,16 +891,17 @@
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
                                     <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO</div>
-                                    <div id="lacta-icon-text" class="status-badge-text text-sky-900">CIP</div>
+                                    <div id="lacta-icon-text" class="status-badge-text text-sky-900">6P</div>
                                 </div>
                             </div>
 
                             <div class="input-group">
                                 <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
                                 <select id="lacta-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('lacta'); toggleOtroInput('otro-lacta', this.value)">
-                                    <option value="CIP" selected>CIP</option>
+                                    <option value="6P" selected>6P (CIP)</option>
                                     <option value="AIC">AIC</option>
-                                    <option value="POR CIP">POR CIP</option>
+                                    <option value="AIC POR 6P">AIC POR 6P</option>
+                                    <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
                                     <option value="CIRCULACION DE AGUA">CIRCULACION DE AGUA</option>
                                     <option value="PRODUCCION DESDE EL SILO 1 AL SILO 2">PRODUCCIÓN DESDE EL SILO 1 AL SILO 2</option>
@@ -930,16 +940,17 @@
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
                                     <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO</div>
-                                    <div id="flex-icon-text" class="status-badge-text text-sky-900">CIP</div>
+                                    <div id="flex-icon-text" class="status-badge-text text-sky-900">6P</div>
                                 </div>
                             </div>
 
                             <div class="input-group">
                                 <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
                                 <select id="flex-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('flex'); toggleOtroInput('otro-flex', this.value)">
-                                    <option value="CIP" selected>CIP</option>
+                                    <option value="6P" selected>6P (CIP)</option>
                                     <option value="AIC">AIC</option>
-                                    <option value="POR CIP">POR CIP</option>
+                                    <option value="AIC POR 6P">AIC POR 6P</option>
+                                    <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
@@ -983,7 +994,7 @@
                             <div class="input-group">
                                 <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
                                 <select id="aldose-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('aldose'); toggleOtroInput('otro-aldose', this.value)">
-                                    <option value="CIP">CIP</option>
+                                    <option value="6P">6P (CIP)</option>
                                     <option value="PRODUCCION">PRODUCCION</option>
                                     <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
                                     <option value="OTRO">OTRO</option>
@@ -1024,14 +1035,14 @@
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
                                     <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO</div>
-                                    <div id="indirect-icon-text" class="status-badge-text text-sky-900">CIP</div>
+                                    <div id="indirect-icon-text" class="status-badge-text text-sky-900">6P</div>
                                 </div>
                             </div>
 
                             <div class="input-group">
                                 <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
                                 <select id="indirect-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('indirect'); toggleOtroInput('otro-indirect', this.value)">
-                                    <option value="CIP" selected>CIP</option>
+                                    <option value="6P" selected>6P (CIP)</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
@@ -1071,7 +1082,7 @@
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
                                     <select id="alsafe1-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="actualizarBadgeGenerico('alsafe1'); toggleOtroInput('otro-alsafe1', this.value)">
-                                        <option value="CIP">CIP</option>
+                                        <option value="6P">6P (CIP)</option>
                                         <option value="PRODUCCION">PRODUCCION</option>
                                         <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
                                         <option value="OTRO">OTRO</option>
@@ -1116,7 +1127,7 @@
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
                                     <select id="alsafe2-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="actualizarBadgeGenerico('alsafe2'); toggleOtroInput('otro-alsafe2', this.value)">
-                                        <option value="CIP">CIP</option>
+                                        <option value="6P">6P (CIP)</option>
                                         <option value="PRODUCCION">PRODUCCION</option>
                                         <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
                                         <option value="OTRO">OTRO</option>
@@ -1161,7 +1172,7 @@
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
                                     <select id="tqcrema-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="actualizarBadgeGenerico('tqcrema'); toggleOtroInput('otro-tqcrema', this.value)">
-                                        <option value="CIP">CIP</option>
+                                        <option value="6P">6P (CIP)</option>
                                         <option value="EN PRODUCCION">EN PRODUCCION</option>
                                         <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
                                         <option value="OTRO">OTRO</option>
@@ -1203,7 +1214,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT INDUSTRIAL HMI CON LÓGICA DE CONTROL ACTUALIZADA -->
+    <!-- SCRIPT INDUSTRIAL HMI CON LOGICA REVISADA -->
     <script>
         // CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
@@ -1345,15 +1356,18 @@
             });
         }
 
-        // CONTROLADOR Y MAPEO DE BADGES / ÍCONOS
+        // CONTROLADOR MAPEO CONFIGURACIÓN DE BADGES & ÍCONOS
         const ESTADOS_CONFIG = {
             'VACIO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-900', bgCont: 'bg-emerald-50 border-emerald-300' },
             'INACTIVO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-900', bgCont: 'bg-emerald-50 border-emerald-300' },
             'VACIO': { icon: 'minus-circle', bgBox: 'bg-slate-600', textCol: 'text-slate-900', bgCont: 'bg-slate-100 border-slate-300' },
             'INACTIVO': { icon: 'minus-circle', bgBox: 'bg-slate-600', textCol: 'text-slate-900', bgCont: 'bg-slate-100 border-slate-300' },
             'CIP': { icon: 'refresh-cw', bgBox: 'bg-sky-600', textCol: 'text-sky-900', bgCont: 'bg-sky-50 border-sky-300' },
+            '6P': { icon: 'refresh-cw', bgBox: 'bg-sky-600', textCol: 'text-sky-900', bgCont: 'bg-sky-50 border-sky-300' },
             'POR CIP': { icon: 'alert-triangle', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
+            '6P POR 6P': { icon: 'alert-triangle', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
             'AIC': { icon: 'zap', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
+            'AIC POR 6P': { icon: 'zap', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
             'CIRCULACION DE AGUA': { icon: 'waves', bgBox: 'bg-cyan-600', textCol: 'text-cyan-900', bgCont: 'bg-cyan-50 border-cyan-300' },
             'EN PREPARACION': { icon: 'flask-conical', bgBox: 'bg-amber-500', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
             'EN ENFRIAMIENTO': { icon: 'snowflake', bgBox: 'bg-blue-600', textCol: 'text-blue-900', bgCont: 'bg-blue-50 border-blue-300' },
@@ -1363,6 +1377,9 @@
             'EN PRODUCCION': { icon: 'play-circle', bgBox: 'bg-orange-600', textCol: 'text-orange-900', bgCont: 'bg-orange-50 border-orange-300' },
             'PRODUCCION': { icon: 'play-circle', bgBox: 'bg-orange-600', textCol: 'text-orange-900', bgCont: 'bg-orange-50 border-orange-300' },
             'LECHE CRUDA': { icon: 'droplets', bgBox: 'bg-amber-500', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
+            'LECHE COMPLETA': { icon: 'droplets', bgBox: 'bg-amber-500', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
+            'LECHE DESCREMADA': { icon: 'droplets', bgBox: 'bg-indigo-600', textCol: 'text-indigo-900', bgCont: 'bg-indigo-50 border-indigo-300' },
+            'LECHE DESCREMADA PARA DESLACTOSADA': { icon: 'droplets', bgBox: 'bg-purple-600', textCol: 'text-purple-900', bgCont: 'bg-purple-50 border-purple-300' },
             'DEFAULT': { icon: 'droplets', bgBox: 'bg-orange-600', textCol: 'text-orange-900', bgCont: 'bg-orange-50 border-orange-300' }
         };
 
@@ -1377,12 +1394,12 @@
             if (prefix.startsWith('silo')) {
                 const prod = getValorRealElemento(`${prefix}-select`);
                 const etapa = getValorRealElemento(`${prefix}-etapa`);
-                const esSinProd = (prod === 'CIP' || prod === 'POR CIP' || prod === 'VACIO Y LIMPIO' || prod === 'VACIO');
+                const esSinProd = (prod === 'CIP' || prod === 'POR CIP' || prod === 'VACIO Y LIMPIO' || prod === 'VACIO' || prod === '6P' || prod === '6P POR 6P' || prod === 'AIC POR 6P');
                 textoEstado = esSinProd ? prod : (etapa || prod);
             } else if (prefix.startsWith('tq0')) {
                 const prod = getValorRealElemento(`${prefix}-prod`);
                 const etapa = getValorRealElemento(`${prefix}-etapa`);
-                const esSinProd = (prod === 'VACIO Y LIMPIO' || prod === 'VACIO' || prod === 'CIP' || prod === 'POR CIP');
+                const esSinProd = (prod === 'VACIO Y LIMPIO' || prod === 'VACIO' || prod === 'CIP' || prod === 'POR CIP' || prod === '6P' || prod === '6P POR 6P');
                 textoEstado = esSinProd ? prod : (etapa || prod);
             } else if (prefix === 'almix') {
                 textoEstado = getValorRealElemento('almix-status');
@@ -1399,7 +1416,7 @@
             let cfg = ESTADOS_CONFIG[textoEstado];
             if (!cfg) {
                 if (textoEstado.includes('PRODUCCION')) cfg = ESTADOS_CONFIG['PRODUCCION'];
-                else if (textoEstado.includes('CIP')) cfg = ESTADOS_CONFIG['CIP'];
+                else if (textoEstado.includes('CIP') || textoEstado.includes('6P')) cfg = ESTADOS_CONFIG['6P'];
                 else cfg = ESTADOS_CONFIG['DEFAULT'];
             }
 
@@ -1423,15 +1440,20 @@
             return el.value;
         }
 
-        // EVALUAR Y BLOQUEAR/DESBLOQUEAR SILOS
+        // EVALUAR Y DESHABILITAR/HABILITAR SILOS
         function evaluarEstatusSilo(siloNum) {
             const prodSelect = document.getElementById(`silo${siloNum}-select`);
             const etapaSelect = document.getElementById(`silo${siloNum}-etapa`);
             const hpoInput = document.getElementById(`silo${siloNum}-hpo-input`);
             if (!prodSelect) return;
 
-            const val = prodSelect.value;
-            const esSinProducto = (val === 'CIP' || val === 'POR CIP' || val === 'VACIO Y LIMPIO' || val === 'VACIO');
+            let val = prodSelect.value;
+            if (val === 'OTRO') {
+                const otroInput = document.getElementById(`otro-silo${siloNum}`);
+                if (otroInput && otroInput.value) val = otroInput.value.toUpperCase();
+            }
+
+            const esSinProducto = (val === 'CIP' || val === 'POR CIP' || val === 'VACIO Y LIMPIO' || val === 'VACIO' || val === '6P' || val === '6P POR 6P' || val === 'AIC POR 6P');
 
             if (esSinProducto) {
                 etapaSelect.value = "";
@@ -1454,14 +1476,19 @@
             actualizarBadgeGenerico(`silo${siloNum}`);
         }
 
-        // EVALUAR Y BLOQUEAR/DESBLOQUEAR TANQUES DE JUGO TQ01 / TQ02
+        // EVALUAR Y DESHABILITAR/HABILITAR TANQUES DE JUGO TQ01 / TQ02
         function evaluarEstadoTanque(tqKey) {
             const prodSelect = document.getElementById(`${tqKey}-prod`);
             const etapaSelect = document.getElementById(`${tqKey}-etapa`);
             if (!prodSelect || !etapaSelect) return;
 
-            const val = prodSelect.value;
-            const esSinProducto = (val === 'VACIO Y LIMPIO' || val === 'VACIO' || val === 'CIP' || val === 'POR CIP');
+            let val = prodSelect.value;
+            if (val === 'OTRO') {
+                const otroInput = document.getElementById(`otro-${tqKey}`);
+                if (otroInput && otroInput.value) val = otroInput.value.toUpperCase();
+            }
+
+            const esSinProducto = (val === 'VACIO Y LIMPIO' || val === 'VACIO' || val === 'CIP' || val === 'POR CIP' || val === '6P' || val === '6P POR 6P');
 
             if (esSinProducto) {
                 etapaSelect.value = "";
