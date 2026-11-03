@@ -1,0 +1,2517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMI Planta El Tunal Industrial</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- html-to-image para captura fiel sin desfase -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #0f172a;
+            margin: 0;
+            padding: 12px;
+        }
+
+        /* Contenedor maestro con ancho fijo industrial para evitar desbordamientos en móvil con modo escritorio */
+        .hmi-master-wrapper {
+            width: 1360px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 2rem;
+            border: 4px solid #f97316;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            padding: 24px;
+        }
+
+        .silo-wrapper {
+            position: relative;
+            width: 100%;
+            background: linear-gradient(160deg, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%);
+            border-radius: 1.5rem;
+            padding: 1.25rem 1rem;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), inset 0 1px 2px #ffffff;
+            border: 2.5px solid #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .silo-tank-body {
+            position: relative;
+            width: 100%;
+            height: 480px;
+            background: linear-gradient(90deg, 
+                #cbd5e1 0%, 
+                #e2e8f0 12%, 
+                #f8fafc 35%, 
+                #ffffff 50%, 
+                #f1f5f9 70%, 
+                #e2e8f0 90%,
+                #cbd5e1 100%);
+            border-radius: 2rem 2rem 1.25rem 1.25rem;
+            box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06);
+            border: 2.5px solid #94a3b8;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .juice-tank-body {
+            position: relative;
+            width: 100%;
+            height: 384px;
+            background: linear-gradient(90deg, 
+                #cbd5e1 0%, 
+                #e2e8f0 12%, 
+                #f8fafc 35%, 
+                #ffffff 50%, 
+                #f1f5f9 70%, 
+                #e2e8f0 90%,
+                #cbd5e1 100%);
+            border-radius: 2rem 2rem 1.25rem 1.25rem;
+            box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06);
+            border: 2.5px solid #94a3b8;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .alsafe-tank-body {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(90deg, 
+                #cbd5e1 0%, 
+                #e2e8f0 12%, 
+                #f8fafc 35%, 
+                #ffffff 50%, 
+                #f1f5f9 70%, 
+                #e2e8f0 90%,
+                #cbd5e1 100%);
+            border-radius: 1.5rem 1.5rem 1rem 1rem;
+            box-shadow: inset 0 0 15px rgba(148, 163, 184, 0.3), 0 6px 15px rgba(0,0,0,0.06);
+            border: 2.5px solid #94a3b8;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .silo-cap-top {
+            width: 100%;
+            height: 28px;
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #94a3b8 100%);
+            border-bottom: 2px solid #64748b;
+            border-radius: 50% / 100% 100% 0 0;
+            z-index: 10;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.9);
+        }
+
+        .silo-steel-ring {
+            width: 100%;
+            height: 7px;
+            background: linear-gradient(180deg, #94a3b8 0%, #f8fafc 50%, #64748b 100%);
+            border-top: 1px solid rgba(255,255,255,0.8);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.5);
+            z-index: 12;
+        }
+
+        .silo-cone-bottom {
+            width: 80%;
+            height: 36px;
+            margin: -2px auto 0 auto;
+            background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%);
+            clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%);
+            border-top: 2px solid #64748b;
+            z-index: 8;
+        }
+
+        .silo-legs {
+            display: flex;
+            justify-content: space-between;
+            width: 85%;
+            height: 20px;
+            margin-top: -6px;
+        }
+
+        .silo-leg {
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(90deg, #475569, #94a3b8, #334155);
+            border-radius: 2px;
+        }
+
+        .silo-liquid-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            transition: height 0.6s ease-out;
+            z-index: 5;
+            box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6), 
+                        inset 0 -6px 16px rgba(0, 0, 0, 0.2),
+                        0 -4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0.95;
+        }
+
+        .silo-wave-effect {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 200%;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 40%;
+            animation: waveFlow 3s linear infinite;
+        }
+
+        .silo-sight-gauge {
+            position: absolute;
+            right: 10px;
+            top: 36px;
+            bottom: 36px;
+            width: 16px;
+            background: rgba(203, 213, 225, 0.95);
+            border: 2px solid #475569;
+            border-radius: 8px;
+            z-index: 25;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+        }
+
+        .cisterna-truck-card {
+            position: relative;
+            background: linear-gradient(160deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%);
+            border: 2.5px solid #cbd5e1;
+            border-radius: 1.25rem;
+            padding: 0.75rem;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .cisterna-svg-container {
+            position: relative;
+            width: 100%;
+            background: #f1f5f9;
+            border: 2px solid #94a3b8;
+            border-radius: 1rem;
+            padding: 0.5rem;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .cisterna-overlay-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-top: 0.25rem;
+        }
+
+        .cisterna-hmi-row {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(4px);
+            border: 1.5px solid #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 0.35rem 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04);
+        }
+
+        .silo-gauge-fill {
+            width: 100%;
+            border-top: 2px solid #ea580c;
+            transition: height 0.6s ease-out;
+        }
+
+        .silo-overlay-panel {
+            position: absolute;
+            inset: 0;
+            right: 32px;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0.6rem 0.5rem;
+            gap: 0.25rem;
+        }
+
+        .silo-hmi-row {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid #cbd5e1;
+            border-radius: 0.6rem;
+            padding: 0.4rem 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+            line-height: 1.15;
+        }
+
+        .silo-label {
+            color: #0f172a;
+            font-family: 'Share Tech Mono', monospace, sans-serif;
+            font-weight: 900;
+            font-size: 0.9rem;
+        }
+
+        .silo-input-field {
+            background: #ffffff;
+            border: 2px solid #94a3b8;
+            color: #0f172a;
+            font-family: 'Share Tech Mono', monospace, sans-serif;
+            font-weight: 900;
+            border-radius: 0.45rem;
+            padding: 0 0.5rem;
+            height: 36px;
+            line-height: 32px;
+            font-size: 1.05rem;
+            outline: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .silo-status-select {
+            font-size: 0.85rem !important;
+            font-weight: 900 !important;
+            height: 42px !important;
+            line-height: 1.15 !important;
+            padding: 0.2rem 0.4rem !important;
+            text-align: center !important;
+        }
+
+        /* Caja de texto segura para evitar desbordamientos en exportación JPG */
+        .text-display-box {
+            font-family: 'Share Tech Mono', monospace, sans-serif;
+            font-weight: 900;
+            font-size: 0.72rem;
+            line-height: 1.15;
+            color: #451a03;
+            width: 100%;
+            text-align: center;
+            background-color: #ffedd5;
+            padding: 6px 4px;
+            border-radius: 0.5rem;
+            border: 1.5px solid #fb923c;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            box-sizing: border-box;
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        .font-digital {
+            font-family: 'Share Tech Mono', monospace, sans-serif;
+        }
+
+        .hmi-input, .hmi-select {
+            background-color: #ffffff;
+            border: 2.5px solid #94a3b8;
+            color: #0f172a;
+            font-family: 'Share Tech Mono', monospace, sans-serif;
+            font-weight: 900;
+            border-radius: 0.6rem;
+            padding: 0 0.6rem;
+            font-size: 1.2rem;
+            height: 46px;
+            line-height: 40px;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hmi-select {
+            color: #c2410c;
+            font-weight: 900;
+            font-size: 1.05rem;
+            text-align: center !important;
+        }
+
+        .hmi-input:focus, .hmi-select:focus {
+            border-color: #ea580c;
+            box-shadow: 0 0 10px rgba(234, 88, 12, 0.35);
+            background-color: #fff7ed;
+        }
+
+        @keyframes waveFlow {
+            0% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(-25%) rotate(4deg); }
+            100% { transform: translateX(-50%) rotate(0deg); }
+        }
+
+        .input-group {
+            margin-top: 0.85rem;
+            padding-top: 0.35rem;
+        }
+    </style>
+</head>
+<body class="uppercase">
+
+    <!-- BARRA SUPERIOR DE AYUDA MÓVIL / ZOOM INDUSTRIAL -->
+    <div class="max-w-7xl mx-auto mb-3 bg-slate-800 text-slate-200 px-4 py-2 rounded-xl text-xs flex justify-between items-center shadow-lg border border-slate-700">
+        <span class="font-bold flex items-center gap-2">
+            <i data-lucide="monitor" class="w-4 h-4 text-orange-400"></i> HMI VISTA INDUSTRIAL INDUSTRIAL (ANCHO FIJO 1360PX OPTIMIZADO PARA MÓVIL/PC)
+        </span>
+        <button onclick="toggleZoomMovil()" id="btn-zoom" class="bg-orange-600 hover:bg-orange-500 text-white font-bold px-3 py-1 rounded-lg transition">
+            Ajustar Pantalla Móvil
+        </button>
+    </div>
+
+    <!-- CONTENEDOR INDUSTRIAL MAESTRO -->
+    <div id="hmi-master-container" class="hmi-master-wrapper space-y-6">
+
+        <!-- CABECERA PRINCIPAL AMPLIADA -->
+        <header id="main-header" class="bg-slate-900 border-4 border-orange-500 p-6 rounded-3xl shadow-2xl flex justify-between items-center gap-6">
+            <div class="flex items-center gap-6">
+                <div class="bg-white p-3 px-5 rounded-2xl border-3 border-orange-500 flex items-center gap-4 shadow-md">
+                    <svg width="150" height="45" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 125 40 L 165 5 L 125 25 Z" fill="#94a3b8"/>
+                        <path d="M 165 5 L 220 20 L 220 45 L 180 30 L 180 17 L 195 17 L 195 27 L 205 27 L 205 12 L 165 5 Z" fill="#ea580c"/>
+                        <path d="M 175 14 L 210 14 L 210 23 L 196 23 L 196 42 L 185 42 L 185 23 L 175 23 Z" fill="#ffffff"/>
+                        <text x="5" y="48" font-family="'Inter', sans-serif" font-size="34" font-weight="900" fill="#ea580c" letter-spacing="-0.5">EL TUNAL</text>
+                    </svg>
+                    <div>
+                        <h1 class="text-2xl font-black tracking-wider text-orange-500 font-digital">PLANTA EL TUNAL</h1>
+                        <p class="text-xs text-slate-300 font-black tracking-widest uppercase">ESTATUS DEL ÁREA DE PROCESOS</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 p-3.5 px-6 rounded-2xl border-2 border-orange-500/60 flex items-center gap-4 shadow-inner">
+                    <i data-lucide="user" class="w-7 h-7 text-orange-400"></i>
+                    <div>
+                        <div class="text-xs text-orange-400 font-black uppercase">REPORTADO POR:</div>
+                        <select id="global-reportado-select" class="hmi-select text-base py-1.5 px-4 border-orange-500 text-orange-500 font-black bg-slate-900 mt-1" onchange="sincronizarReportadoPor(this.value)">
+                            <option value="LUIS SOTO" selected>LUIS SOTO</option>
+                            <option value="OMAR OSORIO">OMAR OSORIO</option>
+                            <option value="SIMON LEAL">SIMON LEAL</option>
+                            <option value="GINES PEREZ">GINES PEREZ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-5">
+                <div class="bg-slate-800 p-3.5 px-6 rounded-2xl border-2 border-orange-500/60 flex items-center gap-3">
+                    <i data-lucide="clock" class="w-6 h-6 text-orange-400"></i>
+                    <div>
+                        <label class="text-xs text-orange-400 font-extrabold block">TURNO:</label>
+                        <select id="select-turno" class="hmi-select text-sm py-1.5 px-3 border-orange-500 text-orange-500 font-black bg-slate-900 mt-1" onchange="toggleOtroInput('otro-turno-header', this.value); sincronizarTurno(this.value)">
+                            <option value="TURNO 1 (06:00 - 18:00)" selected>TURNO 1 (06:00 - 18:00)</option>
+                            <option value="TURNO 2 (18:00 - 06:00)">TURNO 2 (18:00 - 06:00)</option>
+                            <option value="OTRO">OTRO</option>
+                        </select>
+                        <input type="text" id="otro-turno-header" class="hmi-input text-sm py-1 hidden w-36 uppercase font-black mt-1" placeholder="TURNO..." oninput="sincronizarTurno(this.value)">
+                    </div>
+                </div>
+
+                <div class="text-right bg-slate-800 p-4 px-6 rounded-2xl border-2 border-orange-500/60 shadow-inner">
+                    <div id="live-clock" class="text-2xl font-digital text-orange-400 font-black">--:--:--</div>
+                    <div id="live-date" class="text-sm text-slate-200 font-black tracking-widest mt-0.5">--/--/----</div>
+                </div>
+
+                <div class="flex flex-col gap-2.5">
+                    <button onclick="guardarDatosManualmente()" id="btn-guardar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-sm px-6 py-3 rounded-xl border-2 border-emerald-400 transition shadow-xl cursor-pointer font-black tracking-wide">
+                        <i data-lucide="save" class="w-5 h-5"></i> Guardar
+                    </button>
+
+                    <button onclick="generarCapturasDuales()" id="btn-capturar" class="flex items-center justify-center gap-2.5 bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-sm px-6 py-3 rounded-xl border-2 border-orange-400 transition shadow-xl cursor-pointer font-black tracking-wide">
+                        <i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG (WhatsApp)
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ========================================== -->
+        <!-- PARTE 1: RECEPCIÓN, PATIO Y SILOS -->
+        <!-- ========================================== -->
+        <div id="parte-1-container" class="hmi-card p-6 space-y-6 bg-white border-3 border-orange-400 rounded-2xl shadow-md">
+            
+            <div class="bg-slate-900 text-white p-4.5 rounded-xl flex justify-between items-center gap-4 border-3 border-orange-500 shadow-md">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white p-2 rounded-lg">
+                        <svg width="120" height="36" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 125 40 L 165 5 L 125 25 Z" fill="#94a3b8"/>
+                            <path d="M 165 5 L 220 20 L 220 45 L 180 30 L 180 17 L 195 17 L 195 27 L 205 27 L 205 12 L 165 5 Z" fill="#ea580c"/>
+                            <path d="M 175 14 L 210 14 L 210 23 L 196 23 L 196 42 L 185 42 L 185 23 L 175 23 Z" fill="#ffffff"/>
+                            <text x="5" y="48" font-family="'Inter', sans-serif" font-size="34" font-weight="900" fill="#ea580c" letter-spacing="-0.5">EL TUNAL</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black tracking-wider text-orange-400 font-digital">PLANTA EL TUNAL</h2>
+                        <p class="text-xs text-slate-200 font-black tracking-widest uppercase">ESTATUS DEL ÁREA DE PROCESOS</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="bg-slate-800 px-3.5 py-2 rounded-xl border border-orange-500/50 text-left">
+                        <div class="text-[11px] text-orange-400 font-bold uppercase">TURNO:</div>
+                        <div id="display-turno-copy" class="text-sm font-digital text-white font-black">TURNO 1 (06:00 - 18:00)</div>
+                    </div>
+                    <div class="text-right bg-slate-800 px-3.5 py-2 rounded-xl border border-orange-500/50">
+                        <div id="header-clock-copy" class="text-sm font-digital text-orange-400 font-black">--:--:--</div>
+                        <div id="header-date-copy" class="text-xs text-slate-200 font-bold">--/--/----</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white p-4.5 rounded-2xl shadow-md flex items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white/20 p-3 rounded-xl border border-white/40 flex items-center justify-center shadow-inner">
+                        <i data-lucide="layout-dashboard" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-black text-lg uppercase tracking-wider text-white">PARTE 1: RECEPCIÓN Y ALMACENAMIENTO (SILOS Y PATIO)</h2>
+                    </div>
+                </div>
+                <div class="bg-white/25 px-4 py-2 rounded-xl border border-white/40 text-sm font-mono font-black tracking-widest text-white whitespace-nowrap shadow-inner">
+                    PÁGINA 1 DE 2
+                </div>
+            </div>
+
+            <div class="grid grid-cols-12 gap-6">
+
+                <div class="col-span-12 bg-slate-50 p-5 rounded-2xl border-3 border-slate-300 space-y-4">
+                    <div class="border-b-2 border-slate-200 pb-3 flex justify-between items-center gap-2">
+                        <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide">
+                            <i data-lucide="truck" class="w-5 h-5 text-orange-700"></i>
+                            Recepción - Patio de Cisternas
+                        </h3>
+                        <div class="flex items-center gap-3">
+                            <span id="cisterna-count" class="text-xs font-mono font-black bg-orange-100 text-orange-900 border border-orange-300 px-3 py-1 rounded-full">2 / 4</span>
+                            <button id="add-cisterna-btn" onclick="agregarCisterna()" class="flex items-center gap-1.5 bg-orange-600 hover:bg-orange-500 text-white text-xs px-3.5 py-2 rounded-xl transition shadow font-black cursor-pointer">
+                                <i data-lucide="plus" class="w-4 h-4"></i> Agregar Cisterna
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="cisternas-container" class="grid grid-cols-4 gap-4"></div>
+                    <div id="no-cisternas-msg" class="text-center py-6 text-slate-400 font-black text-xs hidden">NO HAY CISTERNAS ACTIVAS EN EL PATIO</div>
+                </div>
+
+                <div class="col-span-12 bg-slate-50 p-5 rounded-2xl border-3 border-slate-300 space-y-4">
+                    <div class="border-b-2 border-slate-200 pb-3 flex justify-between items-center">
+                        <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide">
+                            <i data-lucide="database" class="w-5 h-5 text-amber-700"></i>
+                            Silos de Almacenamiento Principal (Silos 1, 2 y 3)
+                        </h3>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-6">
+                        
+                        <!-- SILO 1 -->
+                        <div class="silo-wrapper">
+                            <div class="flex justify-between items-center w-full mb-2.5 px-1">
+                                <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
+                                    <i data-lucide="cylinder" class="w-5 h-5 text-orange-600"></i> SILO 1
+                                </span>
+                                <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
+                            </div>
+
+                            <div id="silo1-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
+                                <div id="silo1-icon-box" class="bg-amber-500 text-white p-1.5 rounded-lg shadow">
+                                    <i id="silo1-icon-symbol" data-lucide="droplets" class="w-4 h-4"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-[10px] text-slate-600 font-black">ESTADO SILO 1</div>
+                                    <div id="silo1-icon-text" class="text-xs font-digital font-black text-amber-900">LECHE CRUDA</div>
+                                </div>
+                            </div>
+
+                            <div class="silo-tank-body">
+                                <div class="silo-cap-top"></div>
+                                <div class="silo-steel-ring"></div>
+
+                                <div class="silo-sight-gauge">
+                                    <div id="silo1-gauge-fill" class="silo-gauge-fill" style="height: 48%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div>
+                                </div>
+
+                                <div id="silo1-liquid" class="silo-liquid-layer" style="height: 48%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
+                                    <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div>
+                                </div>
+
+                                <div class="silo-overlay-panel">
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
+                                        <span class="silo-label text-orange-700 text-xs">PRODUCTO / ESTATUS:</span>
+                                        <select id="silo1-select" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo1', this.value); actualizarTextoSilo('silo1', this.value); evaluarEstatusSilo(1)">
+                                            <option value="LECHE CRUDA" selected>LECHE CRUDA</option>
+                                            <option value="CIP">CIP</option>
+                                            <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
+                                            <option value="POR CIP">POR CIP</option>
+                                            <option value="OTRO">OTRO</option>
+                                        </select>
+                                        <div id="silo1-status-text-display" class="hidden text-display-box">LECHE CRUDA</div>
+                                        <input type="text" id="otro-silo1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoSilo('silo1', this.value)">
+                                    </div>
+
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
+                                        <span class="silo-label text-orange-700 text-xs">ETAPA / ESTADO:</span>
+                                        <select id="silo1-etapa" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-etapa-silo1', this.value); actualizarTextoSilo('silo1', this.value); actualizarIconoSilo('silo1')">
+                                            <option value="">-- N/A (SIN PRODUCTO) --</option>
+                                            <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
+                                            <option value="EN RECEPCION">EN RECEPCION</option>
+                                            <option value="EN ESPERA DE INICIO DE PRODUCCION">EN ESPERA DE INICIO DE PRODUCCION</option>
+                                            <option value="EN PRODUCCION">EN PRODUCCION</option>
+                                            <option value="OTRO">OTRO</option>
+                                        </select>
+                                        <div id="silo1-etapa-text-display" class="hidden text-display-box">-- N/A (SIN PRODUCTO) --</div>
+                                        <input type="text" id="otro-etapa-silo1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="actualizarTextoSilo('silo1', this.value)">
+                                    </div>
+
+                                    <div class="silo-hmi-row">
+                                        <span class="silo-label text-xs">TEMP:</span>
+                                        <div class="flex items-center gap-1">
+                                            <input type="text" id="silo1-temp-input" class="silo-input-field w-20" value="2.4">
+                                            <span class="silo-label text-slate-600 text-xs">°C</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="silo-hmi-row">
+                                        <span class="silo-label text-xs">HPO:</span>
+                                        <input type="text" id="silo1-hpo-input" class="silo-input-field w-24" value="19">
+                                    </div>
+
+                                    <div class="silo-hmi-row">
+                                        <span class="silo-label text-xs">NIVEL:</span>
+                                        <div class="flex items-center gap-1">
+                                            <input type="number" id="silo1-pct" class="silo-input-field w-20" value="48" min="0" max="100" oninput="calcularLitros(1)">
+                                            <span class="silo-label text-slate-600 text-xs">%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5">
+                                        <span id="silo1-readout-lts" class="text-lg font-digital font-black text-orange-950">28,800</span>
+                                        <span class="silo-label ml-1 text-xs text-orange-700">LTS</span>
+                                    </div>
+                                </div>
+
+                                <div class="silo-steel-ring"></div>
+                            </div>
+
+                            <div class="silo-cone-bottom"></div>
+                            <div class="silo-legs">
+                                <div class="silo-leg"></div>
+                                <div class="silo-leg"></div>
+                            </div>
+                        </div>
+
+                        <!-- SILO 2 -->
+                        <div class="silo-wrapper">
+                            <div class="flex justify-between items-center w-full mb-2.5 px-1">
+                                <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
+                                    <i data-lucide="cylinder" class="w-5 h-5 text-orange-600"></i> SILO 2
+                                </span>
+                                <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
+                            </div>
+
+                            <div id="silo2-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
+                                <div id="silo2-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow">
+                                    <i id="silo2-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-[10px] text-slate-600 font-black">ESTADO SILO 2</div>
+                                    <div id="silo2-icon-text" class="text-xs font-digital font-black text-emerald-900">VACIO Y LIMPIO</div>
+                                </div>
+                            </div>
+
+                            <div class="silo-tank-body">
+                                <div class="silo-cap-top"></div>
+                                <div class="silo-steel-ring"></div>
+
+                                <div class="silo-sight-gauge">
+                                    <div id="silo2-gauge-fill" class="silo-gauge-fill" style="height: 50%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div>
+                                </div>
+
+                                <div id="silo2-liquid" class="silo-liquid-layer" style="height: 50%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
+                                    <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div>
+                                </div>
+
+                                <div class="silo-overlay-panel">
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
+                                        <span class="silo-label text-orange-700 text-xs">PRODUCTO / ESTATUS:</span>
+                                        <select id="silo2-select" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo2', this.value); actualizarTextoSilo('silo2', this.value); evaluarEstatusSilo(2)">
+                                            <option value="LECHE CRUDA">LECHE CRUDA</option>
+                                            <option value="CIP">CIP</option>
+                                            <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
+                                            <option value="POR CIP">POR CIP</option>
+                                            <option value="LECHE COMPLETA">LECHE COMPLETA</option>
+                                            <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
+                                            <option value="LECHE BARISTA">LECHE BARISTA</option>
+                                            <option value="LECHE DESCREMADA PARA DESLACTOSADA">LECHE DESCREMADA PARA DESLACTOSADA</option>
+                                            <option value="OTRO">OTRO</option>
+                                        </select>
+                                        <div id="silo2-status-text-display" class="hidden text-display-box">VACIO Y LIMPIO</div>
+                                        <input type="text" id="otro-silo2" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoSilo('silo2', this.value)">
+                                    </div>
+
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
+                                        <span class="silo-label text-orange-700 text-xs">ETAPA / ESTADO:</span>
+                                        <select id="silo2-etapa" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-silo2', this.value); actualizarTextoSilo('silo2', this.value); actualizarIconoSilo('silo2')">
+                                            <option value="" selected>-- N/A (SIN PRODUCTO) --</option>
+                                            <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
+                                            <option value="EN RECEPCION">EN RECEPCION</option>
+                                            <option value="EN ESPERA DE INICIO DE PRODUCCION">EN ESPERA DE INICIO DE PRODUCCION</option>
+                                            <option value="EN PRODUCCION">EN PRODUCCION</option>
+                                            <option value="OTRO">OTRO</option>
+                                        </select>
+                                        <div id="silo2-etapa-text-display" class="hidden text-display-box">-- N/A (SIN PRODUCTO) --</div>
+                                        <input type="text" id="otro-etapa-silo2" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="actualizarTextoSilo('silo2', this.value)">
+                                    </div>
+
+                                    <div class="silo-hmi-row">
+                                        <span class="silo-label text-xs">TEMP:</span>
+                                        <div class="flex items-center gap-1">
+                                            <input type="text" id="silo2-temp-input" class="silo-input-field w-20" value="21.6">
+                                            <span class="silo-label text-slate-600 text-xs">°C</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="silo-hmi-row">
+                                        <span class="silo-label text-xs">HPO:</span>
+                                        <input type="text" id="silo2-hpo-input" class="silo-input-field w-24" value="-">
+                                    </div>
+
+                                    <div class="silo-hmi-row">
+                                        <span class="silo-label text-xs">NIVEL:</span>
+                                        <div class="flex items-center gap-1">
+                                            <input type="number" id="silo2-pct" class="silo-input-field w-20" value="50" min="0" max="100" oninput="calcularLitros(2)">
+                                            <span class="silo-label text-slate-600 text-xs">%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5">
+                                        <span id="silo2-readout-lts" class="text-lg font-digital font-black text-orange-950">30,000</span>
+                                        <span class="silo-label ml-1 text-xs text-orange-700">LTS</span>
+                                    </div>
+                                </div>
+
+                                <div class="silo-steel-ring"></div>
+                            </div>
+
+                            <div class="silo-cone-bottom"></div>
+                            <div class="silo-legs">
+                                <div class="silo-leg"></div>
+                                <div class="silo-leg"></div>
+                            </div>
+                        </div>
+
+                        <!-- SILO 3 -->
+                        <div class="silo-wrapper">
+                            <div class="flex justify-between items-center w-full mb-2.5 px-1">
+                                <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
+                                    <i data-lucide="cylinder" class="w-5 h-5 text-orange-600"></i> SILO 3
+                                </span>
+                                <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
+                            </div>
+
+                            <div id="silo3-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
+                                <div id="silo3-icon-box" class="bg-purple-600 text-white p-1.5 rounded-lg shadow">
+                                    <i id="silo3-icon-symbol" data-lucide="clock" class="w-4 h-4"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-[10px] text-slate-600 font-black">ESTADO SILO 3</div>
+                                    <div id="silo3-icon-text" class="text-xs font-digital font-black text-purple-900">EN ESPERA DE LIBERACION</div>
+                                </div>
+                            </div>
+
+                            <div class="silo-tank-body">
+                                <div class="silo-cap-top"></div>
+                                <div class="silo-steel-ring"></div>
+
+                                <div class="silo-sight-gauge">
+                                    <div id="silo3-gauge-fill" class="silo-gauge-fill" style="height: 50%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div>
+                                </div>
+
+                                <div id="silo3-liquid" class="silo-liquid-layer" style="height: 50%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
+                                    <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div>
+                                </div>
+
+                                <div class="silo-overlay-panel">
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
+                                        <span class="silo-label text-orange-700 text-xs">PRODUCTO / ESTATUS:</span>
+                                        <select id="silo3-select" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo3', this.value); actualizarTextoSilo('silo3', this.value); evaluarEstatusSilo(3)">
+                                            <option value="CIP">CIP</option>
+                                            <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
+                                            <option value="POR CIP">POR CIP</option>
+                                            <option value="LECHE COMPLETA">LECHE COMPLETA</option>
+                                            <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
+                                            <option value="LECHE BARISTA">LECHE BARISTA</option>
+                                            <option value="LECHE DESCREMADA PARA DESLACTOSADA" selected>LECHE DESCREMADA PARA DESLACTOSADA</option>
+                                            <option value="OTRO">OTRO</option>
+                                        </select>
+                                        <div id="silo3-status-text-display" class="hidden text-display-box">LECHE DESCREMADA PARA DESLACTOSADA</div>
+                                        <input type="text" id="otro-silo3" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoSilo('silo3', this.value)">
+                                    </div>
+
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
+                                        <span class="silo-label text-orange-700 text-xs">ETAPA / ESTADO:</span>
+                                        <select id="silo3-etapa" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-etapa-silo3', this.value); actualizarTextoSilo('silo3', this.value); actualizarIconoSilo('silo3')">
+                                            <option value="">-- N/A (SIN PRODUCTO) --</option>
+                                            <option value="EN ESPERA DE LIBERACION" selected>EN ESPERA DE LIBERACION</option>
+                                            <option value="EN ESPERA DE INICIO DE PRODUCCION">EN ESPERA DE INICIO DE PRODUCCION</option>
+                                            <option value="EN PRODUCCION">EN PRODUCCION</option>
+                                            <option value="OTRO">OTRO</option>
+                                        </select>
+                                        <div id="silo3-etapa-text-display" class="hidden text-display-box">EN ESPERA DE LIBERACION</div>
+                                        <input type="text" id="otro-etapa-silo3" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="actualizarTextoSilo('silo3', this.value)">
+                                    </div>
+
+                                    <div class="silo-hmi-row">
+                                        <span class="silo-label text-xs">TEMP:</span>
+                                        <div class="flex items-center gap-1">
+                                            <input type="text" id="silo3-temp-input" class="silo-input-field w-20" value="26.1">
+                                            <span class="silo-label text-slate-600 text-xs">°C</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="silo-hmi-row">
+                                        <span class="silo-label text-xs">HPO:</span>
+                                        <input type="text" id="silo3-hpo-input" class="silo-input-field w-24" value="-">
+                                    </div>
+
+                                    <div class="silo-hmi-row">
+                                        <span class="silo-label text-xs">NIVEL:</span>
+                                        <div class="flex items-center gap-1">
+                                            <input type="number" id="silo3-pct" class="silo-input-field w-20" value="50" min="0" max="100" oninput="calcularLitros(3)">
+                                            <span class="silo-label text-slate-600 text-xs">%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5">
+                                        <span id="silo3-readout-lts" class="text-lg font-digital font-black text-orange-950">30,000</span>
+                                        <span class="silo-label ml-1 text-xs text-orange-700">LTS</span>
+                                    </div>
+                                </div>
+
+                                <div class="silo-steel-ring"></div>
+                            </div>
+
+                            <div class="silo-cone-bottom"></div>
+                            <div class="silo-legs">
+                                <div class="silo-leg"></div>
+                                <div class="silo-leg"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border-3 border-slate-300 flex justify-between items-center text-sm text-slate-800 font-black shadow-md mt-4">
+                <div><span>Sistema HMI Planta El Tunal</span></div>
+                <div class="font-black text-slate-900 bg-slate-100 px-5 py-2.5 rounded-xl border-2 border-orange-500 flex items-center gap-2.5 shadow-sm">
+                    <i data-lucide="user" class="w-5 h-5 text-orange-700"></i>
+                    <span>Reportado por: <span id="footer-reportado-1" class="text-orange-800 font-black">LUIS SOTO</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- PARTE 2: PREPARACIÓN DE JUGO Y ÁREA DE PROCESOS -->
+        <!-- ========================================================== -->
+        <div id="parte-2-container" class="hmi-card p-6 space-y-6 bg-white border-3 border-orange-400 rounded-2xl shadow-md">
+            
+            <div class="bg-slate-900 text-white p-4.5 rounded-xl flex justify-between items-center gap-4 border-3 border-orange-500 shadow-md">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white p-2 rounded-lg">
+                        <svg width="120" height="36" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 125 40 L 165 5 L 125 25 Z" fill="#94a3b8"/>
+                            <path d="M 165 5 L 220 20 L 220 45 L 180 30 L 180 17 L 195 17 L 195 27 L 205 27 L 205 12 L 165 5 Z" fill="#ea580c"/>
+                            <path d="M 175 14 L 210 14 L 210 23 L 196 23 L 196 42 L 185 42 L 185 23 L 175 23 Z" fill="#ffffff"/>
+                            <text x="5" y="48" font-family="'Inter', sans-serif" font-size="34" font-weight="900" fill="#ea580c" letter-spacing="-0.5">EL TUNAL</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black tracking-wider text-orange-400 font-digital">PLANTA EL TUNAL</h2>
+                        <p class="text-xs text-slate-200 font-black tracking-widest uppercase">ESTATUS DEL ÁREA DE PROCESOS</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="bg-slate-800 px-3.5 py-2 rounded-xl border border-orange-500/50 text-left">
+                        <div class="text-[11px] text-orange-400 font-bold uppercase">TURNO:</div>
+                        <div id="display-turno-copy-2" class="text-sm font-digital text-white font-black">TURNO 1 (06:00 - 18:00)</div>
+                    </div>
+                    <div class="text-right bg-slate-800 px-3.5 py-2 rounded-xl border border-orange-500/50">
+                        <div id="header-clock-copy-2" class="text-sm font-digital text-orange-400 font-black">--:--:--</div>
+                        <div id="header-date-copy-2" class="text-xs text-slate-200 font-bold">--/--/----</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white p-4.5 rounded-2xl shadow-md flex items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white/20 p-3 rounded-xl border border-white/40 flex items-center justify-center shadow-inner">
+                        <i data-lucide="cpu" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-black text-lg uppercase tracking-wider text-white">PARTE 2: PREPARACIÓN DE JUGO Y ÁREA DE PROCESOS</h2>
+                    </div>
+                </div>
+                <div class="bg-white/25 px-4 py-2 rounded-xl border border-white/40 text-sm font-mono font-black tracking-widest text-white whitespace-nowrap shadow-inner">
+                    PÁGINA 2 DE 2
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide">
+                    <i data-lucide="cup-soda" class="w-5 h-5 text-orange-700"></i>
+                    Sección: Preparación de Jugo y Mezcla (Almix)
+                </h3>
+                
+                <div class="grid grid-cols-3 gap-6">
+                    
+                    <!-- TANQUE 01 -->
+                    <div class="silo-wrapper">
+                        <div class="flex justify-between items-center w-full mb-2.5 px-1">
+                            <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
+                                <i data-lucide="flask-conical" class="w-5 h-5 text-orange-600"></i> TANQUE 01
+                            </span>
+                            <span class="text-xs font-black bg-amber-200 text-amber-900 px-2.5 py-1 rounded-md shadow-sm">Preparación</span>
+                        </div>
+
+                        <div id="tq01-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
+                            <div id="tq01-icon-box" class="bg-amber-500 text-white p-1.5 rounded-lg shadow">
+                                <i id="tq01-icon-symbol" data-lucide="flask-conical" class="w-4 h-4"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="text-[10px] text-slate-600 font-black">ESTADO TANQUE</div>
+                                <div id="tq01-icon-text" class="text-xs font-digital font-black text-amber-900">EN PREPARACION</div>
+                            </div>
+                        </div>
+
+                        <div class="juice-tank-body">
+                            <div class="silo-cap-top"></div>
+                            <div class="silo-steel-ring"></div>
+
+                            <div class="silo-sight-gauge">
+                                <div id="tq01-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffedd5 0%, #f97316 100%);"></div>
+                            </div>
+
+                            <div id="tq01-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffedd5 0%, #fed7aa 30%, #fb923c 70%, #ea580c 100%); opacity: 0.95;">
+                                <div class="silo-wave-effect" style="background: rgba(254, 215, 170, 0.9);"></div>
+                            </div>
+
+                            <div class="silo-overlay-panel">
+                                <div class="silo-hmi-row">
+                                    <span class="silo-label text-xs">CANTIDAD:</span>
+                                    <div class="flex items-center gap-1">
+                                        <input type="number" id="tq01-kg-input" class="silo-input-field w-24 text-sm" value="0" min="0" max="30000" oninput="calcularLlenadoTanque('tq01')">
+                                        <span class="silo-label text-slate-600 text-xs">KG</span>
+                                    </div>
+                                </div>
+
+                                <div class="silo-hmi-row">
+                                    <span class="silo-label text-xs">TEMP:</span>
+                                    <div class="flex items-center gap-1">
+                                        <input type="text" id="tq01-temp-input" class="silo-input-field w-20 text-sm" value="31.8">
+                                        <span class="silo-label text-slate-600 text-xs">°C</span>
+                                    </div>
+                                </div>
+
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center">
+                                    <span class="silo-label text-xs text-orange-700">PRODUCTO:</span>
+                                    <select id="tq01-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01')">
+                                        <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
+                                        <option value="VACIO">VACIO</option>
+                                        <option value="CIP">CIP</option>
+                                        <option value="POR CIP">POR CIP</option>
+                                        <option value="NECTAR DE DURAZNO">NECTAR DE DURAZNO</option>
+                                        <option value="NECTAR DE PERA">NECTAR DE PERA</option>
+                                        <option value="TE DE DURAZNO">TE DE DURAZNO</option>
+                                        <option value="NECTAR DE MANZANA">NECTAR DE MANZANA</option>
+                                        <option value="NARANJADA">NARANJADA</option>
+                                        <option value="NECTAR DE PERA LIGHT">NECTAR DE PERA LIGHT</option>
+                                        <option value="NECTAR DE MANZANA LIGHT">NECTAR DE MANZANA LIGHT</option>
+                                        <option value="NECTAR DE DURAZNO LIGHT">NECTAR DE DURAZNO LIGHT</option>
+                                        <option value="NARANJADA LIGHT">NARANJADA LIGHT</option>
+                                        <option value="TE DE LIMON">TE DE LIMON</option>
+                                        <option value="TE DE FRUTOS ROJOS">TE DE FRUTOS ROJOS</option>
+                                        <option value="EN MANTENIMIENTO">EN MANTENIMIENTO</option>
+                                        <option value="OTRO">OTRO</option>
+                                    </select>
+                                    <div id="tq01-prod-text-display" class="hidden text-display-box">VACIO Y LIMPIO</div>
+                                    <input type="text" id="otro-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoTanque('tq01', 'prod', this.value)">
+                                </div>
+
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center">
+                                    <span class="silo-label text-xs text-orange-700">ETAPA:</span>
+                                    <select id="tq01-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9 opacity-50 cursor-not-allowed" disabled onchange="actualizarIconoTanque('tq01'); toggleOtroInput('otro-etapa-tq01', this.value); actualizarTextoTanque('tq01', 'etapa', this.value)">
+                                        <option value="" selected>-- N/A (SIN PRODUCTO) --</option>
+                                        <option value="EN PREPARACION">EN PREPARACION</option>
+                                        <option value="EN ENFRIAMIENTO">EN ENFRIAMIENTO</option>
+                                        <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
+                                        <option value="EN ESPERA DE INICIO DE PRODUCCION">EN ESPERA DE INICIO DE PRODUCCION</option>
+                                        <option value="OTRO">OTRO</option>
+                                    </select>
+                                    <div id="tq01-etapa-text-display" class="hidden text-display-box">-- N/A (SIN PRODUCTO) --</div>
+                                    <input type="text" id="otro-etapa-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="actualizarTextoTanque('tq01', 'etapa', this.value)">
+                                </div>
+
+                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5">
+                                    <span id="tq01-pct-display" class="text-base font-digital font-black text-orange-950">0%</span>
+                                    <span class="silo-label ml-1 text-xs text-orange-700">(MÁX 30.000 KG)</span>
+                                </div>
+                            </div>
+
+                            <div class="silo-steel-ring"></div>
+                        </div>
+
+                        <div class="silo-cone-bottom"></div>
+                        <div class="silo-legs">
+                            <div class="silo-leg"></div>
+                            <div class="silo-leg"></div>
+                        </div>
+                    </div>
+
+                    <!-- TANQUE 02 -->
+                    <div class="silo-wrapper">
+                        <div class="flex justify-between items-center w-full mb-2.5 px-1">
+                            <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
+                                <i data-lucide="flask-conical" class="w-5 h-5 text-orange-600"></i> TANQUE 02
+                            </span>
+                            <span class="text-xs font-black bg-amber-200 text-amber-900 px-2.5 py-1 rounded-md shadow-sm">Preparación</span>
+                        </div>
+
+                        <div id="tq02-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
+                            <div id="tq02-icon-box" class="bg-sky-600 text-white p-1.5 rounded-lg shadow">
+                                <i id="tq02-icon-symbol" data-lucide="snowflake" class="w-4 h-4"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="text-[10px] text-slate-600 font-black">ESTADO TANQUE</div>
+                                <div id="tq02-icon-text" class="text-xs font-digital font-black text-sky-900">EN ENFRIAMIENTO</div>
+                            </div>
+                        </div>
+
+                        <div class="juice-tank-body">
+                            <div class="silo-cap-top"></div>
+                            <div class="silo-steel-ring"></div>
+
+                            <div class="silo-sight-gauge">
+                                <div id="tq02-gauge-fill" class="silo-gauge-fill" style="height: 5.17%; background: linear-gradient(180deg, #dcfce7 0%, #22c55e 100%);"></div>
+                            </div>
+
+                            <div id="tq02-liquid" class="silo-liquid-layer" style="height: 5.17%; background: linear-gradient(180deg, #f0fdf4 0%, #bbf7d0 30%, #4ade80 70%, #16a34a 100%); opacity: 0.95;">
+                                <div class="silo-wave-effect" style="background: rgba(187, 247, 208, 0.9);"></div>
+                            </div>
+
+                            <div class="silo-overlay-panel">
+                                <div class="silo-hmi-row">
+                                    <span class="silo-label text-xs">CANTIDAD:</span>
+                                    <div class="flex items-center gap-1">
+                                        <input type="number" id="tq02-kg-input" class="silo-input-field w-24 text-sm" value="1550" min="0" max="30000" oninput="calcularLlenadoTanque('tq02')">
+                                        <span class="silo-label text-slate-600 text-xs">KG</span>
+                                    </div>
+                                </div>
+
+                                <div class="silo-hmi-row">
+                                    <span class="silo-label text-xs">TEMP:</span>
+                                    <div class="flex items-center gap-1">
+                                        <input type="text" id="tq02-temp-input" class="silo-input-field w-20 text-sm" value="9.9">
+                                        <span class="silo-label text-slate-600 text-xs">°C</span>
+                                    </div>
+                                </div>
+
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center">
+                                    <span class="silo-label text-xs text-orange-700">PRODUCTO:</span>
+                                    <select id="tq02-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02')">
+                                        <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
+                                        <option value="VACIO">VACIO</option>
+                                        <option value="CIP">CIP</option>
+                                        <option value="POR CIP">POR CIP</option>
+                                        <option value="NECTAR DE DURAZNO">NECTAR DE DURAZNO</option>
+                                        <option value="NECTAR DE PERA" selected>NECTAR DE PERA</option>
+                                        <option value="TE DE DURAZNO">TE DE DURAZNO</option>
+                                        <option value="NECTAR DE MANZANA">NECTAR DE MANZANA</option>
+                                        <option value="NARANJADA">NARANJADA</option>
+                                        <option value="NECTAR DE PERA LIGHT">NECTAR DE PERA LIGHT</option>
+                                        <option value="NECTAR DE MANZANA LIGHT">NECTAR DE MANZANA LIGHT</option>
+                                        <option value="NECTAR DE DURAZNO LIGHT">NECTAR DE DURAZNO LIGHT</option>
+                                        <option value="NARANJADA LIGHT">NARANJADA LIGHT</option>
+                                        <option value="TE DE LIMON">TE DE LIMON</option>
+                                        <option value="OTRO">OTRO</option>
+                                    </select>
+                                    <div id="tq02-prod-text-display" class="hidden text-display-box">NECTAR DE PERA</div>
+                                    <input type="text" id="otro-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoTanque('tq02', 'prod', this.value)">
+                                </div>
+
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center">
+                                    <span class="silo-label text-xs text-orange-700">ETAPA:</span>
+                                    <select id="tq02-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="actualizarIconoTanque('tq02'); toggleOtroInput('otro-etapa-tq02', this.value); actualizarTextoTanque('tq02', 'etapa', this.value)">
+                                        <option value="">-- N/A (SIN PRODUCTO) --</option>
+                                        <option value="EN PREPARACION">EN PREPARACION</option>
+                                        <option value="EN ENFRIAMIENTO" selected>EN ENFRIAMIENTO</option>
+                                        <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
+                                        <option value="EN ESPERA DE INICIO DE PRODUCCION">EN ESPERA DE INICIO DE PRODUCCION</option>
+                                        <option value="OTRO">OTRO</option>
+                                    </select>
+                                    <div id="tq02-etapa-text-display" class="hidden text-display-box">EN ENFRIAMIENTO</div>
+                                    <input type="text" id="otro-etapa-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="actualizarTextoTanque('tq02', 'etapa', this.value)">
+                                </div>
+
+                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5">
+                                    <span id="tq02-pct-display" class="text-base font-digital font-black text-orange-950">5.2%</span>
+                                    <span class="silo-label ml-1 text-xs text-orange-700">(MÁX 30.000 KG)</span>
+                                </div>
+                            </div>
+
+                            <div class="silo-steel-ring"></div>
+                        </div>
+
+                        <div class="silo-cone-bottom"></div>
+                        <div class="silo-legs">
+                            <div class="silo-leg"></div>
+                            <div class="silo-leg"></div>
+                        </div>
+                    </div>
+
+                    <!-- ALMIX -->
+                    <div class="p-4 bg-slate-50 rounded-2xl border-3 border-slate-300 hover:border-orange-500 transition space-y-3 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="blend" class="w-4 h-4 text-orange-700"></i> Almix (Mezclador Industrial)
+                                </span>
+                                <span class="text-xs font-black bg-slate-200 text-slate-800 px-2.5 py-1 rounded-md shadow-sm">Mezcla</span>
+                            </div>
+
+                            <!-- ILUSTRACIÓN FÍSICA FIEL TETRA ALMIX -->
+                            <div class="bg-white p-2.5 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-3">
+                                <svg viewBox="0 0 300 180" class="w-full h-auto max-h-32 drop-shadow-sm">
+                                    <rect x="50" y="35" width="90" height="95" rx="15" fill="url(#tankMetal)" stroke="#64748b" stroke-width="2.5"/>
+                                    <path d="M 50 115 L 95 155 L 140 115 Z" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
+                                    <path d="M 55 35 Q 95 25 135 35" fill="none" stroke="#475569" stroke-width="3"/>
+                                    <rect x="85" y="12" width="20" height="15" rx="3" fill="#334155"/>
+                                    <rect x="91" y="5" width="8" height="7" rx="1" fill="#0f172a"/>
+                                    <path d="M 15 45 L 35 45 L 25 70 L 15 45 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>
+                                    <path d="M 25 70 L 25 90 L 50 90" fill="none" stroke="#64748b" stroke-width="2.5"/>
+                                    <rect x="155" y="40" width="95" height="110" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+                                    <rect x="170" y="65" width="30" height="25" rx="2" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                                    <line x1="220" y1="55" x2="238" y2="55" stroke="#94a3b8" stroke-width="2"/>
+                                    <line x1="220" y1="63" x2="238" y2="63" stroke="#94a3b8" stroke-width="2"/>
+                                    <line x1="220" y1="71" x2="238" y2="71" stroke="#94a3b8" stroke-width="2"/>
+                                    <line x1="220" y1="79" x2="238" y2="79" stroke="#94a3b8" stroke-width="2"/>
+                                    <path d="M 95 27 L 95 10 L 200 10 L 200 40" fill="none" stroke="#64748b" stroke-width="3"/>
+                                    <rect x="60" y="155" width="10" height="20" rx="2" fill="#334155"/>
+                                    <rect x="120" y="155" width="10" height="20" rx="2" fill="#334155"/>
+                                    <rect x="170" y="150" width="10" height="25" rx="2" fill="#334155"/>
+                                    <rect x="230" y="150" width="10" height="25" rx="2" fill="#334155"/>
+                                    <circle cx="112" cy="18" r="3" fill="#22c55e"/>
+                                    <circle cx="112" cy="11" r="3" fill="#eab308"/>
+                                    <circle cx="112" cy="4" r="3" fill="#ef4444"/>
+                                    <defs>
+                                        <linearGradient id="tankMetal" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#94a3b8"/>
+                                            <stop offset="40%" stop-color="#f8fafc"/>
+                                            <stop offset="100%" stop-color="#cbd5e1"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+
+                            <div id="almix-icon-container" class="bg-slate-100 p-2.5 rounded-xl border-2 border-slate-300 flex items-center justify-center gap-2 mb-2">
+                                <div id="almix-icon-box" class="bg-slate-700 text-white p-2 rounded-xl shadow-md">
+                                    <i id="almix-icon-symbol" data-lucide="blend" class="w-5 h-5"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-[10px] text-slate-600 font-black">ESTADO SISTEMA</div>
+                                    <div id="almix-icon-text" class="text-xs font-digital font-black text-slate-900">INACTIVO</div>
+                                </div>
+                            </div>
+
+                            <div class="input-group mt-1">
+                                <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
+                                <select id="almix-status" class="hmi-select w-full text-xs font-black" onchange="actualizarIconoAlmix(); toggleOtroInput('otro-almix', this.value)">
+                                    <option value="PRODUCCION CON EL TANQUE 01">PRODUCCION CON EL TANQUE 01</option>
+                                    <option value="PRODUCCION CON EL TANQUE 02">PRODUCCION CON EL TANQUE 02</option>
+                                    <option value="CIP">CIP</option>
+                                    <option value="POR CIP">POR CIP</option>
+                                    <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
+                                    <option value="INACTIVO" selected>INACTIVO</option>
+                                    <option value="OTRO">OTRO</option>
+                                </select>
+                                <input type="text" id="otro-almix" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO...">
+                            </div>
+                        </div>
+
+                        <div class="p-2.5 bg-white rounded-xl border border-slate-200 text-center mt-2">
+                            <span class="text-[10px] text-slate-500 font-bold block">SISTEMA MEZCLADOR</span>
+                            <span class="text-xs font-digital font-black text-orange-600">ALMIX ALTA VELOCIDAD</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ÁREA DE PROCESOS (EQUIPOS CON ILUSTRACIONES FÍSICAS REDISEÑADAS) -->
+            <div class="space-y-4 pt-3">
+                <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide">
+                    <i data-lucide="settings" class="w-5 h-5 text-orange-700"></i>
+                    Sección: Área de Procesos (Líneas y Envasado Aséptico)
+                </h3>
+
+                <div class="grid grid-cols-4 gap-4">
+
+                    <!-- 1. LACTA (TETRA LACTA - PASTEURIZADOR DE PLACAS) -->
+                    <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="activity" class="w-4 h-4 text-orange-700"></i> Lacta
+                                </span>
+                                <span class="text-[10px] font-black bg-slate-200 text-slate-800 px-2 py-0.5 rounded">Pasteurizador</span>
+                            </div>
+
+                            <!-- ILUSTRACIÓN FÍSICA FIEL TETRA LACTA -->
+                            <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
+                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
+                                    <!-- Bastidor de placas de acero inoxidable -->
+                                    <rect x="40" y="25" width="85" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
+                                    <line x1="40" y1="40" x2="125" y2="40" stroke="#94a3b8" stroke-width="1.5"/>
+                                    <line x1="40" y1="55" x2="125" y2="55" stroke="#94a3b8" stroke-width="1.5"/>
+                                    <line x1="40" y1="70" x2="125" y2="70" stroke="#94a3b8" stroke-width="1.5"/>
+                                    <line x1="40" y1="85" x2="125" y2="85" stroke="#94a3b8" stroke-width="1.5"/>
+                                    <line x1="40" y1="100" x2="125" y2="100" stroke="#94a3b8" stroke-width="1.5"/>
+                                    <line x1="40" y1="115" x2="125" y2="115" stroke="#94a3b8" stroke-width="1.5"/>
+                                    <!-- Tornillos de apriete del bastidor -->
+                                    <circle cx="45" cy="30" r="3" fill="#334155"/>
+                                    <circle cx="45" cy="120" r="3" fill="#334155"/>
+                                    <circle cx="120" cy="30" r="3" fill="#334155"/>
+                                    <circle cx="120" cy="120" r="3" fill="#334155"/>
+                                    <!-- Tablero de control HMI Integrado -->
+                                    <rect x="145" y="32" width="95" height="95" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
+                                    <rect x="160" y="50" width="40" height="28" rx="2" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                                    <circle cx="215" cy="64" r="5" fill="#22c55e"/>
+                                    <!-- Tuberías de proceso de entrada y salida -->
+                                    <path d="M 15 75 L 40 75" fill="none" stroke="#0ea5e9" stroke-width="3"/>
+                                    <path d="M 125 75 L 145 75" fill="none" stroke="#22c55e" stroke-width="3"/>
+                                    <path d="M 82 25 L 82 10 L 195 10 L 195 32" fill="none" stroke="#64748b" stroke-width="2.5"/>
+                                </svg>
+                            </div>
+
+                            <div id="lacta-icon-container" class="bg-slate-100 p-2 rounded-xl border-2 border-slate-300 flex items-center justify-center gap-2 mb-2">
+                                <div id="lacta-icon-box" class="bg-sky-600 text-white p-1.5 rounded-lg shadow">
+                                    <i id="lacta-icon-symbol" data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-[9px] text-slate-600 font-black">ESTADO</div>
+                                    <div id="lacta-icon-text" class="text-xs font-digital font-black text-sky-900">CIP</div>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
+                                <select id="lacta-status" class="hmi-select w-full text-xs font-black" onchange="actualizarIconoProceso('lacta'); toggleOtroInput('otro-lacta', this.value)">
+                                    <option value="CIP" selected>CIP</option>
+                                    <option value="AIC">AIC</option>
+                                    <option value="POR CIP">POR CIP</option>
+                                    <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
+                                    <option value="CIRCULACION DE AGUA">CIRCULACION DE AGUA</option>
+                                    <option value="PRODUCCION DESDE EL SILO 1 AL SILO 2">PRODUCCIÓN DESDE EL SILO 1 AL SILO 2</option>
+                                    <option value="PRODUCCION DESDE EL SILO 1 AL SILO 3">PRODUCCIÓN DESDE EL SILO 1 AL SILO 3</option>
+                                    <option value="PRODUCCION DESDE EL SILO 2 AL SILO 3">PRODUCCIÓN DESDE EL SILO 2 AL SILO 3</option>
+                                    <option value="OTRO">OTRO</option>
+                                </select>
+                                <input type="text" id="otro-lacta" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. FLEX (TETRA FLEX - ESTERILIZADOR UHT FLEX) -->
+                    <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="activity" class="w-4 h-4 text-orange-700"></i> Flex
+                                </span>
+                                <span class="text-[10px] font-black bg-slate-200 text-slate-800 px-2 py-0.5 rounded">UHT Flex</span>
+                            </div>
+
+                            <!-- ILUSTRACIÓN FÍSICA FIEL TETRA FLEX (INTERCAMBIADOR TUBULAR DE SERPENTINES) -->
+                            <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
+                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
+                                    <rect x="35" y="25" width="95" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
+                                    <!-- Módulos tubulares de serpentín térmico UHT -->
+                                    <path d="M 45 42 Q 85 30 120 42 M 45 58 Q 85 46 120 58 M 45 74 Q 85 62 120 74 M 45 90 Q 85 78 120 90 M 45 106 Q 85 94 120 106" fill="none" stroke="#f97316" stroke-width="3.5" stroke-linecap="round"/>
+                                    <!-- Gabinete de control principal -->
+                                    <rect x="145" y="32" width="95" height="95" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
+                                    <rect x="160" y="50" width="40" height="28" rx="2" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                                    <circle cx="215" cy="64" r="5" fill="#22c55e"/>
+                                    <!-- Conexiones exteriores -->
+                                    <path d="M 15 75 L 35 75" fill="none" stroke="#0ea5e9" stroke-width="3"/>
+                                    <path d="M 130 75 L 145 75" fill="none" stroke="#22c55e" stroke-width="3"/>
+                                </svg>
+                            </div>
+
+                            <div id="flex-icon-container" class="bg-slate-100 p-2 rounded-xl border-2 border-slate-300 flex items-center justify-center gap-2 mb-2">
+                                <div id="flex-icon-box" class="bg-sky-600 text-white p-1.5 rounded-lg shadow">
+                                    <i id="flex-icon-symbol" data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-[9px] text-slate-600 font-black">ESTADO</div>
+                                    <div id="flex-icon-text" class="text-xs font-digital font-black text-sky-900">CIP</div>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
+                                <select id="flex-status" class="hmi-select w-full text-xs font-black" onchange="actualizarIconoProceso('flex'); toggleOtroInput('otro-flex', this.value)">
+                                    <option value="CIP" selected>CIP</option>
+                                    <option value="AIC">AIC</option>
+                                    <option value="POR CIP">POR CIP</option>
+                                    <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
+                                    <option value="CIRCULACION DE AGUA">CIRCULACION DE AGUA</option>
+                                    <option value="PRODUCCION DESDE EL SILO 2">PRODUCCION DESDE EL SILO 2</option>
+                                    <option value="PRODUCCION DESDE EL SILO 3">PRODUCCION DESDE EL SILO 3</option>
+                                    <option value="PRODUCCION DESDE EL TANQUE 01">PRODUCCION DESDE EL TANQUE 01</option>
+                                    <option value="PRODUCCION DESDE EL TANQUE 02">PRODUCCION DESDE EL TANQUE 02</option>
+                                    <option value="OTRO">OTRO</option>
+                                </select>
+                                <input type="text" id="otro-flex" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. ALDOSE (TETRA ALDOSE - DOSIFICADOR ASÉPTICO) -->
+                    <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="cpu" class="w-4 h-4 text-orange-700"></i> Aldose
+                                </span>
+                                <span class="text-[10px] font-black bg-purple-100 text-purple-900 px-2 py-0.5 rounded">Dosificador</span>
+                            </div>
+
+                            <!-- ILUSTRACIÓN FÍSICA FIEL TETRA ALDOSE -->
+                            <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
+                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
+                                    <!-- Unidad dosificadora compacta de inyección -->
+                                    <rect x="45" y="25" width="85" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
+                                    <circle cx="87" cy="75" r="22" fill="#e2e8f0" stroke="#475569" stroke-width="2.5"/>
+                                    <circle cx="87" cy="75" r="8" fill="#334155"/>
+                                    <!-- Gabinete de control de la dosificadora -->
+                                    <rect x="145" y="32" width="95" height="95" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
+                                    <rect x="160" y="50" width="40" height="28" rx="2" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                                    <circle cx="215" cy="64" r="5" fill="#22c55e"/>
+                                    <path d="M 15 75 L 45 75" fill="none" stroke="#0ea5e9" stroke-width="3"/>
+                                </svg>
+                            </div>
+
+                            <div id="aldose-icon-container" class="bg-slate-100 p-2 rounded-xl border-2 border-slate-300 flex items-center justify-center gap-2 mb-2">
+                                <div id="aldose-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow">
+                                    <i id="aldose-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-[9px] text-slate-600 font-black">ESTADO</div>
+                                    <div id="aldose-icon-text" class="text-xs font-digital font-black text-emerald-900">INACTIVO Y LIMPIO</div>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
+                                <select id="aldose-status" class="hmi-select w-full text-xs font-black" onchange="actualizarIconoProceso('aldose'); toggleOtroInput('otro-aldose', this.value)">
+                                    <option value="CIP">CIP</option>
+                                    <option value="POR CIP">POR CIP</option>
+                                    <option value="PRODUCCION">PRODUCCION</option>
+                                    <option value="ESTERILIZACION">ESTERILIZACION</option>
+                                    <option value="PRUEBA DE FILTRO">PRUEBA DE FILTRO</option>
+                                    <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
+                                    <option value="OTRO">OTRO</option>
+                                </select>
+                                <input type="text" id="otro-aldose" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. INDIRECT (TETRA INDIRECT - ESTERILIZADOR INDIRECTO) -->
+                    <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="activity" class="w-4 h-4 text-orange-700"></i> Indirect
+                                </span>
+                                <span class="text-[10px] font-black bg-slate-200 text-slate-800 px-2 py-0.5 rounded">UHT Indirect</span>
+                            </div>
+
+                            <!-- ILUSTRACIÓN FÍSICA FIEL TETRA INDIRECT (INTERCAMBIADOR TUBULAR DE CARCASA Y TUBOS) -->
+                            <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
+                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
+                                    <rect x="35" y="25" width="95" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
+                                    <!-- Múltiples tubos rectos paralelos de alta eficiencia térmica -->
+                                    <line x1="45" y1="45" x2="120" y2="45" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
+                                    <line x1="45" y1="65" x2="120" y2="65" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
+                                    <line x1="45" y1="85" x2="120" y2="85" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
+                                    <line x1="45" y1="105" x2="120" y2="105" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
+                                    <!-- Gabinete HMI de control -->
+                                    <rect x="145" y="32" width="95" height="95" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
+                                    <rect x="160" y="50" width="40" height="28" rx="2" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                                    <circle cx="215" cy="64" r="5" fill="#22c55e"/>
+                                    <!-- Tuberías de enlace -->
+                                    <path d="M 15 75 L 35 75" fill="none" stroke="#0ea5e9" stroke-width="3"/>
+                                    <path d="M 130 75 L 145 75" fill="none" stroke="#22c55e" stroke-width="3"/>
+                                </svg>
+                            </div>
+
+                            <div id="indirect-icon-container" class="bg-slate-100 p-2 rounded-xl border-2 border-slate-300 flex items-center justify-center gap-2 mb-2">
+                                <div id="indirect-icon-box" class="bg-sky-600 text-white p-1.5 rounded-lg shadow">
+                                    <i id="indirect-icon-symbol" data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-[9px] text-slate-600 font-black">ESTADO</div>
+                                    <div id="indirect-icon-text" class="text-xs font-digital font-black text-sky-900">CIP</div>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
+                                <select id="indirect-status" class="hmi-select w-full text-xs font-black" onchange="actualizarIconoProceso('indirect'); toggleOtroInput('otro-indirect', this.value)">
+                                    <option value="CIP" selected>CIP</option>
+                                    <option value="AIC">AIC</option>
+                                    <option value="POR CIP">POR CIP</option>
+                                    <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
+                                    <option value="CIRCULACION DE AGUA">CIRCULACION DE AGUA</option>
+                                    <option value="PRODUCCION DESDE EL TANQUE 01">PRODUCCION DESDE EL TANQUE 01</option>
+                                    <option value="PRODUCCION DESDE EL TANQUE 02">PRODUCCION DESDE EL TANQUE 02</option>
+                                    <option value="MANTENIMIENTO">MANTENIMIENTO</option>
+                                    <option value="OTRO">OTRO</option>
+                                </select>
+                                <input type="text" id="otro-indirect" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. ALSAFE 1 -->
+                    <div class="silo-wrapper">
+                        <div class="flex justify-between items-center w-full mb-2.5 px-1">
+                            <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
+                                <i data-lucide="package" class="w-5 h-5 text-orange-600"></i> ALSAFE 1
+                            </span>
+                            <span class="text-xs font-black bg-purple-100 text-purple-900 px-2.5 py-1 rounded-md shadow-sm">Aséptico</span>
+                        </div>
+
+                        <div id="alsafe1-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
+                            <div id="alsafe1-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow">
+                                <i id="alsafe1-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="text-[10px] text-slate-600 font-black">ESTADO ALSAFE 1</div>
+                                <div id="alsafe1-icon-text" class="text-xs font-digital font-black text-emerald-900">INACTIVO Y LIMPIO</div>
+                            </div>
+                        </div>
+
+                        <div class="alsafe-tank-body">
+                            <div class="silo-cap-top"></div>
+                            <div class="silo-steel-ring"></div>
+
+                            <div class="silo-sight-gauge">
+                                <div id="alsafe1-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div>
+                            </div>
+
+                            <div id="alsafe1-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
+                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9);"></div>
+                            </div>
+
+                            <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
+                                <div class="silo-hmi-row">
+                                    <span class="silo-label text-xs">CANTIDAD:</span>
+                                    <div class="flex items-center gap-1">
+                                        <input type="number" id="alsafe1-lts-input" class="silo-input-field w-24 text-sm" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe1')">
+                                        <span class="silo-label text-slate-600 text-xs">LTS</span>
+                                    </div>
+                                </div>
+
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
+                                    <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
+                                    <select id="alsafe1-status" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="actualizarIconoAlsafe('alsafe1'); toggleOtroInput('otro-alsafe1', this.value); actualizarTextoAlsafe('alsafe1', this.value)">
+                                        <option value="CIP">CIP</option>
+                                        <option value="POR CIP">POR CIP</option>
+                                        <option value="PRODUCCION">PRODUCCION</option>
+                                        <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
+                                        <option value="ESTERILIZACION">ESTERILIZACION</option>
+                                        <option value="OTRO">OTRO</option>
+                                    </select>
+                                    <div id="alsafe1-status-text-display" class="hidden text-display-box">INACTIVO Y LIMPIO</div>
+                                    <input type="text" id="otro-alsafe1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoAlsafe('alsafe1', this.value)">
+                                </div>
+                            </div>
+
+                            <div class="silo-steel-ring"></div>
+                        </div>
+
+                        <div class="silo-cone-bottom"></div>
+                        <div class="silo-legs">
+                            <div class="silo-leg"></div>
+                            <div class="silo-leg"></div>
+                        </div>
+                    </div>
+
+                    <!-- 6. ALSAFE 2 -->
+                    <div class="silo-wrapper">
+                        <div class="flex justify-between items-center w-full mb-2.5 px-1">
+                            <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
+                                <i data-lucide="package" class="w-5 h-5 text-orange-600"></i> ALSAFE 2
+                            </span>
+                            <span class="text-xs font-black bg-purple-100 text-purple-900 px-2.5 py-1 rounded-md shadow-sm">Aséptico</span>
+                        </div>
+
+                        <div id="alsafe2-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
+                            <div id="alsafe2-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow">
+                                <i id="alsafe2-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="text-[10px] text-slate-600 font-black">ESTADO ALSAFE 2</div>
+                                <div id="alsafe2-icon-text" class="text-xs font-digital font-black text-emerald-900">INACTIVO Y LIMPIO</div>
+                            </div>
+                        </div>
+
+                        <div class="alsafe-tank-body">
+                            <div class="silo-cap-top"></div>
+                            <div class="silo-steel-ring"></div>
+
+                            <div class="silo-sight-gauge">
+                                <div id="alsafe2-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div>
+                            </div>
+
+                            <div id="alsafe2-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
+                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9);"></div>
+                            </div>
+
+                            <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
+                                <div class="silo-hmi-row">
+                                    <span class="silo-label text-xs">CANTIDAD:</span>
+                                    <div class="flex items-center gap-1">
+                                        <input type="number" id="alsafe2-lts-input" class="silo-input-field w-24 text-sm" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe2')">
+                                        <span class="silo-label text-slate-600 text-xs">LTS</span>
+                                    </div>
+                                </div>
+
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
+                                    <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
+                                    <select id="alsafe2-status" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="actualizarIconoAlsafe('alsafe2'); toggleOtroInput('otro-alsafe2', this.value); actualizarTextoAlsafe('alsafe2', this.value)">
+                                        <option value="CIP">CIP</option>
+                                        <option value="POR CIP">POR CIP</option>
+                                        <option value="PRODUCCION">PRODUCCION</option>
+                                        <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
+                                        <option value="ESTERILIZACION">ESTERILIZACION</option>
+                                        <option value="OTRO">OTRO</option>
+                                    </select>
+                                    <div id="alsafe2-status-text-display" class="hidden text-display-box">INACTIVO Y LIMPIO</div>
+                                    <input type="text" id="otro-alsafe2" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoAlsafe('alsafe2', this.value)">
+                                </div>
+                            </div>
+
+                            <div class="silo-steel-ring"></div>
+                        </div>
+
+                        <div class="silo-cone-bottom"></div>
+                        <div class="silo-legs">
+                            <div class="silo-leg"></div>
+                            <div class="silo-leg"></div>
+                        </div>
+                    </div>
+
+                    <!-- 7. TANQUE DE CREMA -->
+                    <div class="silo-wrapper">
+                        <div class="flex justify-between items-center w-full mb-2.5 px-1">
+                            <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
+                                <i data-lucide="droplet" class="w-5 h-5 text-orange-600"></i> TQ. CREMA
+                            </span>
+                            <span class="text-xs font-black bg-amber-100 text-amber-900 px-2.5 py-1 rounded-md shadow-sm">Almacén</span>
+                        </div>
+
+                        <div id="tqcrema-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
+                            <div id="tqcrema-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow">
+                                <i id="tqcrema-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="text-[10px] text-slate-600 font-black">ESTADO TQ. CREMA</div>
+                                <div id="tqcrema-icon-text" class="text-xs font-digital font-black text-emerald-900">INACTIVO Y LIMPIO</div>
+                            </div>
+                        </div>
+
+                        <div class="alsafe-tank-body">
+                            <div class="silo-cap-top"></div>
+                            <div class="silo-steel-ring"></div>
+
+                            <div class="silo-sight-gauge">
+                                <div id="tqcrema-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fef08a 40%, #eab308 100%);"></div>
+                            </div>
+
+                            <div id="tqcrema-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #fefce8 0%, #fef08a 30%, #facc15 70%, #ca8a04 100%);">
+                                <div class="silo-wave-effect" style="background: rgba(254, 240, 138, 0.9);"></div>
+                            </div>
+
+                            <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
+                                <div class="silo-hmi-row">
+                                    <span class="silo-label text-xs">NIVEL:</span>
+                                    <div class="flex items-center gap-1">
+                                        <input type="number" id="tqcrema-pct-input" class="silo-input-field w-20 text-sm" value="0" min="0" max="100" oninput="calcularLlenadoCrema()">
+                                        <span class="silo-label text-slate-600 text-xs">%</span>
+                                    </div>
+                                </div>
+
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
+                                    <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
+                                    <select id="tqcrema-status" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="actualizarIconoCrema(); toggleOtroInput('otro-tqcrema', this.value); actualizarTextoCrema(this.value)">
+                                        <option value="CIP">CIP</option>
+                                        <option value="POR CIP">POR CIP</option>
+                                        <option value="EN PRODUCCION">EN PRODUCCION</option>
+                                        <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
+                                        <option value="CON PRODUCTO">CON PRODUCTO</option>
+                                        <option value="OTRO">OTRO</option>
+                                    </select>
+                                    <div id="tqcrema-status-text-display" class="hidden text-display-box">INACTIVO Y LIMPIO</div>
+                                    <input type="text" id="otro-tqcrema" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoCrema(this.value)">
+                                </div>
+                            </div>
+
+                            <div class="silo-steel-ring"></div>
+                        </div>
+
+                        <div class="silo-cone-bottom"></div>
+                        <div class="silo-legs">
+                            <div class="silo-leg"></div>
+                            <div class="silo-leg"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border-3 border-slate-300 flex justify-between items-center text-sm text-slate-800 font-black shadow-md mt-4">
+                <div><span>Sistema HMI Planta El Tunal</span></div>
+                <div class="font-black text-slate-900 bg-slate-100 px-5 py-2.5 rounded-xl border-2 border-orange-500 flex items-center gap-2.5 shadow-sm">
+                    <i data-lucide="user" class="w-5 h-5 text-orange-700"></i>
+                    <span>Reportado por: <span id="footer-reportado-2" class="text-orange-800 font-black">LUIS SOTO</span></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL DE NOTIFICACIÓN -->
+    <div id="notification-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white border-4 border-orange-500 rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center space-y-4 animate-fade-in">
+            <div id="modal-icon-container" class="w-14 h-14 bg-emerald-100 border-2 border-emerald-500 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                <i id="modal-icon" data-lucide="check-circle" class="w-8 h-8"></i>
+            </div>
+            <h3 id="modal-title" class="text-lg font-black text-slate-900">¡Guardado Exitoso!</h3>
+            <p id="modal-message" class="text-sm font-bold text-slate-600">Todos los datos se han guardado correctamente.</p>
+            <button onclick="cerrarModal()" class="w-full bg-orange-600 hover:bg-orange-500 text-white text-sm font-black py-3 rounded-xl border-2 border-orange-400 transition shadow-md">
+                Aceptar
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPT INDUSTRIAL HMI -->
+    <script>
+        let cisternas = [
+            { id: 1, nombre: "CISTERNA 1", litros: "28,000", hpo: "16", estatus: "EN DESCARGA AL SILO 1" },
+            { id: 2, nombre: "CISTERNA 2", litros: "30,000", hpo: "14", estatus: "EN ESPERA DE DESCARGA" }
+        ];
+
+        let zoomMovilActivo = false;
+        function toggleZoomMovil() {
+            const wrapper = document.getElementById('hmi-master-container');
+            const btn = document.getElementById('btn-zoom');
+            zoomMovilActivo = !zoomMovilActivo;
+            if (zoomMovilActivo) {
+                wrapper.style.transform = "scale(0.65)";
+                wrapper.style.transformOrigin = "top center";
+                wrapper.style.marginBottom = "-450px";
+                btn.textContent = "Restaurar Vista 100%";
+            } else {
+                wrapper.style.transform = "none";
+                wrapper.style.marginBottom = "0";
+                btn.textContent = "Ajustar Pantalla Móvil";
+            }
+        }
+
+        function renderCisternas() {
+            const container = document.getElementById('cisternas-container');
+            const countLabel = document.getElementById('cisterna-count');
+            const noMsg = document.getElementById('no-cisternas-msg');
+            const addBtn = document.getElementById('add-cisterna-btn');
+
+            if (!container) return;
+
+            container.innerHTML = '';
+            if (countLabel) countLabel.textContent = `${cisternas.length} / 4`;
+
+            if (addBtn) {
+                if (cisternas.length >= 4) {
+                    addBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    addBtn.disabled = true;
+                } else {
+                    addBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    addBtn.disabled = false;
+                }
+            }
+
+            if (cisternas.length === 0) {
+                if (noMsg) noMsg.classList.remove('hidden');
+                return;
+            } else {
+                if (noMsg) noMsg.classList.add('hidden');
+            }
+
+            cisternas.forEach((c, index) => {
+                const card = document.createElement('div');
+                card.className = "cisterna-truck-card animate-fade-in";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center px-1">
+                        <div class="flex items-center gap-1.5 w-full mr-2">
+                            <span class="text-xs font-black text-orange-700 whitespace-nowrap font-digital">#${index + 1}</span>
+                            <input type="text" class="hmi-input text-xs font-black text-orange-900 w-full uppercase h-8 py-0" value="${c.nombre}" onchange="cisternas[${index}].nombre = this.value.toUpperCase()">
+                        </div>
+                        <button onclick="eliminarCisterna(${c.id})" class="text-slate-400 hover:text-red-600 p-1 transition" title="Eliminar Cisterna">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <div class="cisterna-svg-container">
+                        <div class="w-full flex justify-center mb-1">
+                            <svg viewBox="0 0 320 120" class="w-full h-auto max-h-24 drop-shadow-sm">
+                                <rect x="20" y="25" width="210" height="58" rx="20" fill="url(#tankGrad)" stroke="#64748b" stroke-width="3"/>
+                                <rect x="60" y="18" width="30" height="8" rx="3" fill="#475569"/>
+                                <rect x="150" y="18" width="30" height="8" rx="3" fill="#475569"/>
+                                <path d="M 230 85 L 230 35 L 270 35 C 290 35, 300 45, 305 60 L 305 85 Z" fill="#ea580c" stroke="#9a3412" stroke-width="3"/>
+                                <path d="M 245 42 L 270 42 L 292 57 L 245 57 Z" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                                <rect x="298" y="72" width="7" height="10" rx="2" fill="#fbbf24"/>
+                                <rect x="15" y="85" width="290" height="12" rx="3" fill="#334155"/>
+                                <circle cx="55" cy="95" r="14" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
+                                <circle cx="55" cy="95" r="5" fill="#cbd5e1"/>
+                                <circle cx="100" cy="95" r="14" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
+                                <circle cx="100" cy="95" r="5" fill="#cbd5e1"/>
+                                <circle cx="145" cy="95" r="14" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
+                                <circle cx="145" cy="95" r="5" fill="#cbd5e1"/>
+                                <circle cx="270" cy="95" r="14" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
+                                <circle cx="270" cy="95" r="5" fill="#cbd5e1"/>
+                                <defs>
+                                    <linearGradient id="tankGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#ffffff"/>
+                                        <stop offset="40%" stop-color="#f1f5f9"/>
+                                        <stop offset="100%" stop-color="#cbd5e1"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+
+                        <div class="cisterna-overlay-fields">
+                            <div class="cisterna-hmi-row flex-col items-start gap-1 justify-center">
+                                <span class="text-[11px] font-black text-orange-700 font-mono">ESTATUS:</span>
+                                <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="cisternas[${index}].estatus = this.value; toggleOtroInput('otro-cist-${c.id}', this.value); actualizarTextoCisterna('${c.id}', this.value)">
+                                    <option value="EN ESPERA DE DESCARGA" ${c.estatus === 'EN ESPERA DE DESCARGA' ? 'selected' : ''}>EN ESPERA DE DESCARGA</option>
+                                    <option value="EN DESCARGA AL SILO 1" ${c.estatus === 'EN DESCARGA AL SILO 1' ? 'selected' : ''}>EN DESCARGA AL SILO 1</option>
+                                    <option value="EN DESCARGA AL SILO 2" ${c.estatus === 'EN DESCARGA AL SILO 2' ? 'selected' : ''}>EN DESCARGA AL SILO 2</option>
+                                    <option value="VACIO" ${c.estatus === 'VACIO' ? 'selected' : ''}>VACIO</option>
+                                    <option value="OTRO" ${c.estatus === 'OTRO' ? 'selected' : ''}>OTRO</option>
+                                </select>
+                                <div id="cist-status-display-${c.id}" class="hidden text-display-box">${c.estatus}</div>
+                                <input type="text" id="otro-cist-${c.id}" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="ESCRIBIR OTRO..." oninput="cisternas[${index}].estatus = this.value; actualizarTextoCisterna('${c.id}', this.value)">
+                            </div>
+
+                            <div class="cisterna-hmi-row">
+                                <span class="text-xs font-black text-slate-800 font-mono">LITROS:</span>
+                                <input type="text" class="silo-input-field w-24 text-xs font-black" value="${c.litros}" oninput="cisternas[${index}].litros = this.value">
+                            </div>
+
+                            <div class="cisterna-hmi-row">
+                                <span class="text-xs font-black text-slate-800 font-mono">HPO:</span>
+                                <input type="text" class="silo-input-field w-20 text-xs font-black" value="${c.hpo}" oninput="cisternas[${index}].hpo = this.value">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function actualizarTextoCisterna(id, val) {
+            const displayEl = document.getElementById(`cist-status-display-${id}`);
+            const selectEl = document.getElementById(`cist-select-${id}`);
+            const otroEl = document.getElementById(`otro-cist-${id}`);
+
+            let textoFinal = val;
+            if (val === 'OTRO' && otroEl) {
+                textoFinal = otroEl.value;
+            } else if (!val && selectEl) {
+                textoFinal = selectEl.value === 'OTRO' ? (otroEl ? otroEl.value : '') : selectEl.value;
+            }
+
+            if (displayEl) displayEl.textContent = textoFinal;
+        }
+
+        function agregarCisterna() {
+            if (cisternas.length >= 4) return;
+            const newId = Date.now();
+            const num = cisternas.length + 1;
+            cisternas.push({
+                id: newId,
+                nombre: `CISTERNA ${num}`,
+                litros: "30,000",
+                hpo: "12",
+                estatus: "EN ESPERA DE DESCARGA"
+            });
+            renderCisternas();
+        }
+
+        function eliminarCisterna(id) {
+            cisternas = cisternas.filter(c => c.id !== id);
+            renderCisternas();
+        }
+
+        function sincronizarReportadoPor(val) {
+            const f1 = document.getElementById('footer-reportado-1');
+            const f2 = document.getElementById('footer-reportado-2');
+            if (f1) f1.textContent = val;
+            if (f2) f2.textContent = val;
+        }
+
+        function calcularLitros(siloNum) {
+            const inputPct = document.getElementById(`silo${siloNum}-pct`);
+            const liquidEl = document.getElementById(`silo${siloNum}-liquid`);
+            const gaugeEl = document.getElementById(`silo${siloNum}-gauge-fill`);
+            const readoutLts = document.getElementById(`silo${siloNum}-readout-lts`);
+            
+            let pct = parseFloat(inputPct.value) || 0;
+            if (pct < 0) pct = 0;
+            if (pct > 100) pct = 100;
+            
+            const litros = Math.round(pct * 600);
+            
+            if (liquidEl) liquidEl.style.height = `${pct}%`;
+            if (gaugeEl) gaugeEl.style.height = `${pct}%`;
+            if (readoutLts) readoutLts.textContent = litros.toLocaleString();
+        }
+
+        function calcularLlenadoTanque(tqKey) {
+            const kgInput = document.getElementById(`${tqKey}-kg-input`);
+            const liquidEl = document.getElementById(`${tqKey}-liquid`);
+            const gaugeEl = document.getElementById(`${tqKey}-gauge-fill`);
+            const pctDisplay = document.getElementById(`${tqKey}-pct-display`);
+            
+            if (!kgInput) return;
+
+            let kg = parseFloat(kgInput.value) || 0;
+            if (kg < 0) kg = 0;
+            if (kg > 30000) kg = 30000;
+
+            const pct = (kg / 30000) * 100;
+            const pctFormatted = pct.toFixed(1);
+
+            if (liquidEl) liquidEl.style.height = `${pct}%`;
+            if (gaugeEl) gaugeEl.style.height = `${pct}%`;
+            if (pctDisplay) pctDisplay.textContent = `${pctFormatted}%`;
+        }
+
+        function calcularLlenadoAlsafe(alsafeKey) {
+            const ltsInput = document.getElementById(`${alsafeKey}-lts-input`);
+            const liquidEl = document.getElementById(`${alsafeKey}-liquid`);
+            const gaugeEl = document.getElementById(`${alsafeKey}-gauge-fill`);
+            
+            if (!ltsInput) return;
+
+            let lts = parseFloat(ltsInput.value) || 0;
+            if (lts < 0) lts = 0;
+            if (lts > 20000) lts = 20000;
+
+            const pct = (lts / 20000) * 100;
+
+            if (liquidEl) liquidEl.style.height = `${pct}%`;
+            if (gaugeEl) gaugeEl.style.height = `${pct}%`;
+        }
+
+        function calcularLlenadoCrema() {
+            const pctInput = document.getElementById('tqcrema-pct-input');
+            const liquidEl = document.getElementById('tqcrema-liquid');
+            const gaugeEl = document.getElementById('tqcrema-gauge-fill');
+            
+            if (!pctInput) return;
+
+            let pct = parseFloat(pctInput.value) || 0;
+            if (pct < 0) pct = 0;
+            if (pct > 100) pct = 100;
+
+            if (liquidEl) liquidEl.style.height = `${pct}%`;
+            if (gaugeEl) gaugeEl.style.height = `${pct}%`;
+        }
+
+        function actualizarColorLiquidoTanque(tqKey) {
+            const selectEl = document.getElementById(`${tqKey}-prod`);
+            const liquidEl = document.getElementById(`${tqKey}-liquid`);
+            const gaugeEl = document.getElementById(`${tqKey}-gauge-fill`);
+            if (!selectEl || !liquidEl || !gaugeEl) return;
+
+            const prod = selectEl.value;
+            let gradLiq = "linear-gradient(180deg, #ffedd5 0%, #fed7aa 30%, #fb923c 70%, #ea580c 100%)";
+            let gradGauge = "linear-gradient(180deg, #ffedd5 0%, #f97316 100%)";
+            let waveBg = "rgba(254, 215, 170, 0.9)";
+
+            if (prod.includes('DURAZNO') && !prod.includes('LIGHT')) {
+                gradLiq = "linear-gradient(180deg, #fef3c7 0%, #fde68a 30%, #f59e0b 70%, #d97706 100%)";
+                gradGauge = "linear-gradient(180deg, #fef3c7 0%, #f59e0b 100%)";
+                waveBg = "rgba(253, 230, 138, 0.9)";
+            } else if (prod.includes('DURAZNO LIGHT')) {
+                gradLiq = "linear-gradient(180deg, #fffbeb 0%, #fef3c7 30%, #fcd34d 70%, #f59e0b 100%)";
+                gradGauge = "linear-gradient(180deg, #fffbeb 0%, #fcd34d 100%)";
+                waveBg = "rgba(254, 243, 199, 0.9)";
+            } else if (prod.includes('PERA') && !prod.includes('LIGHT')) {
+                gradLiq = "linear-gradient(180deg, #f0fdf4 0%, #bbf7d0 30%, #4ade80 70%, #16a34a 100%)";
+                gradGauge = "linear-gradient(180deg, #dcfce7 0%, #22c55e 100%)";
+                waveBg = "rgba(187, 247, 208, 0.9)";
+            } else if (prod.includes('PERA LIGHT')) {
+                gradLiq = "linear-gradient(180deg, #f7fee7 0%, #ecfccb 30%, #bef264 70%, #65a30d 100%)";
+                gradGauge = "linear-gradient(180deg, #f7fee7 0%, #bef264 100%)";
+                waveBg = "rgba(236, 252, 203, 0.9)";
+            } else if (prod.includes('MANZANA') && !prod.includes('LIGHT')) {
+                gradLiq = "linear-gradient(180deg, #fdf2f8 0%, #fbcfe8 30%, #f472b6 70%, #db2777 100%)";
+                gradGauge = "linear-gradient(180deg, #fdf2f8 0%, #ec4899 100%)";
+                waveBg = "rgba(251, 207, 232, 0.9)";
+            } else if (prod.includes('MANZANA LIGHT')) {
+                gradLiq = "linear-gradient(180deg, #fff1f2 0%, #ffe4e6 30%, #fda4af 70%, #e11d48 100%)";
+                gradGauge = "linear-gradient(180deg, #fff1f2 0%, #fda4af 100%)";
+                waveBg = "rgba(254, 228, 226, 0.9)";
+            } else if (prod.includes('NARANJA') && !prod.includes('LIGHT')) {
+                gradLiq = "linear-gradient(180deg, #fff7ed 0%, #ffedd5 30%, #fb923c 70%, #c2410c 100%)";
+                gradGauge = "linear-gradient(180deg, #ffedd5 0%, #ea580c 100%)";
+                waveBg = "rgba(255, 237, 213, 0.9)";
+            } else if (prod.includes('NARANJA LIGHT')) {
+                gradLiq = "linear-gradient(180deg, #fffbeb 0%, #fef3c7 30%, #fbbf24 70%, #d97706 100%)";
+                gradGauge = "linear-gradient(180deg, #fffbeb 0%, #fbbf24 100%)";
+                waveBg = "rgba(254, 243, 199, 0.9)";
+            } else if (prod.includes('TE DE DURAZNO')) {
+                gradLiq = "linear-gradient(180deg, #fef2f2 0%, #fee2e2 30%, #f87171 100%)";
+                gradGauge = "linear-gradient(180deg, #fef2f2 0%, #ef4444 100%)";
+                waveBg = "rgba(254, 226, 226, 0.9)";
+            } else if (prod.includes('TE DE LIMON')) {
+                gradLiq = "linear-gradient(180deg, #f7fee7 0%, #ecfccb 30%, #84cc16 100%)";
+                gradGauge = "linear-gradient(180deg, #f7fee7 0%, #65a30d 100%)";
+                waveBg = "rgba(236, 252, 203, 0.9)";
+            } else if (prod.includes('TE DE FRUTOS ROJOS')) {
+                gradLiq = "linear-gradient(180deg, #faf5ff 0%, #f3e8ff 30%, #a855f7 100%)";
+                gradGauge = "linear-gradient(180deg, #faf5ff 0%, #9333ea 100%)";
+                waveBg = "rgba(243, 232, 255, 0.9)";
+            }
+
+            liquidEl.style.background = gradLiq;
+            gaugeEl.style.background = gradGauge;
+            const wave = liquidEl.querySelector('.silo-wave-effect');
+            if (wave) wave.style.background = waveBg;
+        }
+
+        function actualizarTextoTanque(tqKey, type, val) {
+            const displayEl = document.getElementById(`${tqKey}-${type}-text-display`);
+            const selectEl = document.getElementById(`${tqKey}-${type}`);
+            const otroEl = document.getElementById(`otro-${type === 'etapa' ? 'etapa-' : ''}${tqKey}`);
+
+            let textoFinal = val;
+            if (val === 'OTRO' && otroEl) {
+                textoFinal = otroEl.value;
+            } else if (!val && selectEl) {
+                textoFinal = selectEl.value === 'OTRO' ? (otroEl ? otroEl.value : '') : selectEl.value;
+            }
+
+            if (displayEl) displayEl.textContent = textoFinal || '--';
+        }
+
+        function actualizarTextoSilo(siloKey, val) {
+            const displayStatusEl = document.getElementById(`${siloKey}-status-text-display`);
+            const selectStatusEl = document.getElementById(`${siloKey}-select`);
+            const otroStatusEl = document.getElementById(`otro-${siloKey}`);
+
+            const displayEtapaEl = document.getElementById(`${siloKey}-etapa-text-display`);
+            const selectEtapaEl = document.getElementById(`${siloKey}-etapa`);
+            const otroEtapaEl = document.getElementById(`otro-etapa-${siloKey}`);
+
+            if (selectStatusEl && displayStatusEl) {
+                let statusVal = selectStatusEl.value === 'OTRO' ? (otroStatusEl ? otroStatusEl.value : 'OTRO') : selectStatusEl.value;
+                displayStatusEl.textContent = statusVal;
+            }
+
+            if (selectEtapaEl && displayEtapaEl) {
+                let etapaVal = selectEtapaEl.value === 'OTRO' ? (otroEtapaEl ? otroEtapaEl.value : 'OTRO') : selectEtapaEl.value;
+                displayEtapaEl.textContent = etapaVal || '-- N/A (SIN PRODUCTO) --';
+            }
+
+            actualizarIconoSilo(siloKey);
+        }
+
+        function actualizarIconoSilo(siloKey) {
+            const selectEl = document.getElementById(`${siloKey}-select`);
+            const otroEl = document.getElementById(`otro-${siloKey}`);
+            const etapaEl = document.getElementById(`${siloKey}-etapa`);
+            const iconBox = document.getElementById(`${siloKey}-icon-box`);
+            const iconSymbol = document.getElementById(`${siloKey}-icon-symbol`);
+            const iconText = document.getElementById(`${siloKey}-icon-text`);
+
+            if (!selectEl || !iconBox || !iconSymbol || !iconText) return;
+
+            let val = selectEl.value;
+            if (val === 'OTRO' && otroEl) val = otroEl.value || 'OTRO';
+            let etapaVal = etapaEl ? etapaEl.value : '';
+
+            let iconName = "droplets";
+            let bgClass = "bg-amber-500";
+            let textClass = "text-amber-900";
+            let displayText = etapaVal || val;
+
+            if (val === 'VACIO Y LIMPIO' || val === 'VACIO') {
+                iconName = "check-circle";
+                bgClass = "bg-emerald-600";
+                textClass = "text-emerald-900";
+                displayText = val;
+            } else if (val === 'CIP' || val === 'POR CIP') {
+                iconName = "refresh-cw";
+                bgClass = "bg-sky-600";
+                textClass = "text-sky-900";
+                displayText = val;
+            } else if (etapaVal === 'EN ESPERA DE LIBERACION') {
+                iconName = "clock";
+                bgClass = "bg-purple-600";
+                textClass = "text-purple-900";
+                displayText = "ESPERA LIBERACIÓN";
+            }
+
+            iconBox.className = `${bgClass} text-white p-1.5 rounded-lg shadow`;
+            iconSymbol.setAttribute('data-lucide', iconName);
+            iconText.className = `text-xs font-digital font-black ${textClass}`;
+            iconText.textContent = displayText;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function actualizarTextoAlsafe(alsafeKey, val) {
+            const displayEl = document.getElementById(`${alsafeKey}-status-text-display`);
+            const selectEl = document.getElementById(`${alsafeKey}-status`);
+            const otroEl = document.getElementById(`otro-${alsafeKey}`);
+
+            let textoFinal = val;
+            if (val === 'OTRO' && otroEl) {
+                textoFinal = otroEl.value;
+            } else if (!val && selectEl) {
+                textoFinal = selectEl.value === 'OTRO' ? (otroEl ? otroEl.value : '') : selectEl.value;
+            }
+
+            if (displayEl) displayEl.textContent = textoFinal || '--';
+        }
+
+        function actualizarIconoAlsafe(alsafeKey) {
+            const selectEl = document.getElementById(`${alsafeKey}-status`);
+            const iconBox = document.getElementById(`${alsafeKey}-icon-box`);
+            const iconSymbol = document.getElementById(`${alsafeKey}-icon-symbol`);
+            const iconText = document.getElementById(`${alsafeKey}-icon-text`);
+
+            if (!selectEl || !iconBox) return;
+            const val = selectEl.value;
+
+            let iconName = "activity";
+            let bgClass = "bg-slate-700";
+            let textClass = "text-slate-900";
+
+            if (val === 'PRODUCCION' || val === 'ESTERILIZACION') {
+                iconName = "activity";
+                bgClass = "bg-emerald-600";
+                textClass = "text-emerald-900";
+            } else if (val === 'CIP' || val === 'POR CIP') {
+                iconName = "refresh-cw";
+                bgClass = "bg-sky-600";
+                textClass = "text-sky-900";
+            } else if (val === 'INACTIVO Y LIMPIO') {
+                iconName = "check-circle";
+                bgClass = "bg-emerald-600";
+                textClass = "text-emerald-900";
+            }
+
+            iconBox.className = `${bgClass} text-white p-1.5 rounded-lg shadow`;
+            iconSymbol.setAttribute('data-lucide', iconName);
+            iconText.className = `text-xs font-digital font-black ${textClass}`;
+            iconText.textContent = val;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function actualizarTextoCrema(val) {
+            const displayEl = document.getElementById('tqcrema-status-text-display');
+            const selectEl = document.getElementById('tqcrema-status');
+            const otroEl = document.getElementById('otro-tqcrema');
+
+            let textoFinal = val;
+            if (val === 'OTRO' && otroEl) {
+                textoFinal = otroEl.value;
+            } else if (!val && selectEl) {
+                textoFinal = selectEl.value === 'OTRO' ? (otroEl ? otroEl.value : '') : selectEl.value;
+            }
+
+            if (displayEl) displayEl.textContent = textoFinal || '--';
+        }
+
+        function actualizarIconoCrema() {
+            const selectEl = document.getElementById('tqcrema-status');
+            const iconBox = document.getElementById('tqcrema-icon-box');
+            const iconSymbol = document.getElementById('tqcrema-icon-symbol');
+            const iconText = document.getElementById('tqcrema-icon-text');
+
+            if (!selectEl || !iconBox) return;
+            const val = selectEl.value;
+
+            let iconName = "activity";
+            let bgClass = "bg-slate-700";
+            let textClass = "text-slate-900";
+
+            if (val === 'EN PRODUCCION' || val === 'CON PRODUCTO') {
+                iconName = "activity";
+                bgClass = "bg-emerald-600";
+                textClass = "text-emerald-900";
+            } else if (val === 'CIP' || val === 'POR CIP') {
+                iconName = "refresh-cw";
+                bgClass = "bg-sky-600";
+                textClass = "text-sky-900";
+            } else if (val === 'INACTIVO Y LIMPIO') {
+                iconName = "check-circle";
+                bgClass = "bg-emerald-600";
+                textClass = "text-emerald-900";
+            }
+
+            iconBox.className = `${bgClass} text-white p-1.5 rounded-lg shadow`;
+            iconSymbol.setAttribute('data-lucide', iconName);
+            iconText.className = `text-xs font-digital font-black ${textClass}`;
+            iconText.textContent = val;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function actualizarIconoProceso(eqKey) {
+            const selectEl = document.getElementById(`${eqKey}-status`);
+            const iconBox = document.getElementById(`${eqKey}-icon-box`);
+            const iconSymbol = document.getElementById(`${eqKey}-icon-symbol`);
+            const iconText = document.getElementById(`${eqKey}-icon-text`);
+
+            if (!selectEl || !iconBox) return;
+            const val = selectEl.value;
+
+            let iconName = "activity";
+            let bgClass = "bg-slate-700";
+            let textClass = "text-slate-900";
+
+            if (val.includes('PRODUCCION') || val === 'ESTERILIZACION') {
+                iconName = "activity";
+                bgClass = "bg-emerald-600";
+                textClass = "text-emerald-900";
+            } else if (val === 'CIP' || val === 'AIC' || val === 'POR CIP' || val === 'CIRCULACION DE AGUA') {
+                iconName = "refresh-cw";
+                bgClass = "bg-sky-600";
+                textClass = "text-sky-900";
+            } else if (val === 'INACTIVO Y LIMPIO') {
+                iconName = "check-circle";
+                bgClass = "bg-emerald-700";
+                textClass = "text-emerald-900";
+            } else if (val === 'PRUEBA DE FILTRO') {
+                iconName = "cpu";
+                bgClass = "bg-amber-600";
+                textClass = "text-amber-900";
+            }
+
+            iconBox.className = `${bgClass} text-white p-1.5 rounded-lg shadow`;
+            iconSymbol.setAttribute('data-lucide', iconName);
+            iconText.className = `text-xs font-digital font-black ${textClass}`;
+            iconText.textContent = val;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function evaluarEstatusSilo(siloNum) {
+            const selectEl = document.getElementById(`silo${siloNum}-select`);
+            const etapaEl = document.getElementById(`silo${siloNum}-etapa`);
+            const hpoInput = document.getElementById(`silo${siloNum}-hpo-input`);
+            
+            if (!selectEl || !hpoInput) return;
+
+            const val = selectEl.value;
+            const esLeche = val.includes('LECHE');
+            const esNoProducto = val === 'CIP' || val === 'POR CIP' || val === 'VACIO Y LIMPIO';
+
+            if (esNoProducto) {
+                hpoInput.value = 'N/A';
+                hpoInput.disabled = true;
+                hpoInput.classList.add('opacity-50', 'cursor-not-allowed', 'bg-slate-100');
+            } else {
+                hpoInput.disabled = false;
+                hpoInput.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-slate-100');
+                if (hpoInput.value === 'N/A') {
+                    hpoInput.value = siloNum === 1 ? '19' : '-';
+                }
+            }
+
+            if (etapaEl) {
+                if (esLeche) {
+                    etapaEl.disabled = false;
+                    etapaEl.classList.remove('opacity-50', 'cursor-not-allowed');
+                    if (!etapaEl.value) etapaEl.value = 'EN ESPERA DE LIBERACION';
+                } else {
+                    etapaEl.value = '';
+                    etapaEl.disabled = true;
+                    etapaEl.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            }
+            actualizarTextoSilo(`silo${siloNum}`, val);
+        }
+
+        function evaluarEstadoTanque(tqKey) {
+            const selectEl = document.getElementById(`${tqKey}-prod`);
+            const etapaEl = document.getElementById(`${tqKey}-etapa`);
+            
+            if (!selectEl || !etapaEl) return;
+            const val = selectEl.value;
+            const esNoProducto = val === 'VACIO Y LIMPIO' || val === 'VACIO' || val === 'CIP' || val === 'POR CIP';
+
+            if (esNoProducto) {
+                etapaEl.value = '';
+                etapaEl.disabled = true;
+                etapaEl.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                etapaEl.disabled = false;
+                etapaEl.classList.remove('opacity-50', 'cursor-not-allowed');
+                if (!etapaEl.value) etapaEl.value = 'EN PREPARACION';
+            }
+
+            actualizarTextoTanque(tqKey, 'prod', val);
+            actualizarIconoTanque(tqKey);
+        }
+
+        function actualizarIconoTanque(tqKey) {
+            const selectEl = document.getElementById(`${tqKey}-prod`);
+            const etapaEl = document.getElementById(`${tqKey}-etapa`);
+            const iconBox = document.getElementById(`${tqKey}-icon-box`);
+            const iconSymbol = document.getElementById(`${tqKey}-icon-symbol`);
+            const iconText = document.getElementById(`${tqKey}-icon-text`);
+
+            if (!selectEl || !iconBox) return;
+            const prodVal = selectEl.value;
+            const etapaVal = etapaEl ? etapaEl.value : '';
+
+            let iconName = "flask-conical";
+            let bgClass = "bg-amber-500";
+            let textClass = "text-amber-900";
+            let displayText = etapaVal || prodVal;
+
+            if (etapaVal === 'EN PREPARACION') {
+                iconName = "flask-conical";
+                bgClass = "bg-amber-500";
+                textClass = "text-amber-900";
+                displayText = "EN PREPARACION";
+            } else if (etapaVal === 'EN ENFRIAMIENTO') {
+                iconName = "snowflake";
+                bgClass = "bg-sky-600";
+                textClass = "text-sky-900";
+                displayText = "EN ENFRIAMIENTO";
+            } else if (etapaVal === 'EN ESPERA DE LIBERACION') {
+                iconName = "clock";
+                bgClass = "bg-purple-600";
+                textClass = "text-purple-900";
+                displayText = "ESPERA LIBERACIÓN";
+            } else if (etapaVal === 'EN ESPERA DE INICIO DE PRODUCCION') {
+                iconName = "pause-circle";
+                bgClass = "bg-amber-600";
+                textClass = "text-amber-900";
+                displayText = "ESPERA PRODUCCIÓN";
+            } else if (prodVal === 'VACIO Y LIMPIO' || prodVal === 'VACIO') {
+                iconName = "check-circle";
+                bgClass = "bg-emerald-600";
+                textClass = "text-emerald-900";
+                displayText = prodVal;
+            } else if (prodVal === 'CIP' || prodVal === 'POR CIP') {
+                iconName = "refresh-cw";
+                bgClass = "bg-sky-600";
+                textClass = "text-sky-900";
+                displayText = prodVal;
+            }
+
+            iconBox.className = `${bgClass} text-white p-1.5 rounded-lg shadow`;
+            iconSymbol.setAttribute('data-lucide', iconName);
+            iconText.className = `text-xs font-digital font-black ${textClass}`;
+            iconText.textContent = displayText;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function actualizarIconoAlmix() {
+            const selectEl = document.getElementById('almix-status');
+            const iconBox = document.getElementById('almix-icon-box');
+            const iconSymbol = document.getElementById('almix-icon-symbol');
+            const iconText = document.getElementById('almix-icon-text');
+
+            if (!selectEl || !iconBox) return;
+            const val = selectEl.value;
+
+            let iconName = "blend";
+            let bgClass = "bg-slate-700";
+            let textClass = "text-slate-900";
+
+            if (val.includes('PRODUCCION')) {
+                iconName = "activity";
+                bgClass = "bg-emerald-600";
+                textClass = "text-emerald-900";
+            } else if (val === 'CIP' || val === 'POR CIP') {
+                iconName = "refresh-cw";
+                bgClass = "bg-sky-600";
+                textClass = "text-sky-900";
+            } else if (val === 'INACTIVO Y LIMPIO') {
+                iconName = "check-circle";
+                bgClass = "bg-emerald-700";
+                textClass = "text-emerald-900";
+            }
+
+            iconBox.className = `${bgClass} text-white p-2.5 rounded-xl shadow-md`;
+            iconSymbol.setAttribute('data-lucide', iconName);
+            iconText.className = `text-xs font-digital font-black ${textClass}`;
+            iconText.textContent = val;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function toggleOtroInput(id, val) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (val === 'OTRO') {
+                el.classList.remove('hidden');
+                el.focus();
+            } else {
+                el.classList.add('hidden');
+                el.value = '';
+            }
+        }
+
+        function sincronizarTurno(val) {
+            const display1 = document.getElementById('display-turno-copy');
+            const display2 = document.getElementById('display-turno-copy-2');
+            const otroInput = document.getElementById('otro-turno-header');
+            
+            let textoTurno = val;
+            if (val === 'OTRO' && otroInput) textoTurno = otroInput.value.toUpperCase() || 'OTRO TURNO';
+
+            if (display1) display1.textContent = textoTurno;
+            if (display2) display2.textContent = textoTurno;
+        }
+
+        function actualizarReloj() {
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0];
+            const dateStr = now.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+            ['live-clock', 'header-clock-copy', 'header-clock-copy-2'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = timeStr;
+            });
+            ['live-date', 'header-date-copy', 'header-date-copy-2'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = dateStr;
+            });
+        }
+
+        setInterval(actualizarReloj, 1000);
+        actualizarReloj();
+
+        function guardarDatosManualmente() {
+            mostrarModal("¡Guardado Exitoso!", "Todos los datos se han guardado correctamente.", "check-circle", "bg-emerald-100 text-emerald-700 border-emerald-500");
+        }
+
+        function mostrarModal(titulo, mensaje, icono = "check-circle", claseColor = "bg-emerald-100 text-emerald-700 border-emerald-500") {
+            const modal = document.getElementById('notification-modal');
+            const titleEl = document.getElementById('modal-title');
+            const msgEl = document.getElementById('modal-message');
+            const iconContainer = document.getElementById('modal-icon-container');
+            const iconEl = document.getElementById('modal-icon');
+
+            if (titleEl) titleEl.textContent = titulo;
+            if (msgEl) msgEl.textContent = mensaje;
+            if (iconContainer) iconContainer.className = `w-14 h-14 border-2 rounded-full flex items-center justify-center mx-auto shadow-inner ${claseColor}`;
+            if (iconEl) iconEl.setAttribute('data-lucide', icono);
+
+            if (modal) modal.classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function cerrarModal() {
+            const modal = document.getElementById('notification-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        async function generarCapturasDuales() {
+            const btn = document.getElementById('btn-capturar');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Generando imágenes JPG industriales...`;
+                if (window.lucide) lucide.createIcons();
+            }
+
+            try {
+                // Sincronizar y habilitar contenedores de texto seguros para evitar recortes
+                ['silo1', 'silo2', 'silo3'].forEach(sKey => {
+                    const sel = document.getElementById(`${sKey}-select`);
+                    const disp = document.getElementById(`${sKey}-status-text-display`);
+                    if (sel && disp) { disp.textContent = sel.value === 'OTRO' ? (document.getElementById(`otro-${sKey}`).value || 'OTRO') : sel.value; disp.classList.remove('hidden'); sel.classList.add('hidden'); }
+                    const etapaSel = document.getElementById(`${sKey}-etapa`);
+                    const etapaDisp = document.getElementById(`${sKey}-etapa-text-display`);
+                    if (etapaSel && etapaDisp) { etapaDisp.textContent = etapaSel.value === 'OTRO' ? (document.getElementById(`otro-etapa-${sKey}`).value || 'OTRO') : (etapaSel.value || '-- N/A --'); etapaDisp.classList.remove('hidden'); etapaSel.classList.add('hidden'); }
+                });
+
+                cisternas.forEach(c => {
+                    const sel = document.getElementById(`cist-select-${c.id}`);
+                    const disp = document.getElementById(`cist-status-display-${c.id}`);
+                    if (sel && disp) { disp.textContent = sel.value === 'OTRO' ? (document.getElementById(`otro-cist-${c.id}`).value || 'OTRO') : sel.value; disp.classList.remove('hidden'); sel.classList.add('hidden'); }
+                });
+
+                ['tq01', 'tq02'].forEach(tKey => {
+                    const prodSel = document.getElementById(`${tKey}-prod`);
+                    const prodDisp = document.getElementById(`${tKey}-prod-text-display`);
+                    if (prodSel && prodDisp) { prodDisp.textContent = prodSel.value === 'OTRO' ? (document.getElementById(`otro-${tKey}`).value || 'OTRO') : prodSel.value; prodDisp.classList.remove('hidden'); prodSel.classList.add('hidden'); }
+                    const etapaSel = document.getElementById(`${tKey}-etapa`);
+                    const etapaDisp = document.getElementById(`${tKey}-etapa-text-display`);
+                    if (etapaSel && etapaDisp) { etapaDisp.textContent = etapaSel.value === 'OTRO' ? (document.getElementById(`otro-etapa-${tKey}`).value || 'OTRO') : (etapaSel.value || '-- N/A --'); etapaDisp.classList.remove('hidden'); etapaSel.classList.add('hidden'); }
+                });
+
+                ['alsafe1', 'alsafe2'].forEach(aKey => {
+                    const statusSel = document.getElementById(`${aKey}-status`);
+                    const statusDisp = document.getElementById(`${aKey}-status-text-display`);
+                    if (statusSel && statusDisp) {
+                        statusDisp.textContent = statusSel.value === 'OTRO' ? (document.getElementById(`otro-${aKey}`).value || 'OTRO') : statusSel.value;
+                        statusDisp.classList.remove('hidden');
+                        statusSel.classList.add('hidden');
+                    }
+                });
+
+                const cremaSel = document.getElementById('tqcrema-status');
+                const cremaDisp = document.getElementById('tqcrema-status-text-display');
+                if (cremaSel && cremaDisp) {
+                    cremaDisp.textContent = cremaSel.value === 'OTRO' ? (document.getElementById('otro-tqcrema').value || 'OTRO') : cremaSel.value;
+                    cremaDisp.classList.remove('hidden');
+                    cremaSel.classList.add('hidden');
+                }
+
+                if (document.fonts && document.fonts.ready) {
+                    await document.fonts.ready;
+                }
+                await new Promise(r => setTimeout(r, 350));
+
+                const captureOptions = {
+                    quality: 0.95,
+                    pixelRatio: 2,
+                    backgroundColor: '#ffffff'
+                };
+
+                const container1 = document.getElementById('parte-1-container');
+                const dataUrl1 = await htmlToImage.toJpeg(container1, captureOptions);
+                const link1 = document.createElement('a');
+                link1.download = `REPORTE_PARTE_1_RECEPCION_${new Date().toISOString().split('T')[0]}.jpg`;
+                link1.href = dataUrl1;
+                link1.click();
+
+                const container2 = document.getElementById('parte-2-container');
+                const dataUrl2 = await htmlToImage.toJpeg(container2, captureOptions);
+                const link2 = document.createElement('a');
+                link2.download = `REPORTE_PARTE_2_PROCESOS_${new Date().toISOString().split('T')[0]}.jpg`;
+                link2.href = dataUrl2;
+                link2.click();
+
+                // Restaurar selects interactivos
+                ['silo1', 'silo2', 'silo3'].forEach(sKey => {
+                    const sel = document.getElementById(`${sKey}-select`);
+                    const disp = document.getElementById(`${sKey}-status-text-display`);
+                    if (sel && disp) { disp.classList.add('hidden'); sel.classList.remove('hidden'); }
+                    const etapaSel = document.getElementById(`${sKey}-etapa`);
+                    const etapaDisp = document.getElementById(`${sKey}-etapa-text-display`);
+                    if (etapaSel && etapaDisp) { etapaDisp.classList.add('hidden'); etapaSel.classList.remove('hidden'); }
+                });
+
+                cisternas.forEach(c => {
+                    const sel = document.getElementById(`cist-select-${c.id}`);
+                    const disp = document.getElementById(`cist-status-display-${c.id}`);
+                    if (sel && disp) { disp.classList.add('hidden'); sel.classList.remove('hidden'); }
+                });
+
+                ['tq01', 'tq02'].forEach(tKey => {
+                    const prodSel = document.getElementById(`${tKey}-prod`);
+                    const prodDisp = document.getElementById(`${tKey}-prod-text-display`);
+                    if (prodSel && prodDisp) { prodDisp.classList.add('hidden'); prodSel.classList.remove('hidden'); }
+                    const etapaSel = document.getElementById(`${tKey}-etapa`);
+                    const etapaDisp = document.getElementById(`${tKey}-etapa-text-display`);
+                    if (etapaSel && etapaDisp) { etapaDisp.classList.add('hidden'); etapaSel.classList.remove('hidden'); }
+                });
+
+                ['alsafe1', 'alsafe2'].forEach(aKey => {
+                    const statusSel = document.getElementById(`${aKey}-status`);
+                    const statusDisp = document.getElementById(`${aKey}-status-text-display`);
+                    if (statusSel && statusDisp) {
+                        statusDisp.classList.add('hidden');
+                        statusSel.classList.remove('hidden');
+                    }
+                });
+
+                if (cremaSel && cremaDisp) {
+                    cremaDisp.classList.add('hidden');
+                    cremaSel.classList.remove('hidden');
+                }
+
+                mostrarModal("¡Imágenes Generadas!", "Se han descargado con éxito las 2 imágenes JPG del reporte.", "check-circle", "bg-emerald-100 text-emerald-700 border-emerald-500");
+
+            } catch (err) {
+                console.error(err);
+                mostrarModal("Error", "Ocurrió un error al generar las imágenes JPG.", "alert-circle", "bg-red-100 text-red-700 border-red-500");
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG (WhatsApp)`;
+                    if (window.lucide) lucide.createIcons();
+                }
+            }
+        }
+
+        window.onload = function() {
+            if (window.lucide) lucide.createIcons();
+            renderCisternas();
+            evaluarEstatusSilo(1);
+            evaluarEstatusSilo(2);
+            evaluarEstatusSilo(3);
+            evaluarEstadoTanque('tq01');
+            evaluarEstadoTanque('tq02');
+            actualizarColorLiquidoTanque('tq01');
+            actualizarColorLiquidoTanque('tq02');
+            actualizarIconoAlmix();
+            calcularLlenadoAlsafe('alsafe1');
+            calcularLlenadoAlsafe('alsafe2');
+            calcularLlenadoCrema();
+            ['lacta', 'flex', 'aldose', 'indirect'].forEach(eq => actualizarIconoProceso(eq));
+            actualizarIconoAlsafe('alsafe1');
+            actualizarIconoAlsafe('alsafe2');
+            actualizarIconoCrema();
+            sincronizarReportadoPor('LUIS SOTO');
+        };
+    </script>
+</body>
+</html>
