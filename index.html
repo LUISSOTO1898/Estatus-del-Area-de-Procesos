@@ -246,10 +246,6 @@
                                             <option value="CIP">CIP</option>
                                             <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
                                             <option value="POR CIP">POR CIP</option>
-                                            <option value="LECHE COMPLETA">LECHE COMPLETA</option>
-                                            <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
-                                            <option value="LECHE BARISTA">LECHE BARISTA</option>
-                                            <option value="LECHE DESCREMADA PARA DESLACTOSADA">LECHE DESCREMADA PARA DESLACTOSADA</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
                                         <input type="text" id="otro-silo1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstatusSilo(1)">
@@ -618,9 +614,7 @@
                                     <span class="silo-label text-xs text-orange-700">PRODUCTO:</span>
                                     <select id="tq01-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01')">
                                         <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
-                                        <option value="VACIO">VACIO</option>
-                                        <option value="6P">6P (CIP)</option>
-                                        <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
+                                        <option value="POR CIP">POR CIP</option>
                                         <option value="NECTAR DE DURAZNO">NECTAR DE DURAZNO</option>
                                         <option value="NECTAR DE PERA">NECTAR DE PERA</option>
                                         <option value="TE DE DURAZNO">TE DE DURAZNO</option>
@@ -632,7 +626,6 @@
                                         <option value="NARANJADA LIGHT">NARANJADA LIGHT</option>
                                         <option value="TE DE LIMON">TE DE LIMON</option>
                                         <option value="TE DE FRUTOS ROJOS">TE DE FRUTOS ROJOS</option>
-                                        <option value="EN MANTENIMIENTO">EN MANTENIMIENTO</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
                                     <input type="text" id="otro-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstadoTanque('tq01')">
@@ -719,9 +712,7 @@
                                     <span class="silo-label text-xs text-orange-700">PRODUCTO:</span>
                                     <select id="tq02-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02')">
                                         <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
-                                        <option value="VACIO">VACIO</option>
-                                        <option value="6P">6P (CIP)</option>
-                                        <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
+                                        <option value="POR CIP">POR CIP</option>
                                         <option value="NECTAR DE DURAZNO">NECTAR DE DURAZNO</option>
                                         <option value="NECTAR DE PERA" selected>NECTAR DE PERA</option>
                                         <option value="TE DE DURAZNO">TE DE DURAZNO</option>
@@ -824,8 +815,8 @@
                                 <select id="almix-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('almix'); toggleOtroInput('otro-almix', this.value)">
                                     <option value="PRODUCCION CON EL TANQUE 01">PRODUCCION CON EL TANQUE 01</option>
                                     <option value="PRODUCCION CON EL TANQUE 02">PRODUCCION CON EL TANQUE 02</option>
-                                    <option value="6P">6P (CIP)</option>
-                                    <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
+                                    <option value="CIP">CIP</option>
+                                    <option value="POR CIP">POR CIP</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
                                     <option value="INACTIVO" selected>INACTIVO</option>
                                     <option value="OTRO">OTRO</option>
