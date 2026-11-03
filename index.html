@@ -243,14 +243,13 @@
                                         <span class="silo-label text-orange-700 text-xs">PRODUCTO / ESTATUS:</span>
                                         <select id="silo1-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo1', this.value); evaluarEstatusSilo(1)">
                                             <option value="LECHE CRUDA" selected>LECHE CRUDA</option>
+                                            <option value="CIP">CIP</option>
+                                            <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
+                                            <option value="POR CIP">POR CIP</option>
                                             <option value="LECHE COMPLETA">LECHE COMPLETA</option>
                                             <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
+                                            <option value="LECHE BARISTA">LECHE BARISTA</option>
                                             <option value="LECHE DESCREMADA PARA DESLACTOSADA">LECHE DESCREMADA PARA DESLACTOSADA</option>
-                                            <option value="6P">6P (CIP)</option>
-                                            <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
-                                            <option value="AIC POR 6P">AIC POR 6P</option>
-                                            <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
-                                            <option value="VACIO">VACIO</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
                                         <input type="text" id="otro-silo1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstatusSilo(1)">
@@ -342,13 +341,13 @@
                                         <span class="silo-label text-orange-700 text-xs">PRODUCTO / ESTATUS:</span>
                                         <select id="silo2-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo2', this.value); evaluarEstatusSilo(2)">
                                             <option value="LECHE CRUDA">LECHE CRUDA</option>
+                                            <option value="CIP">CIP</option>
+                                            <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
+                                            <option value="POR CIP">POR CIP</option>
                                             <option value="LECHE COMPLETA">LECHE COMPLETA</option>
                                             <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
-                                            <option value="6P">6P (CIP)</option>
-                                            <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
-                                            <option value="AIC POR 6P">AIC POR 6P</option>
-                                            <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
-                                            <option value="VACIO">VACIO</option>
+                                            <option value="LECHE BARISTA">LECHE BARISTA</option>
+                                            <option value="LECHE DESCREMADA PARA DESLACTOSADA">LECHE DESCREMADA PARA DESLACTOSADA</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
                                         <input type="text" id="otro-silo2" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstatusSilo(2)">
@@ -439,12 +438,12 @@
                                     <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
                                         <span class="silo-label text-orange-700 text-xs">PRODUCTO / ESTATUS:</span>
                                         <select id="silo3-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo3', this.value); evaluarEstatusSilo(3)">
-                                            <option value="6P">6P (CIP)</option>
-                                            <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
-                                            <option value="AIC POR 6P">AIC POR 6P</option>
+                                            <option value="CIP">CIP</option>
                                             <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
+                                            <option value="POR CIP">POR CIP</option>
                                             <option value="LECHE COMPLETA">LECHE COMPLETA</option>
                                             <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
+                                            <option value="LECHE BARISTA">LECHE BARISTA</option>
                                             <option value="LECHE DESCREMADA PARA DESLACTOSADA" selected>LECHE DESCREMADA PARA DESLACTOSADA</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
@@ -898,13 +897,15 @@
                             <div class="input-group">
                                 <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
                                 <select id="lacta-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('lacta'); toggleOtroInput('otro-lacta', this.value)">
-                                    <option value="6P" selected>6P (CIP)</option>
+                                    <option value="CIP" selected>CIP</option>
+                                    <option value="POR CIP">POR CIP</option>
                                     <option value="AIC">AIC</option>
-                                    <option value="AIC POR 6P">AIC POR 6P</option>
-                                    <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
-                                    <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
+                                    <option value="ESTERILIZACION">ESTERILIZACION</option>
                                     <option value="CIRCULACION DE AGUA">CIRCULACION DE AGUA</option>
-                                    <option value="PRODUCCION DESDE EL SILO 1 AL SILO 2">PRODUCCIÓN DESDE EL SILO 1 AL SILO 2</option>
+                                    <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
+                                    <option value="PRODUCCION DESDE EL SILO 1 AL SILO 2">PRODUCCION DESDE EL SILO 1 AL SILO 2</option>
+                                    <option value="PRODUCCION DESDE EL SILO 1 AL SILO 3">PRODUCCION DESDE EL SILO 1 AL SILO 3</option>
+                                    <option value="PRODUCCION DESDE EL SILO 2 AL SILO 3">PRODUCCION DESDE EL SILO 2 AL SILO 3</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
                                 <input type="text" id="otro-lacta" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('lacta')">
@@ -947,11 +948,15 @@
                             <div class="input-group">
                                 <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
                                 <select id="flex-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('flex'); toggleOtroInput('otro-flex', this.value)">
-                                    <option value="6P" selected>6P (CIP)</option>
+                                    <option value="CIP" selected>CIP</option>
+                                    <option value="POR CIP">POR CIP</option>
                                     <option value="AIC">AIC</option>
-                                    <option value="AIC POR 6P">AIC POR 6P</option>
-                                    <option value="6P POR 6P">6P POR 6P (POR CIP)</option>
-                                    <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
+                                    <option value="ESTERILIZACION">ESTERILIZACION</option>
+                                    <option value="CIRCULACION DE AGUA">CIRCULACION DE AGUA</option>
+                                    <option value="PRODUCCION DESDE EL SILO 2">PRODUCCION DESDE EL SILO 2</option>
+                                    <option value="PRODUCCION DESDE EL SILO 3">PRODUCCION DESDE EL SILO 3</option>
+                                    <option value="PRODUCCION DESDE EL TANQUE 01">PRODUCCION DESDE EL TANQUE 01</option>
+                                    <option value="PRODUCCION DESDE EL TANQUE 02">PRODUCCION DESDE EL TANQUE 02</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
                                 <input type="text" id="otro-flex" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('flex')">
@@ -994,8 +999,11 @@
                             <div class="input-group">
                                 <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
                                 <select id="aldose-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('aldose'); toggleOtroInput('otro-aldose', this.value)">
-                                    <option value="6P">6P (CIP)</option>
+                                    <option value="CIP">CIP</option>
+                                    <option value="POR CIP">POR CIP</option>
                                     <option value="PRODUCCION">PRODUCCION</option>
+                                    <option value="ESTERILIZACION">ESTERILIZACION</option>
+                                    <option value="PRUEBA DE FILTRO">PRUEBA DE FILTRO</option>
                                     <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
@@ -1042,8 +1050,14 @@
                             <div class="input-group">
                                 <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
                                 <select id="indirect-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('indirect'); toggleOtroInput('otro-indirect', this.value)">
-                                    <option value="6P" selected>6P (CIP)</option>
+                                    <option value="CIP" selected>CIP</option>
+                                    <option value="POR CIP">POR CIP</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
+                                    <option value="CIRCULACION DE AGUA">CIRCULACION DE AGUA</option>
+                                    <option value="ESTERILIZACION">ESTERILIZACION</option>
+                                    <option value="PRODUCCION DESDE EL TANQUE 01">PRODUCCION DESDE EL TANQUE 01</option>
+                                    <option value="PRODUCCION DESDE EL TANQUE 02">PRODUCCION DESDE EL TANQUE 02</option>
+                                    <option value="MANTENIMIENTO">MANTENIMIENTO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
                                 <input type="text" id="otro-indirect" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('indirect')">
@@ -1082,9 +1096,11 @@
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
                                     <select id="alsafe1-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="actualizarBadgeGenerico('alsafe1'); toggleOtroInput('otro-alsafe1', this.value)">
-                                        <option value="6P">6P (CIP)</option>
+                                        <option value="CIP">CIP</option>
+                                        <option value="POR CIP">POR CIP</option>
                                         <option value="PRODUCCION">PRODUCCION</option>
                                         <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
+                                        <option value="ESTERILIZACION">ESTERILIZACION</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
                                     <input type="text" id="otro-alsafe1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarBadgeGenerico('alsafe1')">
@@ -1127,9 +1143,11 @@
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
                                     <select id="alsafe2-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="actualizarBadgeGenerico('alsafe2'); toggleOtroInput('otro-alsafe2', this.value)">
-                                        <option value="6P">6P (CIP)</option>
+                                        <option value="CIP">CIP</option>
+                                        <option value="POR CIP">POR CIP</option>
                                         <option value="PRODUCCION">PRODUCCION</option>
                                         <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
+                                        <option value="ESTERILIZACION">ESTERILIZACION</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
                                     <input type="text" id="otro-alsafe2" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarBadgeGenerico('alsafe2')">
@@ -1172,9 +1190,12 @@
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
                                     <select id="tqcrema-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="actualizarBadgeGenerico('tqcrema'); toggleOtroInput('otro-tqcrema', this.value)">
-                                        <option value="6P">6P (CIP)</option>
+                                        <option value="CIP">CIP</option>
+                                        <option value="POR CIP">POR CIP</option>
                                         <option value="EN PRODUCCION">EN PRODUCCION</option>
-                                        <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
+                                        <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
+                                        <option value="CON PRODUCTO">CON PRODUCTO</option>
+                                        <option value="AIC">AIC</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
                                     <input type="text" id="otro-tqcrema" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarBadgeGenerico('tqcrema')">
@@ -1369,6 +1390,10 @@
             'AIC': { icon: 'zap', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
             'AIC POR 6P': { icon: 'zap', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
             'CIRCULACION DE AGUA': { icon: 'waves', bgBox: 'bg-cyan-600', textCol: 'text-cyan-900', bgCont: 'bg-cyan-50 border-cyan-300' },
+            'ESTERILIZACION': { icon: 'flame', bgBox: 'bg-rose-600', textCol: 'text-rose-900', bgCont: 'bg-rose-50 border-rose-300' },
+            'PRUEBA DE FILTRO': { icon: 'filter', bgBox: 'bg-indigo-600', textCol: 'text-indigo-900', bgCont: 'bg-indigo-50 border-indigo-300' },
+            'MANTENIMIENTO': { icon: 'wrench', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
+            'CON PRODUCTO': { icon: 'package', bgBox: 'bg-orange-600', textCol: 'text-orange-900', bgCont: 'bg-orange-50 border-orange-300' },
             'EN PREPARACION': { icon: 'flask-conical', bgBox: 'bg-amber-500', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
             'EN ENFRIAMIENTO': { icon: 'snowflake', bgBox: 'bg-blue-600', textCol: 'text-blue-900', bgCont: 'bg-blue-50 border-blue-300' },
             'EN ESPERA DE LIBERACION': { icon: 'clock', bgBox: 'bg-purple-600', textCol: 'text-purple-900', bgCont: 'bg-purple-50 border-purple-300' },
@@ -1379,6 +1404,7 @@
             'LECHE CRUDA': { icon: 'droplets', bgBox: 'bg-amber-500', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
             'LECHE COMPLETA': { icon: 'droplets', bgBox: 'bg-amber-500', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
             'LECHE DESCREMADA': { icon: 'droplets', bgBox: 'bg-indigo-600', textCol: 'text-indigo-900', bgCont: 'bg-indigo-50 border-indigo-300' },
+            'LECHE BARISTA': { icon: 'droplets', bgBox: 'bg-amber-700', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
             'LECHE DESCREMADA PARA DESLACTOSADA': { icon: 'droplets', bgBox: 'bg-purple-600', textCol: 'text-purple-900', bgCont: 'bg-purple-50 border-purple-300' },
             'DEFAULT': { icon: 'droplets', bgBox: 'bg-orange-600', textCol: 'text-orange-900', bgCont: 'bg-orange-50 border-orange-300' }
         };
