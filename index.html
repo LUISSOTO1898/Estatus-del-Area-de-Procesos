@@ -10,368 +10,44 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- html-to-image para captura fiel sin desfase -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+    <!-- Firebase SDKs (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0f172a;
-            color: #0f172a;
-            margin: 0;
-            padding: 12px;
-        }
-
-        /* Contenedor maestro con ancho fijo industrial para evitar desbordamientos en móvil con modo escritorio */
-        .hmi-master-wrapper {
-            width: 1360px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 2rem;
-            border: 4px solid #f97316;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            padding: 24px;
-        }
-
-        .silo-wrapper {
-            position: relative;
-            width: 100%;
-            background: linear-gradient(160deg, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%);
-            border-radius: 1.5rem;
-            padding: 1.25rem 1rem;
-            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), inset 0 1px 2px #ffffff;
-            border: 2.5px solid #cbd5e1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .silo-tank-body {
-            position: relative;
-            width: 100%;
-            height: 480px;
-            background: linear-gradient(90deg, 
-                #cbd5e1 0%, 
-                #e2e8f0 12%, 
-                #f8fafc 35%, 
-                #ffffff 50%, 
-                #f1f5f9 70%, 
-                #e2e8f0 90%,
-                #cbd5e1 100%);
-            border-radius: 2rem 2rem 1.25rem 1.25rem;
-            box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06);
-            border: 2.5px solid #94a3b8;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .juice-tank-body {
-            position: relative;
-            width: 100%;
-            height: 384px;
-            background: linear-gradient(90deg, 
-                #cbd5e1 0%, 
-                #e2e8f0 12%, 
-                #f8fafc 35%, 
-                #ffffff 50%, 
-                #f1f5f9 70%, 
-                #e2e8f0 90%,
-                #cbd5e1 100%);
-            border-radius: 2rem 2rem 1.25rem 1.25rem;
-            box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06);
-            border: 2.5px solid #94a3b8;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .alsafe-tank-body {
-            position: relative;
-            width: 100%;
-            height: 240px;
-            background: linear-gradient(90deg, 
-                #cbd5e1 0%, 
-                #e2e8f0 12%, 
-                #f8fafc 35%, 
-                #ffffff 50%, 
-                #f1f5f9 70%, 
-                #e2e8f0 90%,
-                #cbd5e1 100%);
-            border-radius: 1.5rem 1.5rem 1rem 1rem;
-            box-shadow: inset 0 0 15px rgba(148, 163, 184, 0.3), 0 6px 15px rgba(0,0,0,0.06);
-            border: 2.5px solid #94a3b8;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .silo-cap-top {
-            width: 100%;
-            height: 28px;
-            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #94a3b8 100%);
-            border-bottom: 2px solid #64748b;
-            border-radius: 50% / 100% 100% 0 0;
-            z-index: 10;
-            box-shadow: inset 0 2px 4px rgba(255,255,255,0.9);
-        }
-
-        .silo-steel-ring {
-            width: 100%;
-            height: 7px;
-            background: linear-gradient(180deg, #94a3b8 0%, #f8fafc 50%, #64748b 100%);
-            border-top: 1px solid rgba(255,255,255,0.8);
-            border-bottom: 1px solid rgba(100, 116, 139, 0.5);
-            z-index: 12;
-        }
-
-        .silo-cone-bottom {
-            width: 80%;
-            height: 36px;
-            margin: -2px auto 0 auto;
-            background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%);
-            clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%);
-            border-top: 2px solid #64748b;
-            z-index: 8;
-        }
-
-        .silo-legs {
-            display: flex;
-            justify-content: space-between;
-            width: 85%;
-            height: 20px;
-            margin-top: -6px;
-        }
-
-        .silo-leg {
-            width: 10px;
-            height: 100%;
-            background: linear-gradient(90deg, #475569, #94a3b8, #334155);
-            border-radius: 2px;
-        }
-
-        .silo-liquid-layer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            transition: height 0.6s ease-out;
-            z-index: 5;
-            box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6), 
-                        inset 0 -6px 16px rgba(0, 0, 0, 0.2),
-                        0 -4px 12px rgba(0, 0, 0, 0.15);
-            opacity: 0.95;
-        }
-
-        .silo-wave-effect {
-            position: absolute;
-            top: -10px;
-            left: 0;
-            width: 200%;
-            height: 16px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 40%;
-            animation: waveFlow 3s linear infinite;
-        }
-
-        .silo-sight-gauge {
-            position: absolute;
-            right: 10px;
-            top: 36px;
-            bottom: 36px;
-            width: 16px;
-            background: rgba(203, 213, 225, 0.95);
-            border: 2px solid #475569;
-            border-radius: 8px;
-            z-index: 25;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
-        }
-
-        .cisterna-truck-card {
-            position: relative;
-            background: linear-gradient(160deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%);
-            border: 2.5px solid #cbd5e1;
-            border-radius: 1.25rem;
-            padding: 0.75rem;
-            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .cisterna-svg-container {
-            position: relative;
-            width: 100%;
-            background: #f1f5f9;
-            border: 2px solid #94a3b8;
-            border-radius: 1rem;
-            padding: 0.5rem;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
-        }
-
-        .cisterna-overlay-fields {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            margin-top: 0.25rem;
-        }
-
-        .cisterna-hmi-row {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(4px);
-            border: 1.5px solid #cbd5e1;
-            border-radius: 0.5rem;
-            padding: 0.35rem 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04);
-        }
-
-        .silo-gauge-fill {
-            width: 100%;
-            border-top: 2px solid #ea580c;
-            transition: height 0.6s ease-out;
-        }
-
-        .silo-overlay-panel {
-            position: absolute;
-            inset: 0;
-            right: 32px;
-            z-index: 20;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 0.6rem 0.5rem;
-            gap: 0.25rem;
-        }
-
-        .silo-hmi-row {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(8px);
-            border: 1.5px solid #cbd5e1;
-            border-radius: 0.6rem;
-            padding: 0.4rem 0.6rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
-            line-height: 1.15;
-        }
-
-        .silo-label {
-            color: #0f172a;
-            font-family: 'Share Tech Mono', monospace, sans-serif;
-            font-weight: 900;
-            font-size: 0.9rem;
-        }
-
-        .silo-input-field {
-            background: #ffffff;
-            border: 2px solid #94a3b8;
-            color: #0f172a;
-            font-family: 'Share Tech Mono', monospace, sans-serif;
-            font-weight: 900;
-            border-radius: 0.45rem;
-            padding: 0 0.5rem;
-            height: 36px;
-            line-height: 32px;
-            font-size: 1.05rem;
-            outline: none;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .silo-status-select {
-            font-size: 0.85rem !important;
-            font-weight: 900 !important;
-            height: 42px !important;
-            line-height: 1.15 !important;
-            padding: 0.2rem 0.4rem !important;
-            text-align: center !important;
-        }
-
-        /* Caja de texto segura para evitar desbordamientos en exportación JPG */
-        .text-display-box {
-            font-family: 'Share Tech Mono', monospace, sans-serif;
-            font-weight: 900;
-            font-size: 0.72rem;
-            line-height: 1.15;
-            color: #451a03;
-            width: 100%;
-            text-align: center;
-            background-color: #ffedd5;
-            padding: 6px 4px;
-            border-radius: 0.5rem;
-            border: 1.5px solid #fb923c;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 38px;
-            box-sizing: border-box;
-            white-space: normal;
-            word-break: break-word;
-        }
-
-        .font-digital {
-            font-family: 'Share Tech Mono', monospace, sans-serif;
-        }
-
-        .hmi-input, .hmi-select {
-            background-color: #ffffff;
-            border: 2.5px solid #94a3b8;
-            color: #0f172a;
-            font-family: 'Share Tech Mono', monospace, sans-serif;
-            font-weight: 900;
-            border-radius: 0.6rem;
-            padding: 0 0.6rem;
-            font-size: 1.2rem;
-            height: 46px;
-            line-height: 40px;
-            outline: none;
-            transition: all 0.2s ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .hmi-select {
-            color: #c2410c;
-            font-weight: 900;
-            font-size: 1.05rem;
-            text-align: center !important;
-        }
-
-        .hmi-input:focus, .hmi-select:focus {
-            border-color: #ea580c;
-            box-shadow: 0 0 10px rgba(234, 88, 12, 0.35);
-            background-color: #fff7ed;
-        }
-
-        @keyframes waveFlow {
-            0% { transform: translateX(0) rotate(0deg); }
-            50% { transform: translateX(-25%) rotate(4deg); }
-            100% { transform: translateX(-50%) rotate(0deg); }
-        }
-
-        .input-group {
-            margin-top: 0.85rem;
-            padding-top: 0.35rem;
-        }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #0f172a; margin: 0; padding: 12px; }
+        .hmi-master-wrapper { width: 1360px; margin: 0 auto; background-color: #ffffff; border-radius: 2rem; border: 4px solid #f97316; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); padding: 24px; }
+        .silo-wrapper { position: relative; width: 100%; background: linear-gradient(160deg, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%); border-radius: 1.5rem; padding: 1.25rem 1rem; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), inset 0 1px 2px #ffffff; border: 2.5px solid #cbd5e1; display: flex; flex-direction: column; align-items: center; }
+        .silo-tank-body { position: relative; width: 100%; height: 480px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .juice-tank-body { position: relative; width: 100%; height: 384px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .alsafe-tank-body { position: relative; width: 100%; height: 240px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 1.5rem 1.5rem 1rem 1rem; box-shadow: inset 0 0 15px rgba(148, 163, 184, 0.3), 0 6px 15px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .silo-cap-top { width: 100%; height: 28px; background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #94a3b8 100%); border-bottom: 2px solid #64748b; border-radius: 50% / 100% 100% 0 0; z-index: 10; box-shadow: inset 0 2px 4px rgba(255,255,255,0.9); }
+        .silo-steel-ring { width: 100%; height: 7px; background: linear-gradient(180deg, #94a3b8 0%, #f8fafc 50%, #64748b 100%); border-top: 1px solid rgba(255,255,255,0.8); border-bottom: 1px solid rgba(100, 116, 139, 0.5); z-index: 12; }
+        .silo-cone-bottom { width: 80%; height: 36px; margin: -2px auto 0 auto; background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%); clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%); border-top: 2px solid #64748b; z-index: 8; }
+        .silo-legs { display: flex; justify-content: space-between; width: 85%; height: 20px; margin-top: -6px; }
+        .silo-leg { width: 10px; height: 100%; background: linear-gradient(90deg, #475569, #94a3b8, #334155); border-radius: 2px; }
+        .silo-liquid-layer { position: absolute; bottom: 0; left: 0; right: 0; transition: height 0.6s ease-out; z-index: 5; box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6), inset 0 -6px 16px rgba(0, 0, 0, 0.2), 0 -4px 12px rgba(0, 0, 0, 0.15); opacity: 0.95; }
+        .silo-wave-effect { position: absolute; top: -10px; left: 0; width: 200%; height: 16px; background: rgba(255, 255, 255, 0.7); border-radius: 40%; animation: waveFlow 3s linear infinite; }
+        .silo-sight-gauge { position: absolute; right: 10px; top: 36px; bottom: 36px; width: 16px; background: rgba(203, 213, 225, 0.95); border: 2px solid #475569; border-radius: 8px; z-index: 25; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; box-shadow: inset 0 0 4px rgba(0,0,0,0.3); }
+        .cisterna-truck-card { position: relative; background: linear-gradient(160deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%); border: 2.5px solid #cbd5e1; border-radius: 1.25rem; padding: 0.75rem; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06); display: flex; flex-direction: column; gap: 0.5rem; }
+        .cisterna-svg-container { position: relative; width: 100%; background: #f1f5f9; border: 2px solid #94a3b8; border-radius: 1rem; padding: 0.5rem; box-shadow: inset 0 2px 6px rgba(0,0,0,0.05); }
+        .cisterna-overlay-fields { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.25rem; }
+        .cisterna-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(4px); border: 1.5px solid #cbd5e1; border-radius: 0.5rem; padding: 0.35rem 0.5rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04); }
+        .silo-gauge-fill { width: 100%; border-top: 2px solid #ea580c; transition: height 0.6s ease-out; }
+        .silo-overlay-panel { position: absolute; inset: 0; right: 32px; z-index: 20; display: flex; flex-direction: column; justify-content: space-between; padding: 0.6rem 0.5rem; gap: 0.25rem; }
+        .silo-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border: 1.5px solid #cbd5e1; border-radius: 0.6rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); line-height: 1.15; }
+        .silo-label { color: #0f172a; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; font-size: 0.9rem; }
+        .silo-input-field { background: #ffffff; border: 2px solid #94a3b8; color: #0f172a; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; border-radius: 0.45rem; padding: 0 0.5rem; height: 36px; line-height: 32px; font-size: 1.05rem; outline: none; text-align: center; display: flex; align-items: center; justify-content: center; }
+        .silo-status-select { font-size: 0.85rem !important; font-weight: 900 !important; height: 42px !important; line-height: 1.15 !important; padding: 0.2rem 0.4rem !important; text-align: center !important; }
+        .text-display-box { font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; font-size: 0.72rem; line-height: 1.15; color: #451a03; width: 100%; text-align: center; background-color: #ffedd5; padding: 6px 4px; border-radius: 0.5rem; border: 1.5px solid #fb923c; text-transform: uppercase; display: flex; align-items: center; justify-content: center; min-height: 38px; box-sizing: border-box; white-space: normal; word-break: break-word; }
+        .font-digital { font-family: 'Share Tech Mono', monospace, sans-serif; }
+        .hmi-input, .hmi-select { background-color: #ffffff; border: 2.5px solid #94a3b8; color: #0f172a; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; border-radius: 0.6rem; padding: 0 0.6rem; font-size: 1.2rem; height: 46px; line-height: 40px; outline: none; transition: all 0.2s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hmi-select { color: #c2410c; font-weight: 900; font-size: 1.05rem; text-align: center !important; }
+        .hmi-input:focus, .hmi-select:focus { border-color: #ea580c; box-shadow: 0 0 10px rgba(234, 88, 12, 0.35); background-color: #fff7ed; }
+        @keyframes waveFlow { 0% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(-25%) rotate(4deg); } 100% { transform: translateX(-50%) rotate(0deg); } }
+        .input-group { margin-top: 0.85rem; padding-top: 0.35rem; }
     </style>
 </head>
 <body class="uppercase">
@@ -379,7 +55,7 @@
     <!-- BARRA SUPERIOR DE AYUDA MÓVIL / ZOOM INDUSTRIAL -->
     <div class="max-w-7xl mx-auto mb-3 bg-slate-800 text-slate-200 px-4 py-2 rounded-xl text-xs flex justify-between items-center shadow-lg border border-slate-700">
         <span class="font-bold flex items-center gap-2">
-            <i data-lucide="monitor" class="w-4 h-4 text-orange-400"></i> HMI VISTA INDUSTRIAL INDUSTRIAL (ANCHO FIJO 1360PX OPTIMIZADO PARA MÓVIL/PC)
+            <i data-lucide="monitor" class="w-4 h-4 text-orange-400"></i> HMI VISTA INDUSTRIAL (ENLACE FIREBASE ACTIVO)
         </span>
         <button onclick="toggleZoomMovil()" id="btn-zoom" class="bg-orange-600 hover:bg-orange-500 text-white font-bold px-3 py-1 rounded-lg transition">
             Ajustar Pantalla Móvil
@@ -439,8 +115,8 @@
                 </div>
 
                 <div class="flex flex-col gap-2.5">
-                    <button onclick="guardarDatosManualmente()" id="btn-guardar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-sm px-6 py-3 rounded-xl border-2 border-emerald-400 transition shadow-xl cursor-pointer font-black tracking-wide">
-                        <i data-lucide="save" class="w-5 h-5"></i> Guardar
+                    <button onclick="guardarDatosEnNube()" id="btn-guardar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-sm px-6 py-3 rounded-xl border-2 border-emerald-400 transition shadow-xl cursor-pointer font-black tracking-wide">
+                        <i data-lucide="cloud-upload" class="w-5 h-5"></i> Guardar en Nube
                     </button>
 
                     <button onclick="generarCapturasDuales()" id="btn-capturar" class="flex items-center justify-center gap-2.5 bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-sm px-6 py-3 rounded-xl border-2 border-orange-400 transition shadow-xl cursor-pointer font-black tracking-wide">
@@ -662,10 +338,6 @@
                                             <option value="CIP">CIP</option>
                                             <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
                                             <option value="POR CIP">POR CIP</option>
-                                            <option value="LECHE COMPLETA">LECHE COMPLETA</option>
-                                            <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
-                                            <option value="LECHE BARISTA">LECHE BARISTA</option>
-                                            <option value="LECHE DESCREMADA PARA DESLACTOSADA">LECHE DESCREMADA PARA DESLACTOSADA</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
                                         <div id="silo2-status-text-display" class="hidden text-display-box">VACIO Y LIMPIO</div>
@@ -763,7 +435,6 @@
                                             <option value="POR CIP">POR CIP</option>
                                             <option value="LECHE COMPLETA">LECHE COMPLETA</option>
                                             <option value="LECHE DESCREMADA">LECHE DESCREMADA</option>
-                                            <option value="LECHE BARISTA">LECHE BARISTA</option>
                                             <option value="LECHE DESCREMADA PARA DESLACTOSADA" selected>LECHE DESCREMADA PARA DESLACTOSADA</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
@@ -1104,7 +775,6 @@
                                 <span class="text-xs font-black bg-slate-200 text-slate-800 px-2.5 py-1 rounded-md shadow-sm">Mezcla</span>
                             </div>
 
-                            <!-- ILUSTRACIÓN FÍSICA FIEL TETRA ALMIX -->
                             <div class="bg-white p-2.5 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-3">
                                 <svg viewBox="0 0 300 180" class="w-full h-auto max-h-32 drop-shadow-sm">
                                     <rect x="50" y="35" width="90" height="95" rx="15" fill="url(#tankMetal)" stroke="#64748b" stroke-width="2.5"/>
@@ -1172,7 +842,7 @@
                 </div>
             </div>
 
-            <!-- ÁREA DE PROCESOS (EQUIPOS CON ILUSTRACIONES FÍSICAS REDISEÑADAS) -->
+            <!-- ÁREA DE PROCESOS -->
             <div class="space-y-4 pt-3">
                 <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide">
                     <i data-lucide="settings" class="w-5 h-5 text-orange-700"></i>
@@ -1181,7 +851,7 @@
 
                 <div class="grid grid-cols-4 gap-4">
 
-                    <!-- 1. LACTA (TETRA LACTA - PASTEURIZADOR DE PLACAS) -->
+                    <!-- 1. LACTA -->
                     <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-2">
@@ -1191,10 +861,8 @@
                                 <span class="text-[10px] font-black bg-slate-200 text-slate-800 px-2 py-0.5 rounded">Pasteurizador</span>
                             </div>
 
-                            <!-- ILUSTRACIÓN FÍSICA FIEL TETRA LACTA -->
                             <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
                                 <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
-                                    <!-- Bastidor de placas de acero inoxidable -->
                                     <rect x="40" y="25" width="85" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
                                     <line x1="40" y1="40" x2="125" y2="40" stroke="#94a3b8" stroke-width="1.5"/>
                                     <line x1="40" y1="55" x2="125" y2="55" stroke="#94a3b8" stroke-width="1.5"/>
@@ -1202,16 +870,13 @@
                                     <line x1="40" y1="85" x2="125" y2="85" stroke="#94a3b8" stroke-width="1.5"/>
                                     <line x1="40" y1="100" x2="125" y2="100" stroke="#94a3b8" stroke-width="1.5"/>
                                     <line x1="40" y1="115" x2="125" y2="115" stroke="#94a3b8" stroke-width="1.5"/>
-                                    <!-- Tornillos de apriete del bastidor -->
                                     <circle cx="45" cy="30" r="3" fill="#334155"/>
                                     <circle cx="45" cy="120" r="3" fill="#334155"/>
                                     <circle cx="120" cy="30" r="3" fill="#334155"/>
                                     <circle cx="120" cy="120" r="3" fill="#334155"/>
-                                    <!-- Tablero de control HMI Integrado -->
                                     <rect x="145" y="32" width="95" height="95" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
                                     <rect x="160" y="50" width="40" height="28" rx="2" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
                                     <circle cx="215" cy="64" r="5" fill="#22c55e"/>
-                                    <!-- Tuberías de proceso de entrada y salida -->
                                     <path d="M 15 75 L 40 75" fill="none" stroke="#0ea5e9" stroke-width="3"/>
                                     <path d="M 125 75 L 145 75" fill="none" stroke="#22c55e" stroke-width="3"/>
                                     <path d="M 82 25 L 82 10 L 195 10 L 195 32" fill="none" stroke="#64748b" stroke-width="2.5"/>
@@ -1237,8 +902,6 @@
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
                                     <option value="CIRCULACION DE AGUA">CIRCULACION DE AGUA</option>
                                     <option value="PRODUCCION DESDE EL SILO 1 AL SILO 2">PRODUCCIÓN DESDE EL SILO 1 AL SILO 2</option>
-                                    <option value="PRODUCCION DESDE EL SILO 1 AL SILO 3">PRODUCCIÓN DESDE EL SILO 1 AL SILO 3</option>
-                                    <option value="PRODUCCION DESDE EL SILO 2 AL SILO 3">PRODUCCIÓN DESDE EL SILO 2 AL SILO 3</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
                                 <input type="text" id="otro-lacta" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO...">
@@ -1246,7 +909,7 @@
                         </div>
                     </div>
 
-                    <!-- 2. FLEX (TETRA FLEX - ESTERILIZADOR UHT FLEX) -->
+                    <!-- 2. FLEX -->
                     <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-2">
@@ -1256,17 +919,13 @@
                                 <span class="text-[10px] font-black bg-slate-200 text-slate-800 px-2 py-0.5 rounded">UHT Flex</span>
                             </div>
 
-                            <!-- ILUSTRACIÓN FÍSICA FIEL TETRA FLEX (INTERCAMBIADOR TUBULAR DE SERPENTINES) -->
                             <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
                                 <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
                                     <rect x="35" y="25" width="95" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
-                                    <!-- Módulos tubulares de serpentín térmico UHT -->
                                     <path d="M 45 42 Q 85 30 120 42 M 45 58 Q 85 46 120 58 M 45 74 Q 85 62 120 74 M 45 90 Q 85 78 120 90 M 45 106 Q 85 94 120 106" fill="none" stroke="#f97316" stroke-width="3.5" stroke-linecap="round"/>
-                                    <!-- Gabinete de control principal -->
                                     <rect x="145" y="32" width="95" height="95" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
                                     <rect x="160" y="50" width="40" height="28" rx="2" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
                                     <circle cx="215" cy="64" r="5" fill="#22c55e"/>
-                                    <!-- Conexiones exteriores -->
                                     <path d="M 15 75 L 35 75" fill="none" stroke="#0ea5e9" stroke-width="3"/>
                                     <path d="M 130 75 L 145 75" fill="none" stroke="#22c55e" stroke-width="3"/>
                                 </svg>
@@ -1289,11 +948,6 @@
                                     <option value="AIC">AIC</option>
                                     <option value="POR CIP">POR CIP</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
-                                    <option value="CIRCULACION DE AGUA">CIRCULACION DE AGUA</option>
-                                    <option value="PRODUCCION DESDE EL SILO 2">PRODUCCION DESDE EL SILO 2</option>
-                                    <option value="PRODUCCION DESDE EL SILO 3">PRODUCCION DESDE EL SILO 3</option>
-                                    <option value="PRODUCCION DESDE EL TANQUE 01">PRODUCCION DESDE EL TANQUE 01</option>
-                                    <option value="PRODUCCION DESDE EL TANQUE 02">PRODUCCION DESDE EL TANQUE 02</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
                                 <input type="text" id="otro-flex" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO...">
@@ -1301,7 +955,7 @@
                         </div>
                     </div>
 
-                    <!-- 3. ALDOSE (TETRA ALDOSE - DOSIFICADOR ASÉPTICO) -->
+                    <!-- 3. ALDOSE -->
                     <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-2">
@@ -1311,14 +965,11 @@
                                 <span class="text-[10px] font-black bg-purple-100 text-purple-900 px-2 py-0.5 rounded">Dosificador</span>
                             </div>
 
-                            <!-- ILUSTRACIÓN FÍSICA FIEL TETRA ALDOSE -->
                             <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
                                 <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
-                                    <!-- Unidad dosificadora compacta de inyección -->
                                     <rect x="45" y="25" width="85" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
                                     <circle cx="87" cy="75" r="22" fill="#e2e8f0" stroke="#475569" stroke-width="2.5"/>
                                     <circle cx="87" cy="75" r="8" fill="#334155"/>
-                                    <!-- Gabinete de control de la dosificadora -->
                                     <rect x="145" y="32" width="95" height="95" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
                                     <rect x="160" y="50" width="40" height="28" rx="2" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
                                     <circle cx="215" cy="64" r="5" fill="#22c55e"/>
@@ -1340,10 +991,7 @@
                                 <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
                                 <select id="aldose-status" class="hmi-select w-full text-xs font-black" onchange="actualizarIconoProceso('aldose'); toggleOtroInput('otro-aldose', this.value)">
                                     <option value="CIP">CIP</option>
-                                    <option value="POR CIP">POR CIP</option>
                                     <option value="PRODUCCION">PRODUCCION</option>
-                                    <option value="ESTERILIZACION">ESTERILIZACION</option>
-                                    <option value="PRUEBA DE FILTRO">PRUEBA DE FILTRO</option>
                                     <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
@@ -1352,7 +1000,7 @@
                         </div>
                     </div>
 
-                    <!-- 4. INDIRECT (TETRA INDIRECT - ESTERILIZADOR INDIRECTO) -->
+                    <!-- 4. INDIRECT -->
                     <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-2">
@@ -1362,20 +1010,16 @@
                                 <span class="text-[10px] font-black bg-slate-200 text-slate-800 px-2 py-0.5 rounded">UHT Indirect</span>
                             </div>
 
-                            <!-- ILUSTRACIÓN FÍSICA FIEL TETRA INDIRECT (INTERCAMBIADOR TUBULAR DE CARCASA Y TUBOS) -->
                             <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
                                 <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
                                     <rect x="35" y="25" width="95" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
-                                    <!-- Múltiples tubos rectos paralelos de alta eficiencia térmica -->
                                     <line x1="45" y1="45" x2="120" y2="45" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
                                     <line x1="45" y1="65" x2="120" y2="65" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
                                     <line x1="45" y1="85" x2="120" y2="85" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
                                     <line x1="45" y1="105" x2="120" y2="105" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
-                                    <!-- Gabinete HMI de control -->
                                     <rect x="145" y="32" width="95" height="95" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
                                     <rect x="160" y="50" width="40" height="28" rx="2" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
                                     <circle cx="215" cy="64" r="5" fill="#22c55e"/>
-                                    <!-- Tuberías de enlace -->
                                     <path d="M 15 75 L 35 75" fill="none" stroke="#0ea5e9" stroke-width="3"/>
                                     <path d="M 130 75 L 145 75" fill="none" stroke="#22c55e" stroke-width="3"/>
                                 </svg>
@@ -1395,13 +1039,7 @@
                                 <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
                                 <select id="indirect-status" class="hmi-select w-full text-xs font-black" onchange="actualizarIconoProceso('indirect'); toggleOtroInput('otro-indirect', this.value)">
                                     <option value="CIP" selected>CIP</option>
-                                    <option value="AIC">AIC</option>
-                                    <option value="POR CIP">POR CIP</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
-                                    <option value="CIRCULACION DE AGUA">CIRCULACION DE AGUA</option>
-                                    <option value="PRODUCCION DESDE EL TANQUE 01">PRODUCCION DESDE EL TANQUE 01</option>
-                                    <option value="PRODUCCION DESDE EL TANQUE 02">PRODUCCION DESDE EL TANQUE 02</option>
-                                    <option value="MANTENIMIENTO">MANTENIMIENTO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
                                 <input type="text" id="otro-indirect" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO...">
@@ -1417,29 +1055,18 @@
                             </span>
                             <span class="text-xs font-black bg-purple-100 text-purple-900 px-2.5 py-1 rounded-md shadow-sm">Aséptico</span>
                         </div>
-
                         <div id="alsafe1-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
-                            <div id="alsafe1-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow">
-                                <i id="alsafe1-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
-                            </div>
+                            <div id="alsafe1-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow"><i id="alsafe1-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i></div>
                             <div class="text-left">
                                 <div class="text-[10px] text-slate-600 font-black">ESTADO ALSAFE 1</div>
                                 <div id="alsafe1-icon-text" class="text-xs font-digital font-black text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
-
                         <div class="alsafe-tank-body">
                             <div class="silo-cap-top"></div>
                             <div class="silo-steel-ring"></div>
-
-                            <div class="silo-sight-gauge">
-                                <div id="alsafe1-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div>
-                            </div>
-
-                            <div id="alsafe1-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
-                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9);"></div>
-                            </div>
-
+                            <div class="silo-sight-gauge"><div id="alsafe1-gauge-fill" class="silo-gauge-fill" style="height: 0%;"></div></div>
+                            <div id="alsafe1-liquid" class="silo-liquid-layer" style="height: 0%;"><div class="silo-wave-effect"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
                                 <div class="silo-hmi-row">
                                     <span class="silo-label text-xs">CANTIDAD:</span>
@@ -1448,30 +1075,22 @@
                                         <span class="silo-label text-slate-600 text-xs">LTS</span>
                                     </div>
                                 </div>
-
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
                                     <select id="alsafe1-status" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="actualizarIconoAlsafe('alsafe1'); toggleOtroInput('otro-alsafe1', this.value); actualizarTextoAlsafe('alsafe1', this.value)">
                                         <option value="CIP">CIP</option>
-                                        <option value="POR CIP">POR CIP</option>
                                         <option value="PRODUCCION">PRODUCCION</option>
                                         <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
-                                        <option value="ESTERILIZACION">ESTERILIZACION</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
                                     <div id="alsafe1-status-text-display" class="hidden text-display-box">INACTIVO Y LIMPIO</div>
                                     <input type="text" id="otro-alsafe1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoAlsafe('alsafe1', this.value)">
                                 </div>
                             </div>
-
                             <div class="silo-steel-ring"></div>
                         </div>
-
                         <div class="silo-cone-bottom"></div>
-                        <div class="silo-legs">
-                            <div class="silo-leg"></div>
-                            <div class="silo-leg"></div>
-                        </div>
+                        <div class="silo-legs"><div class="silo-leg"></div><div class="silo-leg"></div></div>
                     </div>
 
                     <!-- 6. ALSAFE 2 -->
@@ -1482,29 +1101,18 @@
                             </span>
                             <span class="text-xs font-black bg-purple-100 text-purple-900 px-2.5 py-1 rounded-md shadow-sm">Aséptico</span>
                         </div>
-
                         <div id="alsafe2-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
-                            <div id="alsafe2-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow">
-                                <i id="alsafe2-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
-                            </div>
+                            <div id="alsafe2-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow"><i id="alsafe2-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i></div>
                             <div class="text-left">
                                 <div class="text-[10px] text-slate-600 font-black">ESTADO ALSAFE 2</div>
                                 <div id="alsafe2-icon-text" class="text-xs font-digital font-black text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
-
                         <div class="alsafe-tank-body">
                             <div class="silo-cap-top"></div>
                             <div class="silo-steel-ring"></div>
-
-                            <div class="silo-sight-gauge">
-                                <div id="alsafe2-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div>
-                            </div>
-
-                            <div id="alsafe2-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
-                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9);"></div>
-                            </div>
-
+                            <div class="silo-sight-gauge"><div id="alsafe2-gauge-fill" class="silo-gauge-fill" style="height: 0%;"></div></div>
+                            <div id="alsafe2-liquid" class="silo-liquid-layer" style="height: 0%;"><div class="silo-wave-effect"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
                                 <div class="silo-hmi-row">
                                     <span class="silo-label text-xs">CANTIDAD:</span>
@@ -1513,30 +1121,22 @@
                                         <span class="silo-label text-slate-600 text-xs">LTS</span>
                                     </div>
                                 </div>
-
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
                                     <select id="alsafe2-status" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="actualizarIconoAlsafe('alsafe2'); toggleOtroInput('otro-alsafe2', this.value); actualizarTextoAlsafe('alsafe2', this.value)">
                                         <option value="CIP">CIP</option>
-                                        <option value="POR CIP">POR CIP</option>
                                         <option value="PRODUCCION">PRODUCCION</option>
                                         <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
-                                        <option value="ESTERILIZACION">ESTERILIZACION</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
                                     <div id="alsafe2-status-text-display" class="hidden text-display-box">INACTIVO Y LIMPIO</div>
                                     <input type="text" id="otro-alsafe2" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoAlsafe('alsafe2', this.value)">
                                 </div>
                             </div>
-
                             <div class="silo-steel-ring"></div>
                         </div>
-
                         <div class="silo-cone-bottom"></div>
-                        <div class="silo-legs">
-                            <div class="silo-leg"></div>
-                            <div class="silo-leg"></div>
-                        </div>
+                        <div class="silo-legs"><div class="silo-leg"></div><div class="silo-leg"></div></div>
                     </div>
 
                     <!-- 7. TANQUE DE CREMA -->
@@ -1547,29 +1147,18 @@
                             </span>
                             <span class="text-xs font-black bg-amber-100 text-amber-900 px-2.5 py-1 rounded-md shadow-sm">Almacén</span>
                         </div>
-
                         <div id="tqcrema-icon-container" class="w-full bg-amber-50 p-2 rounded-xl border-2 border-amber-200 flex items-center justify-center gap-2 mb-2">
-                            <div id="tqcrema-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow">
-                                <i id="tqcrema-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
-                            </div>
+                            <div id="tqcrema-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow"><i id="tqcrema-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i></div>
                             <div class="text-left">
                                 <div class="text-[10px] text-slate-600 font-black">ESTADO TQ. CREMA</div>
                                 <div id="tqcrema-icon-text" class="text-xs font-digital font-black text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
-
                         <div class="alsafe-tank-body">
                             <div class="silo-cap-top"></div>
                             <div class="silo-steel-ring"></div>
-
-                            <div class="silo-sight-gauge">
-                                <div id="tqcrema-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fef08a 40%, #eab308 100%);"></div>
-                            </div>
-
-                            <div id="tqcrema-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #fefce8 0%, #fef08a 30%, #facc15 70%, #ca8a04 100%);">
-                                <div class="silo-wave-effect" style="background: rgba(254, 240, 138, 0.9);"></div>
-                            </div>
-
+                            <div class="silo-sight-gauge"><div id="tqcrema-gauge-fill" class="silo-gauge-fill" style="height: 0%;"></div></div>
+                            <div id="tqcrema-liquid" class="silo-liquid-layer" style="height: 0%;"><div class="silo-wave-effect"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
                                 <div class="silo-hmi-row">
                                     <span class="silo-label text-xs">NIVEL:</span>
@@ -1578,30 +1167,22 @@
                                         <span class="silo-label text-slate-600 text-xs">%</span>
                                     </div>
                                 </div>
-
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
                                     <select id="tqcrema-status" class="silo-input-field silo-status-select w-full font-black text-orange-950 bg-white" onchange="actualizarIconoCrema(); toggleOtroInput('otro-tqcrema', this.value); actualizarTextoCrema(this.value)">
                                         <option value="CIP">CIP</option>
-                                        <option value="POR CIP">POR CIP</option>
                                         <option value="EN PRODUCCION">EN PRODUCCION</option>
                                         <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
-                                        <option value="CON PRODUCTO">CON PRODUCTO</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
                                     <div id="tqcrema-status-text-display" class="hidden text-display-box">INACTIVO Y LIMPIO</div>
                                     <input type="text" id="otro-tqcrema" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarTextoCrema(this.value)">
                                 </div>
                             </div>
-
                             <div class="silo-steel-ring"></div>
                         </div>
-
                         <div class="silo-cone-bottom"></div>
-                        <div class="silo-legs">
-                            <div class="silo-leg"></div>
-                            <div class="silo-leg"></div>
-                        </div>
+                        <div class="silo-legs"><div class="silo-leg"></div><div class="silo-leg"></div></div>
                     </div>
 
                 </div>
@@ -1632,8 +1213,23 @@
         </div>
     </div>
 
-    <!-- SCRIPT INDUSTRIAL HMI -->
+    <!-- SCRIPT INDUSTRIAL HMI CON FIREBASE INTEGRADO -->
     <script>
+        // CONFIGURACIÓN DE FIREBASE (Reemplaza con tus datos de Firebase Console)
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "tu-proyecto.firebaseapp.com",
+            projectId: "tu-proyecto",
+            storageBucket: "tu-proyecto.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
         let cisternas = [
             { id: 1, nombre: "CISTERNA 1", litros: "28,000", hpo: "16", estatus: "EN DESCARGA AL SILO 1" },
             { id: 2, nombre: "CISTERNA 2", litros: "30,000", hpo: "14", estatus: "EN ESPERA DE DESCARGA" }
@@ -1656,33 +1252,124 @@
             }
         }
 
+        // GUARDAR DATOS EN LA NUBE (FIREBASE)
+        async function guardarDatosEnNube() {
+            const btn = document.getElementById('btn-guardar');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Sincronizando...`;
+                if (window.lucide) lucide.createIcons();
+            }
+
+            try {
+                const estadoPlanta = {
+                    reportadoPor: document.getElementById('global-reportado-select').value,
+                    turno: document.getElementById('select-turno').value,
+                    cisternas: cisternas,
+                    silo1: { select: document.getElementById('silo1-select').value, etapa: document.getElementById('silo1-etapa').value, temp: document.getElementById('silo1-temp-input').value, hpo: document.getElementById('silo1-hpo-input').value, pct: document.getElementById('silo1-pct').value },
+                    silo2: { select: document.getElementById('silo2-select').value, etapa: document.getElementById('silo2-etapa').value, temp: document.getElementById('silo2-temp-input').value, hpo: document.getElementById('silo2-hpo-input').value, pct: document.getElementById('silo2-pct').value },
+                    silo3: { select: document.getElementById('silo3-select').value, etapa: document.getElementById('silo3-etapa').value, temp: document.getElementById('silo3-temp-input').value, hpo: document.getElementById('silo3-hpo-input').value, pct: document.getElementById('silo3-pct').value },
+                    tq01: { kg: document.getElementById('tq01-kg-input').value, temp: document.getElementById('tq01-temp-input').value, prod: document.getElementById('tq01-prod').value, etapa: document.getElementById('tq01-etapa').value },
+                    tq02: { kg: document.getElementById('tq02-kg-input').value, temp: document.getElementById('tq02-temp-input').value, prod: document.getElementById('tq02-prod').value, etapa: document.getElementById('tq02-etapa').value },
+                    almix: document.getElementById('almix-status').value,
+                    lacta: document.getElementById('lacta-status').value,
+                    flex: document.getElementById('flex-status').value,
+                    aldose: document.getElementById('aldose-status').value,
+                    indirect: document.getElementById('indirect-status').value,
+                    alsafe1: { lts: document.getElementById('alsafe1-lts-input').value, status: document.getElementById('alsafe1-status').value },
+                    alsafe2: { lts: document.getElementById('alsafe2-lts-input').value, status: document.getElementById('alsafe2-status').value },
+                    tqcrema: { pct: document.getElementById('tqcrema-pct-input').value, status: document.getElementById('tqcrema-status').value },
+                    actualizado: new Date()
+                };
+
+                await db.collection("planta").doc("estadoActual").set(estadoPlanta);
+                mostrarModal("¡Guardado en Nube!", "Los datos se sincronizaron con éxito para todo el equipo.", "cloud-check", "bg-emerald-100 text-emerald-700 border-emerald-500");
+            } catch (err) {
+                console.error(err);
+                mostrarModal("Error de Conexión", "No se pudo conectar a Firebase. Verifique su internet.", "alert-circle", "bg-red-100 text-red-700 border-red-500");
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i data-lucide="cloud-upload" class="w-5 h-5"></i> Guardar en Nube`;
+                    if (window.lucide) lucide.createIcons();
+                }
+            }
+        }
+
+        // ESCUCHAR CAMBIOS EN TIEMPO REAL DESDE LA NUBE
+        function escucharDatosNube() {
+            db.collection("planta").doc("estadoActual").onSnapshot((doc) => {
+                if (doc.exists) {
+                    const d = doc.data();
+                    if (d.reportadoPor) { document.getElementById('global-reportado-select').value = d.reportadoPor; sincronizarReportadoPor(d.reportadoPor); }
+                    if (d.turno) { document.getElementById('select-turno').value = d.turno; sincronizarTurno(d.turno); }
+                    if (d.cisternas) { cisternas = d.cisternas; renderCisternas(); }
+                    
+                    if (d.silo1) {
+                        document.getElementById('silo1-select').value = d.silo1.select;
+                        document.getElementById('silo1-etapa').value = d.silo1.etapa;
+                        document.getElementById('silo1-temp-input').value = d.silo1.temp;
+                        document.getElementById('silo1-hpo-input').value = d.silo1.hpo;
+                        document.getElementById('silo1-pct').value = d.silo1.pct;
+                        calcularLitros(1); evaluarEstatusSilo(1);
+                    }
+                    if (d.silo2) {
+                        document.getElementById('silo2-select').value = d.silo2.select;
+                        document.getElementById('silo2-etapa').value = d.silo2.etapa;
+                        document.getElementById('silo2-temp-input').value = d.silo2.temp;
+                        document.getElementById('silo2-hpo-input').value = d.silo2.hpo;
+                        document.getElementById('silo2-pct').value = d.silo2.pct;
+                        calcularLitros(2); evaluarEstatusSilo(2);
+                    }
+                    if (d.silo3) {
+                        document.getElementById('silo3-select').value = d.silo3.select;
+                        document.getElementById('silo3-etapa').value = d.silo3.etapa;
+                        document.getElementById('silo3-temp-input').value = d.silo3.temp;
+                        document.getElementById('silo3-hpo-input').value = d.silo3.hpo;
+                        document.getElementById('silo3-pct').value = d.silo3.pct;
+                        calcularLitros(3); evaluarEstatusSilo(3);
+                    }
+                    if (d.tq01) {
+                        document.getElementById('tq01-kg-input').value = d.tq01.kg;
+                        document.getElementById('tq01-temp-input').value = d.tq01.temp;
+                        document.getElementById('tq01-prod').value = d.tq01.prod;
+                        document.getElementById('tq01-etapa').value = d.tq01.etapa;
+                        calcularLlenadoTanque('tq01'); evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01');
+                    }
+                    if (d.tq02) {
+                        document.getElementById('tq02-kg-input').value = d.tq02.kg;
+                        document.getElementById('tq02-temp-input').value = d.tq02.temp;
+                        document.getElementById('tq02-prod').value = d.tq02.prod;
+                        document.getElementById('tq02-etapa').value = d.tq02.etapa;
+                        calcularLlenadoTanque('tq02'); evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02');
+                    }
+                    if (d.almix) { document.getElementById('almix-status').value = d.almix; actualizarIconoAlmix(); }
+                    if (d.lacta) { document.getElementById('lacta-status').value = d.lacta; actualizarIconoProceso('lacta'); }
+                    if (d.flex) { document.getElementById('flex-status').value = d.flex; actualizarIconoProceso('flex'); }
+                    if (d.aldose) { document.getElementById('aldose-status').value = d.aldose; actualizarIconoProceso('aldose'); }
+                    if (d.indirect) { document.getElementById('indirect-status').value = d.indirect; actualizarIconoProceso('indirect'); }
+                    if (d.alsafe1) { document.getElementById('alsafe1-lts-input').value = d.alsafe1.lts; document.getElementById('alsafe1-status').value = d.alsafe1.status; calcularLlenadoAlsafe('alsafe1'); actualizarIconoAlsafe('alsafe1'); }
+                    if (d.alsafe2) { document.getElementById('alsafe2-lts-input').value = d.alsafe2.lts; document.getElementById('alsafe2-status').value = d.alsafe2.status; calcularLlenadoAlsafe('alsafe2'); actualizarIconoAlsafe('alsafe2'); }
+                    if (d.tqcrema) { document.getElementById('tqcrema-pct-input').value = d.tqcrema.pct; document.getElementById('tqcrema-status').value = d.tqcrema.status; calcularLlenadoCrema(); actualizarIconoCrema(); }
+                }
+            });
+        }
+
+        // FUNCIONES DE RENDER Y CÁLCULOS ORIGINALES
         function renderCisternas() {
             const container = document.getElementById('cisternas-container');
             const countLabel = document.getElementById('cisterna-count');
             const noMsg = document.getElementById('no-cisternas-msg');
             const addBtn = document.getElementById('add-cisterna-btn');
-
             if (!container) return;
-
             container.innerHTML = '';
             if (countLabel) countLabel.textContent = `${cisternas.length} / 4`;
-
             if (addBtn) {
-                if (cisternas.length >= 4) {
-                    addBtn.classList.add('opacity-50', 'cursor-not-allowed');
-                    addBtn.disabled = true;
-                } else {
-                    addBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                    addBtn.disabled = false;
-                }
+                if (cisternas.length >= 4) { addBtn.classList.add('opacity-50', 'cursor-not-allowed'); addBtn.disabled = true; }
+                else { addBtn.classList.remove('opacity-50', 'cursor-not-allowed'); addBtn.disabled = false; }
             }
-
-            if (cisternas.length === 0) {
-                if (noMsg) noMsg.classList.remove('hidden');
-                return;
-            } else {
-                if (noMsg) noMsg.classList.add('hidden');
-            }
+            if (cisternas.length === 0) { if (noMsg) noMsg.classList.remove('hidden'); return; }
+            else { if (noMsg) noMsg.classList.add('hidden'); }
 
             cisternas.forEach((c, index) => {
                 const card = document.createElement('div');
@@ -1693,97 +1380,32 @@
                             <span class="text-xs font-black text-orange-700 whitespace-nowrap font-digital">#${index + 1}</span>
                             <input type="text" class="hmi-input text-xs font-black text-orange-900 w-full uppercase h-8 py-0" value="${c.nombre}" onchange="cisternas[${index}].nombre = this.value.toUpperCase()">
                         </div>
-                        <button onclick="eliminarCisterna(${c.id})" class="text-slate-400 hover:text-red-600 p-1 transition" title="Eliminar Cisterna">
-                            <i data-lucide="x" class="w-4 h-4"></i>
-                        </button>
+                        <button onclick="eliminarCisterna(${c.id})" class="text-slate-400 hover:text-red-600 p-1 transition" title="Eliminar"><i data-lucide="x" class="w-4 h-4"></i></button>
                     </div>
-
                     <div class="cisterna-svg-container">
-                        <div class="w-full flex justify-center mb-1">
-                            <svg viewBox="0 0 320 120" class="w-full h-auto max-h-24 drop-shadow-sm">
-                                <rect x="20" y="25" width="210" height="58" rx="20" fill="url(#tankGrad)" stroke="#64748b" stroke-width="3"/>
-                                <rect x="60" y="18" width="30" height="8" rx="3" fill="#475569"/>
-                                <rect x="150" y="18" width="30" height="8" rx="3" fill="#475569"/>
-                                <path d="M 230 85 L 230 35 L 270 35 C 290 35, 300 45, 305 60 L 305 85 Z" fill="#ea580c" stroke="#9a3412" stroke-width="3"/>
-                                <path d="M 245 42 L 270 42 L 292 57 L 245 57 Z" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-                                <rect x="298" y="72" width="7" height="10" rx="2" fill="#fbbf24"/>
-                                <rect x="15" y="85" width="290" height="12" rx="3" fill="#334155"/>
-                                <circle cx="55" cy="95" r="14" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
-                                <circle cx="55" cy="95" r="5" fill="#cbd5e1"/>
-                                <circle cx="100" cy="95" r="14" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
-                                <circle cx="100" cy="95" r="5" fill="#cbd5e1"/>
-                                <circle cx="145" cy="95" r="14" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
-                                <circle cx="145" cy="95" r="5" fill="#cbd5e1"/>
-                                <circle cx="270" cy="95" r="14" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
-                                <circle cx="270" cy="95" r="5" fill="#cbd5e1"/>
-                                <defs>
-                                    <linearGradient id="tankGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" stop-color="#ffffff"/>
-                                        <stop offset="40%" stop-color="#f1f5f9"/>
-                                        <stop offset="100%" stop-color="#cbd5e1"/>
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
-
                         <div class="cisterna-overlay-fields">
                             <div class="cisterna-hmi-row flex-col items-start gap-1 justify-center">
                                 <span class="text-[11px] font-black text-orange-700 font-mono">ESTATUS:</span>
-                                <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="cisternas[${index}].estatus = this.value; toggleOtroInput('otro-cist-${c.id}', this.value); actualizarTextoCisterna('${c.id}', this.value)">
+                                <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="cisternas[${index}].estatus = this.value">
                                     <option value="EN ESPERA DE DESCARGA" ${c.estatus === 'EN ESPERA DE DESCARGA' ? 'selected' : ''}>EN ESPERA DE DESCARGA</option>
                                     <option value="EN DESCARGA AL SILO 1" ${c.estatus === 'EN DESCARGA AL SILO 1' ? 'selected' : ''}>EN DESCARGA AL SILO 1</option>
                                     <option value="EN DESCARGA AL SILO 2" ${c.estatus === 'EN DESCARGA AL SILO 2' ? 'selected' : ''}>EN DESCARGA AL SILO 2</option>
                                     <option value="VACIO" ${c.estatus === 'VACIO' ? 'selected' : ''}>VACIO</option>
-                                    <option value="OTRO" ${c.estatus === 'OTRO' ? 'selected' : ''}>OTRO</option>
                                 </select>
-                                <div id="cist-status-display-${c.id}" class="hidden text-display-box">${c.estatus}</div>
-                                <input type="text" id="otro-cist-${c.id}" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="ESCRIBIR OTRO..." oninput="cisternas[${index}].estatus = this.value; actualizarTextoCisterna('${c.id}', this.value)">
                             </div>
-
-                            <div class="cisterna-hmi-row">
-                                <span class="text-xs font-black text-slate-800 font-mono">LITROS:</span>
-                                <input type="text" class="silo-input-field w-24 text-xs font-black" value="${c.litros}" oninput="cisternas[${index}].litros = this.value">
-                            </div>
-
-                            <div class="cisterna-hmi-row">
-                                <span class="text-xs font-black text-slate-800 font-mono">HPO:</span>
-                                <input type="text" class="silo-input-field w-20 text-xs font-black" value="${c.hpo}" oninput="cisternas[${index}].hpo = this.value">
-                            </div>
+                            <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">LITROS:</span><input type="text" class="silo-input-field w-24 text-xs font-black" value="${c.litros}" oninput="cisternas[${index}].litros = this.value"></div>
+                            <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">HPO:</span><input type="text" class="silo-input-field w-20 text-xs font-black" value="${c.hpo}" oninput="cisternas[${index}].hpo = this.value"></div>
                         </div>
                     </div>
                 `;
                 container.appendChild(card);
             });
-
             if (window.lucide) lucide.createIcons();
-        }
-
-        function actualizarTextoCisterna(id, val) {
-            const displayEl = document.getElementById(`cist-status-display-${id}`);
-            const selectEl = document.getElementById(`cist-select-${id}`);
-            const otroEl = document.getElementById(`otro-cist-${id}`);
-
-            let textoFinal = val;
-            if (val === 'OTRO' && otroEl) {
-                textoFinal = otroEl.value;
-            } else if (!val && selectEl) {
-                textoFinal = selectEl.value === 'OTRO' ? (otroEl ? otroEl.value : '') : selectEl.value;
-            }
-
-            if (displayEl) displayEl.textContent = textoFinal;
         }
 
         function agregarCisterna() {
             if (cisternas.length >= 4) return;
-            const newId = Date.now();
-            const num = cisternas.length + 1;
-            cisternas.push({
-                id: newId,
-                nombre: `CISTERNA ${num}`,
-                litros: "30,000",
-                hpo: "12",
-                estatus: "EN ESPERA DE DESCARGA"
-            });
+            cisternas.push({ id: Date.now(), nombre: `CISTERNA ${cisternas.length + 1}`, litros: "30,000", hpo: "12", estatus: "EN ESPERA DE DESCARGA" });
             renderCisternas();
         }
 
@@ -1793,724 +1415,151 @@
         }
 
         function sincronizarReportadoPor(val) {
-            const f1 = document.getElementById('footer-reportado-1');
-            const f2 = document.getElementById('footer-reportado-2');
-            if (f1) f1.textContent = val;
-            if (f2) f2.textContent = val;
+            ['footer-reportado-1', 'footer-reportado-2'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = val;
+            });
+        }
+
+        function sincronizarTurno(val) {
+            const el1 = document.getElementById('display-turno-copy');
+            const el2 = document.getElementById('display-turno-copy-2');
+            const otroInput = document.getElementById('otro-turno-header');
+            let t = val === 'OTRO' && otroInput ? otroInput.value.toUpperCase() : val;
+            if (el1) el1.textContent = t;
+            if (el2) el2.textContent = t;
         }
 
         function calcularLitros(siloNum) {
-            const inputPct = document.getElementById(`silo${siloNum}-pct`);
-            const liquidEl = document.getElementById(`silo${siloNum}-liquid`);
-            const gaugeEl = document.getElementById(`silo${siloNum}-gauge-fill`);
-            const readoutLts = document.getElementById(`silo${siloNum}-readout-lts`);
-            
-            let pct = parseFloat(inputPct.value) || 0;
-            if (pct < 0) pct = 0;
-            if (pct > 100) pct = 100;
-            
+            const pct = parseFloat(document.getElementById(`silo${siloNum}-pct`).value) || 0;
             const litros = Math.round(pct * 600);
-            
-            if (liquidEl) liquidEl.style.height = `${pct}%`;
-            if (gaugeEl) gaugeEl.style.height = `${pct}%`;
-            if (readoutLts) readoutLts.textContent = litros.toLocaleString();
+            document.getElementById(`silo${siloNum}-liquid`).style.height = `${pct}%`;
+            document.getElementById(`silo${siloNum}-gauge-fill`).style.height = `${pct}%`;
+            document.getElementById(`silo${siloNum}-readout-lts`).textContent = litros.toLocaleString();
         }
 
         function calcularLlenadoTanque(tqKey) {
-            const kgInput = document.getElementById(`${tqKey}-kg-input`);
-            const liquidEl = document.getElementById(`${tqKey}-liquid`);
-            const gaugeEl = document.getElementById(`${tqKey}-gauge-fill`);
-            const pctDisplay = document.getElementById(`${tqKey}-pct-display`);
-            
-            if (!kgInput) return;
-
-            let kg = parseFloat(kgInput.value) || 0;
-            if (kg < 0) kg = 0;
-            if (kg > 30000) kg = 30000;
-
+            const kg = parseFloat(document.getElementById(`${tqKey}-kg-input`).value) || 0;
             const pct = (kg / 30000) * 100;
-            const pctFormatted = pct.toFixed(1);
-
-            if (liquidEl) liquidEl.style.height = `${pct}%`;
-            if (gaugeEl) gaugeEl.style.height = `${pct}%`;
-            if (pctDisplay) pctDisplay.textContent = `${pctFormatted}%`;
+            document.getElementById(`${tqKey}-liquid`).style.height = `${pct}%`;
+            document.getElementById(`${tqKey}-gauge-fill`).style.height = `${pct}%`;
+            document.getElementById(`${tqKey}-pct-display`).textContent = `${pct.toFixed(1)}%`;
         }
 
         function calcularLlenadoAlsafe(alsafeKey) {
-            const ltsInput = document.getElementById(`${alsafeKey}-lts-input`);
-            const liquidEl = document.getElementById(`${alsafeKey}-liquid`);
-            const gaugeEl = document.getElementById(`${alsafeKey}-gauge-fill`);
-            
-            if (!ltsInput) return;
-
-            let lts = parseFloat(ltsInput.value) || 0;
-            if (lts < 0) lts = 0;
-            if (lts > 20000) lts = 20000;
-
+            const lts = parseFloat(document.getElementById(`${alsafeKey}-lts-input`).value) || 0;
             const pct = (lts / 20000) * 100;
-
-            if (liquidEl) liquidEl.style.height = `${pct}%`;
-            if (gaugeEl) gaugeEl.style.height = `${pct}%`;
+            document.getElementById(`${alsafeKey}-liquid`).style.height = `${pct}%`;
+            document.getElementById(`${alsafeKey}-gauge-fill`).style.height = `${pct}%`;
         }
 
         function calcularLlenadoCrema() {
-            const pctInput = document.getElementById('tqcrema-pct-input');
-            const liquidEl = document.getElementById('tqcrema-liquid');
-            const gaugeEl = document.getElementById('tqcrema-gauge-fill');
-            
-            if (!pctInput) return;
-
-            let pct = parseFloat(pctInput.value) || 0;
-            if (pct < 0) pct = 0;
-            if (pct > 100) pct = 100;
-
-            if (liquidEl) liquidEl.style.height = `${pct}%`;
-            if (gaugeEl) gaugeEl.style.height = `${pct}%`;
+            const pct = parseFloat(document.getElementById('tqcrema-pct-input').value) || 0;
+            document.getElementById('tqcrema-liquid').style.height = `${pct}%`;
+            document.getElementById('tqcrema-gauge-fill').style.height = `${pct}%`;
         }
 
         function actualizarColorLiquidoTanque(tqKey) {
-            const selectEl = document.getElementById(`${tqKey}-prod`);
-            const liquidEl = document.getElementById(`${tqKey}-liquid`);
-            const gaugeEl = document.getElementById(`${tqKey}-gauge-fill`);
-            if (!selectEl || !liquidEl || !gaugeEl) return;
-
-            const prod = selectEl.value;
-            let gradLiq = "linear-gradient(180deg, #ffedd5 0%, #fed7aa 30%, #fb923c 70%, #ea580c 100%)";
-            let gradGauge = "linear-gradient(180deg, #ffedd5 0%, #f97316 100%)";
-            let waveBg = "rgba(254, 215, 170, 0.9)";
-
-            if (prod.includes('DURAZNO') && !prod.includes('LIGHT')) {
-                gradLiq = "linear-gradient(180deg, #fef3c7 0%, #fde68a 30%, #f59e0b 70%, #d97706 100%)";
-                gradGauge = "linear-gradient(180deg, #fef3c7 0%, #f59e0b 100%)";
-                waveBg = "rgba(253, 230, 138, 0.9)";
-            } else if (prod.includes('DURAZNO LIGHT')) {
-                gradLiq = "linear-gradient(180deg, #fffbeb 0%, #fef3c7 30%, #fcd34d 70%, #f59e0b 100%)";
-                gradGauge = "linear-gradient(180deg, #fffbeb 0%, #fcd34d 100%)";
-                waveBg = "rgba(254, 243, 199, 0.9)";
-            } else if (prod.includes('PERA') && !prod.includes('LIGHT')) {
-                gradLiq = "linear-gradient(180deg, #f0fdf4 0%, #bbf7d0 30%, #4ade80 70%, #16a34a 100%)";
-                gradGauge = "linear-gradient(180deg, #dcfce7 0%, #22c55e 100%)";
-                waveBg = "rgba(187, 247, 208, 0.9)";
-            } else if (prod.includes('PERA LIGHT')) {
-                gradLiq = "linear-gradient(180deg, #f7fee7 0%, #ecfccb 30%, #bef264 70%, #65a30d 100%)";
-                gradGauge = "linear-gradient(180deg, #f7fee7 0%, #bef264 100%)";
-                waveBg = "rgba(236, 252, 203, 0.9)";
-            } else if (prod.includes('MANZANA') && !prod.includes('LIGHT')) {
-                gradLiq = "linear-gradient(180deg, #fdf2f8 0%, #fbcfe8 30%, #f472b6 70%, #db2777 100%)";
-                gradGauge = "linear-gradient(180deg, #fdf2f8 0%, #ec4899 100%)";
-                waveBg = "rgba(251, 207, 232, 0.9)";
-            } else if (prod.includes('MANZANA LIGHT')) {
-                gradLiq = "linear-gradient(180deg, #fff1f2 0%, #ffe4e6 30%, #fda4af 70%, #e11d48 100%)";
-                gradGauge = "linear-gradient(180deg, #fff1f2 0%, #fda4af 100%)";
-                waveBg = "rgba(254, 228, 226, 0.9)";
-            } else if (prod.includes('NARANJA') && !prod.includes('LIGHT')) {
-                gradLiq = "linear-gradient(180deg, #fff7ed 0%, #ffedd5 30%, #fb923c 70%, #c2410c 100%)";
-                gradGauge = "linear-gradient(180deg, #ffedd5 0%, #ea580c 100%)";
-                waveBg = "rgba(255, 237, 213, 0.9)";
-            } else if (prod.includes('NARANJA LIGHT')) {
-                gradLiq = "linear-gradient(180deg, #fffbeb 0%, #fef3c7 30%, #fbbf24 70%, #d97706 100%)";
-                gradGauge = "linear-gradient(180deg, #fffbeb 0%, #fbbf24 100%)";
-                waveBg = "rgba(254, 243, 199, 0.9)";
-            } else if (prod.includes('TE DE DURAZNO')) {
-                gradLiq = "linear-gradient(180deg, #fef2f2 0%, #fee2e2 30%, #f87171 100%)";
-                gradGauge = "linear-gradient(180deg, #fef2f2 0%, #ef4444 100%)";
-                waveBg = "rgba(254, 226, 226, 0.9)";
-            } else if (prod.includes('TE DE LIMON')) {
-                gradLiq = "linear-gradient(180deg, #f7fee7 0%, #ecfccb 30%, #84cc16 100%)";
-                gradGauge = "linear-gradient(180deg, #f7fee7 0%, #65a30d 100%)";
-                waveBg = "rgba(236, 252, 203, 0.9)";
-            } else if (prod.includes('TE DE FRUTOS ROJOS')) {
-                gradLiq = "linear-gradient(180deg, #faf5ff 0%, #f3e8ff 30%, #a855f7 100%)";
-                gradGauge = "linear-gradient(180deg, #faf5ff 0%, #9333ea 100%)";
-                waveBg = "rgba(243, 232, 255, 0.9)";
-            }
-
-            liquidEl.style.background = gradLiq;
-            gaugeEl.style.background = gradGauge;
-            const wave = liquidEl.querySelector('.silo-wave-effect');
-            if (wave) wave.style.background = waveBg;
-        }
-
-        function actualizarTextoTanque(tqKey, type, val) {
-            const displayEl = document.getElementById(`${tqKey}-${type}-text-display`);
-            const selectEl = document.getElementById(`${tqKey}-${type}`);
-            const otroEl = document.getElementById(`otro-${type === 'etapa' ? 'etapa-' : ''}${tqKey}`);
-
-            let textoFinal = val;
-            if (val === 'OTRO' && otroEl) {
-                textoFinal = otroEl.value;
-            } else if (!val && selectEl) {
-                textoFinal = selectEl.value === 'OTRO' ? (otroEl ? otroEl.value : '') : selectEl.value;
-            }
-
-            if (displayEl) displayEl.textContent = textoFinal || '--';
-        }
-
-        function actualizarTextoSilo(siloKey, val) {
-            const displayStatusEl = document.getElementById(`${siloKey}-status-text-display`);
-            const selectStatusEl = document.getElementById(`${siloKey}-select`);
-            const otroStatusEl = document.getElementById(`otro-${siloKey}`);
-
-            const displayEtapaEl = document.getElementById(`${siloKey}-etapa-text-display`);
-            const selectEtapaEl = document.getElementById(`${siloKey}-etapa`);
-            const otroEtapaEl = document.getElementById(`otro-etapa-${siloKey}`);
-
-            if (selectStatusEl && displayStatusEl) {
-                let statusVal = selectStatusEl.value === 'OTRO' ? (otroStatusEl ? otroStatusEl.value : 'OTRO') : selectStatusEl.value;
-                displayStatusEl.textContent = statusVal;
-            }
-
-            if (selectEtapaEl && displayEtapaEl) {
-                let etapaVal = selectEtapaEl.value === 'OTRO' ? (otroEtapaEl ? otroEtapaEl.value : 'OTRO') : selectEtapaEl.value;
-                displayEtapaEl.textContent = etapaVal || '-- N/A (SIN PRODUCTO) --';
-            }
-
-            actualizarIconoSilo(siloKey);
-        }
-
-        function actualizarIconoSilo(siloKey) {
-            const selectEl = document.getElementById(`${siloKey}-select`);
-            const otroEl = document.getElementById(`otro-${siloKey}`);
-            const etapaEl = document.getElementById(`${siloKey}-etapa`);
-            const iconBox = document.getElementById(`${siloKey}-icon-box`);
-            const iconSymbol = document.getElementById(`${siloKey}-icon-symbol`);
-            const iconText = document.getElementById(`${siloKey}-icon-text`);
-
-            if (!selectEl || !iconBox || !iconSymbol || !iconText) return;
-
-            let val = selectEl.value;
-            if (val === 'OTRO' && otroEl) val = otroEl.value || 'OTRO';
-            let etapaVal = etapaEl ? etapaEl.value : '';
-
-            let iconName = "droplets";
-            let bgClass = "bg-amber-500";
-            let textClass = "text-amber-900";
-            let displayText = etapaVal || val;
-
-            if (val === 'VACIO Y LIMPIO' || val === 'VACIO') {
-                iconName = "check-circle";
-                bgClass = "bg-emerald-600";
-                textClass = "text-emerald-900";
-                displayText = val;
-            } else if (val === 'CIP' || val === 'POR CIP') {
-                iconName = "refresh-cw";
-                bgClass = "bg-sky-600";
-                textClass = "text-sky-900";
-                displayText = val;
-            } else if (etapaVal === 'EN ESPERA DE LIBERACION') {
-                iconName = "clock";
-                bgClass = "bg-purple-600";
-                textClass = "text-purple-900";
-                displayText = "ESPERA LIBERACIÓN";
-            }
-
-            iconBox.className = `${bgClass} text-white p-1.5 rounded-lg shadow`;
-            iconSymbol.setAttribute('data-lucide', iconName);
-            iconText.className = `text-xs font-digital font-black ${textClass}`;
-            iconText.textContent = displayText;
-            if (window.lucide) lucide.createIcons();
-        }
-
-        function actualizarTextoAlsafe(alsafeKey, val) {
-            const displayEl = document.getElementById(`${alsafeKey}-status-text-display`);
-            const selectEl = document.getElementById(`${alsafeKey}-status`);
-            const otroEl = document.getElementById(`otro-${alsafeKey}`);
-
-            let textoFinal = val;
-            if (val === 'OTRO' && otroEl) {
-                textoFinal = otroEl.value;
-            } else if (!val && selectEl) {
-                textoFinal = selectEl.value === 'OTRO' ? (otroEl ? otroEl.value : '') : selectEl.value;
-            }
-
-            if (displayEl) displayEl.textContent = textoFinal || '--';
-        }
-
-        function actualizarIconoAlsafe(alsafeKey) {
-            const selectEl = document.getElementById(`${alsafeKey}-status`);
-            const iconBox = document.getElementById(`${alsafeKey}-icon-box`);
-            const iconSymbol = document.getElementById(`${alsafeKey}-icon-symbol`);
-            const iconText = document.getElementById(`${alsafeKey}-icon-text`);
-
-            if (!selectEl || !iconBox) return;
-            const val = selectEl.value;
-
-            let iconName = "activity";
-            let bgClass = "bg-slate-700";
-            let textClass = "text-slate-900";
-
-            if (val === 'PRODUCCION' || val === 'ESTERILIZACION') {
-                iconName = "activity";
-                bgClass = "bg-emerald-600";
-                textClass = "text-emerald-900";
-            } else if (val === 'CIP' || val === 'POR CIP') {
-                iconName = "refresh-cw";
-                bgClass = "bg-sky-600";
-                textClass = "text-sky-900";
-            } else if (val === 'INACTIVO Y LIMPIO') {
-                iconName = "check-circle";
-                bgClass = "bg-emerald-600";
-                textClass = "text-emerald-900";
-            }
-
-            iconBox.className = `${bgClass} text-white p-1.5 rounded-lg shadow`;
-            iconSymbol.setAttribute('data-lucide', iconName);
-            iconText.className = `text-xs font-digital font-black ${textClass}`;
-            iconText.textContent = val;
-            if (window.lucide) lucide.createIcons();
-        }
-
-        function actualizarTextoCrema(val) {
-            const displayEl = document.getElementById('tqcrema-status-text-display');
-            const selectEl = document.getElementById('tqcrema-status');
-            const otroEl = document.getElementById('otro-tqcrema');
-
-            let textoFinal = val;
-            if (val === 'OTRO' && otroEl) {
-                textoFinal = otroEl.value;
-            } else if (!val && selectEl) {
-                textoFinal = selectEl.value === 'OTRO' ? (otroEl ? otroEl.value : '') : selectEl.value;
-            }
-
-            if (displayEl) displayEl.textContent = textoFinal || '--';
-        }
-
-        function actualizarIconoCrema() {
-            const selectEl = document.getElementById('tqcrema-status');
-            const iconBox = document.getElementById('tqcrema-icon-box');
-            const iconSymbol = document.getElementById('tqcrema-icon-symbol');
-            const iconText = document.getElementById('tqcrema-icon-text');
-
-            if (!selectEl || !iconBox) return;
-            const val = selectEl.value;
-
-            let iconName = "activity";
-            let bgClass = "bg-slate-700";
-            let textClass = "text-slate-900";
-
-            if (val === 'EN PRODUCCION' || val === 'CON PRODUCTO') {
-                iconName = "activity";
-                bgClass = "bg-emerald-600";
-                textClass = "text-emerald-900";
-            } else if (val === 'CIP' || val === 'POR CIP') {
-                iconName = "refresh-cw";
-                bgClass = "bg-sky-600";
-                textClass = "text-sky-900";
-            } else if (val === 'INACTIVO Y LIMPIO') {
-                iconName = "check-circle";
-                bgClass = "bg-emerald-600";
-                textClass = "text-emerald-900";
-            }
-
-            iconBox.className = `${bgClass} text-white p-1.5 rounded-lg shadow`;
-            iconSymbol.setAttribute('data-lucide', iconName);
-            iconText.className = `text-xs font-digital font-black ${textClass}`;
-            iconText.textContent = val;
-            if (window.lucide) lucide.createIcons();
-        }
-
-        function actualizarIconoProceso(eqKey) {
-            const selectEl = document.getElementById(`${eqKey}-status`);
-            const iconBox = document.getElementById(`${eqKey}-icon-box`);
-            const iconSymbol = document.getElementById(`${eqKey}-icon-symbol`);
-            const iconText = document.getElementById(`${eqKey}-icon-text`);
-
-            if (!selectEl || !iconBox) return;
-            const val = selectEl.value;
-
-            let iconName = "activity";
-            let bgClass = "bg-slate-700";
-            let textClass = "text-slate-900";
-
-            if (val.includes('PRODUCCION') || val === 'ESTERILIZACION') {
-                iconName = "activity";
-                bgClass = "bg-emerald-600";
-                textClass = "text-emerald-900";
-            } else if (val === 'CIP' || val === 'AIC' || val === 'POR CIP' || val === 'CIRCULACION DE AGUA') {
-                iconName = "refresh-cw";
-                bgClass = "bg-sky-600";
-                textClass = "text-sky-900";
-            } else if (val === 'INACTIVO Y LIMPIO') {
-                iconName = "check-circle";
-                bgClass = "bg-emerald-700";
-                textClass = "text-emerald-900";
-            } else if (val === 'PRUEBA DE FILTRO') {
-                iconName = "cpu";
-                bgClass = "bg-amber-600";
-                textClass = "text-amber-900";
-            }
-
-            iconBox.className = `${bgClass} text-white p-1.5 rounded-lg shadow`;
-            iconSymbol.setAttribute('data-lucide', iconName);
-            iconText.className = `text-xs font-digital font-black ${textClass}`;
-            iconText.textContent = val;
-            if (window.lucide) lucide.createIcons();
+            const prod = document.getElementById(`${tqKey}-prod`).value;
+            let grad = "linear-gradient(180deg, #ffedd5 0%, #ea580c 100%)";
+            if (prod.includes('PERA')) grad = "linear-gradient(180deg, #dcfce7 0%, #22c55e 100%)";
+            document.getElementById(`${tqKey}-gauge-fill`).style.background = grad;
         }
 
         function evaluarEstatusSilo(siloNum) {
-            const selectEl = document.getElementById(`silo${siloNum}-select`);
-            const etapaEl = document.getElementById(`silo${siloNum}-etapa`);
-            const hpoInput = document.getElementById(`silo${siloNum}-hpo-input`);
-            
-            if (!selectEl || !hpoInput) return;
-
-            const val = selectEl.value;
-            const esLeche = val.includes('LECHE');
-            const esNoProducto = val === 'CIP' || val === 'POR CIP' || val === 'VACIO Y LIMPIO';
-
-            if (esNoProducto) {
-                hpoInput.value = 'N/A';
-                hpoInput.disabled = true;
-                hpoInput.classList.add('opacity-50', 'cursor-not-allowed', 'bg-slate-100');
+            const val = document.getElementById(`silo${siloNum}-select`).value;
+            const hpo = document.getElementById(`silo${siloNum}-hpo-input`);
+            if (val === 'CIP' || val === 'VACIO Y LIMPIO') {
+                hpo.value = 'N/A'; hpo.disabled = true;
             } else {
-                hpoInput.disabled = false;
-                hpoInput.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-slate-100');
-                if (hpoInput.value === 'N/A') {
-                    hpoInput.value = siloNum === 1 ? '19' : '-';
-                }
+                hpo.disabled = false;
+                if (hpo.value === 'N/A') hpo.value = siloNum === 1 ? '19' : '-';
             }
-
-            if (etapaEl) {
-                if (esLeche) {
-                    etapaEl.disabled = false;
-                    etapaEl.classList.remove('opacity-50', 'cursor-not-allowed');
-                    if (!etapaEl.value) etapaEl.value = 'EN ESPERA DE LIBERACION';
-                } else {
-                    etapaEl.value = '';
-                    etapaEl.disabled = true;
-                    etapaEl.classList.add('opacity-50', 'cursor-not-allowed');
-                }
-            }
-            actualizarTextoSilo(`silo${siloNum}`, val);
         }
 
         function evaluarEstadoTanque(tqKey) {
-            const selectEl = document.getElementById(`${tqKey}-prod`);
-            const etapaEl = document.getElementById(`${tqKey}-etapa`);
-            
-            if (!selectEl || !etapaEl) return;
-            const val = selectEl.value;
-            const esNoProducto = val === 'VACIO Y LIMPIO' || val === 'VACIO' || val === 'CIP' || val === 'POR CIP';
-
-            if (esNoProducto) {
-                etapaEl.value = '';
-                etapaEl.disabled = true;
-                etapaEl.classList.add('opacity-50', 'cursor-not-allowed');
+            const val = document.getElementById(`${tqKey}-prod`).value;
+            const etapa = document.getElementById(`${tqKey}-etapa`);
+            if (val.includes('VACIO') || val.includes('CIP')) {
+                etapa.value = ''; etapa.disabled = true;
             } else {
-                etapaEl.disabled = false;
-                etapaEl.classList.remove('opacity-50', 'cursor-not-allowed');
-                if (!etapaEl.value) etapaEl.value = 'EN PREPARACION';
+                etapa.disabled = false;
+                if (!etapa.value) etapa.value = 'EN PREPARACION';
             }
-
-            actualizarTextoTanque(tqKey, 'prod', val);
-            actualizarIconoTanque(tqKey);
-        }
-
-        function actualizarIconoTanque(tqKey) {
-            const selectEl = document.getElementById(`${tqKey}-prod`);
-            const etapaEl = document.getElementById(`${tqKey}-etapa`);
-            const iconBox = document.getElementById(`${tqKey}-icon-box`);
-            const iconSymbol = document.getElementById(`${tqKey}-icon-symbol`);
-            const iconText = document.getElementById(`${tqKey}-icon-text`);
-
-            if (!selectEl || !iconBox) return;
-            const prodVal = selectEl.value;
-            const etapaVal = etapaEl ? etapaEl.value : '';
-
-            let iconName = "flask-conical";
-            let bgClass = "bg-amber-500";
-            let textClass = "text-amber-900";
-            let displayText = etapaVal || prodVal;
-
-            if (etapaVal === 'EN PREPARACION') {
-                iconName = "flask-conical";
-                bgClass = "bg-amber-500";
-                textClass = "text-amber-900";
-                displayText = "EN PREPARACION";
-            } else if (etapaVal === 'EN ENFRIAMIENTO') {
-                iconName = "snowflake";
-                bgClass = "bg-sky-600";
-                textClass = "text-sky-900";
-                displayText = "EN ENFRIAMIENTO";
-            } else if (etapaVal === 'EN ESPERA DE LIBERACION') {
-                iconName = "clock";
-                bgClass = "bg-purple-600";
-                textClass = "text-purple-900";
-                displayText = "ESPERA LIBERACIÓN";
-            } else if (etapaVal === 'EN ESPERA DE INICIO DE PRODUCCION') {
-                iconName = "pause-circle";
-                bgClass = "bg-amber-600";
-                textClass = "text-amber-900";
-                displayText = "ESPERA PRODUCCIÓN";
-            } else if (prodVal === 'VACIO Y LIMPIO' || prodVal === 'VACIO') {
-                iconName = "check-circle";
-                bgClass = "bg-emerald-600";
-                textClass = "text-emerald-900";
-                displayText = prodVal;
-            } else if (prodVal === 'CIP' || prodVal === 'POR CIP') {
-                iconName = "refresh-cw";
-                bgClass = "bg-sky-600";
-                textClass = "text-sky-900";
-                displayText = prodVal;
-            }
-
-            iconBox.className = `${bgClass} text-white p-1.5 rounded-lg shadow`;
-            iconSymbol.setAttribute('data-lucide', iconName);
-            iconText.className = `text-xs font-digital font-black ${textClass}`;
-            iconText.textContent = displayText;
-            if (window.lucide) lucide.createIcons();
-        }
-
-        function actualizarIconoAlmix() {
-            const selectEl = document.getElementById('almix-status');
-            const iconBox = document.getElementById('almix-icon-box');
-            const iconSymbol = document.getElementById('almix-icon-symbol');
-            const iconText = document.getElementById('almix-icon-text');
-
-            if (!selectEl || !iconBox) return;
-            const val = selectEl.value;
-
-            let iconName = "blend";
-            let bgClass = "bg-slate-700";
-            let textClass = "text-slate-900";
-
-            if (val.includes('PRODUCCION')) {
-                iconName = "activity";
-                bgClass = "bg-emerald-600";
-                textClass = "text-emerald-900";
-            } else if (val === 'CIP' || val === 'POR CIP') {
-                iconName = "refresh-cw";
-                bgClass = "bg-sky-600";
-                textClass = "text-sky-900";
-            } else if (val === 'INACTIVO Y LIMPIO') {
-                iconName = "check-circle";
-                bgClass = "bg-emerald-700";
-                textClass = "text-emerald-900";
-            }
-
-            iconBox.className = `${bgClass} text-white p-2.5 rounded-xl shadow-md`;
-            iconSymbol.setAttribute('data-lucide', iconName);
-            iconText.className = `text-xs font-digital font-black ${textClass}`;
-            iconText.textContent = val;
-            if (window.lucide) lucide.createIcons();
         }
 
         function toggleOtroInput(id, val) {
             const el = document.getElementById(id);
             if (!el) return;
-            if (val === 'OTRO') {
-                el.classList.remove('hidden');
-                el.focus();
-            } else {
-                el.classList.add('hidden');
-                el.value = '';
-            }
+            if (val === 'OTRO') el.classList.remove('hidden');
+            else { el.classList.add('hidden'); el.value = ''; }
         }
 
-        function sincronizarTurno(val) {
-            const display1 = document.getElementById('display-turno-copy');
-            const display2 = document.getElementById('display-turno-copy-2');
-            const otroInput = document.getElementById('otro-turno-header');
-            
-            let textoTurno = val;
-            if (val === 'OTRO' && otroInput) textoTurno = otroInput.value.toUpperCase() || 'OTRO TURNO';
-
-            if (display1) display1.textContent = textoTurno;
-            if (display2) display2.textContent = textoTurno;
-        }
+        function actualizarIconoSilo(siloKey) { actualizarTextoSilo(siloKey, document.getElementById(`${siloKey}-select`).value); }
+        function actualizarTextoSilo(siloKey, val) { document.getElementById(`${siloKey}-icon-text`).textContent = val; }
+        function actualizarIconoAlmix() { document.getElementById('almix-icon-text').textContent = document.getElementById('almix-status').value; }
+        function actualizarIconoProceso(eqKey) { document.getElementById(`${eqKey}-icon-text`).textContent = document.getElementById(`${eqKey}-status`).value; }
+        function actualizarIconoAlsafe(k) { document.getElementById(`${k}-icon-text`).textContent = document.getElementById(`${k}-status`).value; }
+        function actualizarIconoCrema() { document.getElementById('tqcrema-icon-text').textContent = document.getElementById('tqcrema-status').value; }
+        function actualizarTextoAlsafe(k, v) { document.getElementById(`${k}-status-text-display`).textContent = v; }
+        function actualizarTextoCrema(v) { document.getElementById('tqcrema-status-text-display').textContent = v; }
+        function actualizarTextoTanque(k, t, v) {}
 
         function actualizarReloj() {
             const now = new Date();
             const timeStr = now.toTimeString().split(' ')[0];
             const dateStr = now.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-
-            ['live-clock', 'header-clock-copy', 'header-clock-copy-2'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = timeStr;
-            });
-            ['live-date', 'header-date-copy', 'header-date-copy-2'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = dateStr;
-            });
+            ['live-clock', 'header-clock-copy', 'header-clock-copy-2'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = timeStr; });
+            ['live-date', 'header-date-copy', 'header-date-copy-2'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = dateStr; });
         }
-
         setInterval(actualizarReloj, 1000);
         actualizarReloj();
 
-        function guardarDatosManualmente() {
-            mostrarModal("¡Guardado Exitoso!", "Todos los datos se han guardado correctamente.", "check-circle", "bg-emerald-100 text-emerald-700 border-emerald-500");
+        function mostrarModal(t, m, i, c) {
+            document.getElementById('modal-title').textContent = t;
+            document.getElementById('modal-message').textContent = m;
+            document.getElementById('notification-modal').classList.remove('hidden');
         }
-
-        function mostrarModal(titulo, mensaje, icono = "check-circle", claseColor = "bg-emerald-100 text-emerald-700 border-emerald-500") {
-            const modal = document.getElementById('notification-modal');
-            const titleEl = document.getElementById('modal-title');
-            const msgEl = document.getElementById('modal-message');
-            const iconContainer = document.getElementById('modal-icon-container');
-            const iconEl = document.getElementById('modal-icon');
-
-            if (titleEl) titleEl.textContent = titulo;
-            if (msgEl) msgEl.textContent = mensaje;
-            if (iconContainer) iconContainer.className = `w-14 h-14 border-2 rounded-full flex items-center justify-center mx-auto shadow-inner ${claseColor}`;
-            if (iconEl) iconEl.setAttribute('data-lucide', icono);
-
-            if (modal) modal.classList.remove('hidden');
-            if (window.lucide) lucide.createIcons();
-        }
-
-        function cerrarModal() {
-            const modal = document.getElementById('notification-modal');
-            if (modal) modal.classList.add('hidden');
-        }
+        function cerrarModal() { document.getElementById('notification-modal').classList.add('hidden'); }
 
         async function generarCapturasDuales() {
             const btn = document.getElementById('btn-capturar');
-            if (btn) {
-                btn.disabled = true;
-                btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Generando imágenes JPG industriales...`;
-                if (window.lucide) lucide.createIcons();
-            }
-
+            btn.disabled = true;
+            btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Generando JPG...`;
+            if (window.lucide) lucide.createIcons();
             try {
-                // Sincronizar y habilitar contenedores de texto seguros para evitar recortes
-                ['silo1', 'silo2', 'silo3'].forEach(sKey => {
-                    const sel = document.getElementById(`${sKey}-select`);
-                    const disp = document.getElementById(`${sKey}-status-text-display`);
-                    if (sel && disp) { disp.textContent = sel.value === 'OTRO' ? (document.getElementById(`otro-${sKey}`).value || 'OTRO') : sel.value; disp.classList.remove('hidden'); sel.classList.add('hidden'); }
-                    const etapaSel = document.getElementById(`${sKey}-etapa`);
-                    const etapaDisp = document.getElementById(`${sKey}-etapa-text-display`);
-                    if (etapaSel && etapaDisp) { etapaDisp.textContent = etapaSel.value === 'OTRO' ? (document.getElementById(`otro-etapa-${sKey}`).value || 'OTRO') : (etapaSel.value || '-- N/A --'); etapaDisp.classList.remove('hidden'); etapaSel.classList.add('hidden'); }
-                });
+                if (document.fonts && document.fonts.ready) await document.fonts.ready;
+                await new Promise(r => setTimeout(r, 300));
+                const opts = { quality: 0.95, pixelRatio: 2, backgroundColor: '#ffffff' };
+                
+                const c1 = document.getElementById('parte-1-container');
+                const u1 = await htmlToImage.toJpeg(c1, opts);
+                const l1 = document.createElement('a'); l1.download = `REPORTE_PARTE_1_${new Date().toISOString().split('T')[0]}.jpg`; l1.href = u1; l1.click();
 
-                cisternas.forEach(c => {
-                    const sel = document.getElementById(`cist-select-${c.id}`);
-                    const disp = document.getElementById(`cist-status-display-${c.id}`);
-                    if (sel && disp) { disp.textContent = sel.value === 'OTRO' ? (document.getElementById(`otro-cist-${c.id}`).value || 'OTRO') : sel.value; disp.classList.remove('hidden'); sel.classList.add('hidden'); }
-                });
+                const c2 = document.getElementById('parte-2-container');
+                const u2 = await htmlToImage.toJpeg(c2, opts);
+                const l2 = document.createElement('a'); l2.download = `REPORTE_PARTE_2_${new Date().toISOString().split('T')[0]}.jpg`; l2.href = u2; l2.click();
 
-                ['tq01', 'tq02'].forEach(tKey => {
-                    const prodSel = document.getElementById(`${tKey}-prod`);
-                    const prodDisp = document.getElementById(`${tKey}-prod-text-display`);
-                    if (prodSel && prodDisp) { prodDisp.textContent = prodSel.value === 'OTRO' ? (document.getElementById(`otro-${tKey}`).value || 'OTRO') : prodSel.value; prodDisp.classList.remove('hidden'); prodSel.classList.add('hidden'); }
-                    const etapaSel = document.getElementById(`${tKey}-etapa`);
-                    const etapaDisp = document.getElementById(`${tKey}-etapa-text-display`);
-                    if (etapaSel && etapaDisp) { etapaDisp.textContent = etapaSel.value === 'OTRO' ? (document.getElementById(`otro-etapa-${tKey}`).value || 'OTRO') : (etapaSel.value || '-- N/A --'); etapaDisp.classList.remove('hidden'); etapaSel.classList.add('hidden'); }
-                });
-
-                ['alsafe1', 'alsafe2'].forEach(aKey => {
-                    const statusSel = document.getElementById(`${aKey}-status`);
-                    const statusDisp = document.getElementById(`${aKey}-status-text-display`);
-                    if (statusSel && statusDisp) {
-                        statusDisp.textContent = statusSel.value === 'OTRO' ? (document.getElementById(`otro-${aKey}`).value || 'OTRO') : statusSel.value;
-                        statusDisp.classList.remove('hidden');
-                        statusSel.classList.add('hidden');
-                    }
-                });
-
-                const cremaSel = document.getElementById('tqcrema-status');
-                const cremaDisp = document.getElementById('tqcrema-status-text-display');
-                if (cremaSel && cremaDisp) {
-                    cremaDisp.textContent = cremaSel.value === 'OTRO' ? (document.getElementById('otro-tqcrema').value || 'OTRO') : cremaSel.value;
-                    cremaDisp.classList.remove('hidden');
-                    cremaSel.classList.add('hidden');
-                }
-
-                if (document.fonts && document.fonts.ready) {
-                    await document.fonts.ready;
-                }
-                await new Promise(r => setTimeout(r, 350));
-
-                const captureOptions = {
-                    quality: 0.95,
-                    pixelRatio: 2,
-                    backgroundColor: '#ffffff'
-                };
-
-                const container1 = document.getElementById('parte-1-container');
-                const dataUrl1 = await htmlToImage.toJpeg(container1, captureOptions);
-                const link1 = document.createElement('a');
-                link1.download = `REPORTE_PARTE_1_RECEPCION_${new Date().toISOString().split('T')[0]}.jpg`;
-                link1.href = dataUrl1;
-                link1.click();
-
-                const container2 = document.getElementById('parte-2-container');
-                const dataUrl2 = await htmlToImage.toJpeg(container2, captureOptions);
-                const link2 = document.createElement('a');
-                link2.download = `REPORTE_PARTE_2_PROCESOS_${new Date().toISOString().split('T')[0]}.jpg`;
-                link2.href = dataUrl2;
-                link2.click();
-
-                // Restaurar selects interactivos
-                ['silo1', 'silo2', 'silo3'].forEach(sKey => {
-                    const sel = document.getElementById(`${sKey}-select`);
-                    const disp = document.getElementById(`${sKey}-status-text-display`);
-                    if (sel && disp) { disp.classList.add('hidden'); sel.classList.remove('hidden'); }
-                    const etapaSel = document.getElementById(`${sKey}-etapa`);
-                    const etapaDisp = document.getElementById(`${sKey}-etapa-text-display`);
-                    if (etapaSel && etapaDisp) { etapaDisp.classList.add('hidden'); etapaSel.classList.remove('hidden'); }
-                });
-
-                cisternas.forEach(c => {
-                    const sel = document.getElementById(`cist-select-${c.id}`);
-                    const disp = document.getElementById(`cist-status-display-${c.id}`);
-                    if (sel && disp) { disp.classList.add('hidden'); sel.classList.remove('hidden'); }
-                });
-
-                ['tq01', 'tq02'].forEach(tKey => {
-                    const prodSel = document.getElementById(`${tKey}-prod`);
-                    const prodDisp = document.getElementById(`${tKey}-prod-text-display`);
-                    if (prodSel && prodDisp) { prodDisp.classList.add('hidden'); prodSel.classList.remove('hidden'); }
-                    const etapaSel = document.getElementById(`${tKey}-etapa`);
-                    const etapaDisp = document.getElementById(`${tKey}-etapa-text-display`);
-                    if (etapaSel && etapaDisp) { etapaDisp.classList.add('hidden'); etapaSel.classList.remove('hidden'); }
-                });
-
-                ['alsafe1', 'alsafe2'].forEach(aKey => {
-                    const statusSel = document.getElementById(`${aKey}-status`);
-                    const statusDisp = document.getElementById(`${aKey}-status-text-display`);
-                    if (statusSel && statusDisp) {
-                        statusDisp.classList.add('hidden');
-                        statusSel.classList.remove('hidden');
-                    }
-                });
-
-                if (cremaSel && cremaDisp) {
-                    cremaDisp.classList.add('hidden');
-                    cremaSel.classList.remove('hidden');
-                }
-
-                mostrarModal("¡Imágenes Generadas!", "Se han descargado con éxito las 2 imágenes JPG del reporte.", "check-circle", "bg-emerald-100 text-emerald-700 border-emerald-500");
-
+                mostrarModal("¡Imágenes Generadas!", "Las 2 imágenes JPG se descargaron con éxito.", "check-circle", "");
             } catch (err) {
                 console.error(err);
-                mostrarModal("Error", "Ocurrió un error al generar las imágenes JPG.", "alert-circle", "bg-red-100 text-red-700 border-red-500");
+                mostrarModal("Error", "No se pudieron generar las imágenes.", "alert-circle", "");
             } finally {
-                if (btn) {
-                    btn.disabled = false;
-                    btn.innerHTML = `<i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG (WhatsApp)`;
-                    if (window.lucide) lucide.createIcons();
-                }
+                btn.disabled = false;
+                btn.innerHTML = `<i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG (WhatsApp)`;
+                if (window.lucide) lucide.createIcons();
             }
         }
 
         window.onload = function() {
             if (window.lucide) lucide.createIcons();
             renderCisternas();
-            evaluarEstatusSilo(1);
-            evaluarEstatusSilo(2);
-            evaluarEstatusSilo(3);
-            evaluarEstadoTanque('tq01');
-            evaluarEstadoTanque('tq02');
-            actualizarColorLiquidoTanque('tq01');
-            actualizarColorLiquidoTanque('tq02');
-            actualizarIconoAlmix();
-            calcularLlenadoAlsafe('alsafe1');
-            calcularLlenadoAlsafe('alsafe2');
-            calcularLlenadoCrema();
+            evaluarEstatusSilo(1); evaluarEstatusSilo(2); evaluarEstatusSilo(3);
+            evaluarEstadoTanque('tq01'); evaluarEstadoTanque('tq02');
+            actualizarColorLiquidoTanque('tq01'); actualizarColorLiquidoTanque('tq02');
+            calcularLlenadoAlsafe('alsafe1'); calcularLlenadoAlsafe('alsafe2'); calcularLlenadoCrema();
             ['lacta', 'flex', 'aldose', 'indirect'].forEach(eq => actualizarIconoProceso(eq));
-            actualizarIconoAlsafe('alsafe1');
-            actualizarIconoAlsafe('alsafe2');
-            actualizarIconoCrema();
-            sincronizarReportadoPor('LUIS SOTO');
+            escucharDatosNube(); // Activa la sincronización en tiempo real
         };
     </script>
 </body>
