@@ -26,7 +26,7 @@
         .silo-cap-top { width: 100%; height: 28px; background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #94a3b8 100%); border-bottom: 2px solid #64748b; border-radius: 50% / 100% 100% 0 0; z-index: 10; box-shadow: inset 0 2px 4px rgba(255,255,255,0.9); }
         .silo-steel-ring { width: 100%; height: 7px; background: linear-gradient(180deg, #94a3b8 0%, #f8fafc 50%, #64748b 100%); border-top: 1px solid rgba(255,255,255,0.8); border-bottom: 1px solid rgba(100, 116, 139, 0.5); z-index: 12; }
         .silo-cone-bottom { width: 80%; height: 36px; margin: -2px auto 0 auto; background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%); clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%); border-top: 2px solid #64748b; z-index: 8; }
-        .silo-legs { display: flex; justify-content: space-between; width: 85%; height: 20px; margin-top: -6px; }
+        .silo-legs { display: flex; justify-space-between; width: 85%; height: 20px; margin-top: -6px; }
         .silo-leg { width: 10px; height: 100%; background: linear-gradient(90deg, #475569, #94a3b8, #334155); border-radius: 2px; }
         .silo-liquid-layer { position: absolute; bottom: 0; left: 0; right: 0; transition: height 0.6s ease-out; z-index: 5; box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6), inset 0 -6px 16px rgba(0, 0, 0, 0.2), 0 -4px 12px rgba(0, 0, 0, 0.15); opacity: 0.95; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%); }
         .silo-wave-effect { position: absolute; top: -10px; left: 0; width: 200%; height: 16px; background: rgba(255, 255, 255, 0.7); border-radius: 40%; animation: waveFlow 3s linear infinite; }
@@ -269,33 +269,36 @@
     <!-- CONTENEDOR INDUSTRIAL MAESTRO -->
     <div id="hmi-master-container" class="hmi-master-wrapper space-y-6">
 
-        <!-- CABECERA PRINCIPAL AMPLIADA -->
-        <header id="main-header" class="bg-slate-900 border-4 border-orange-500 p-6 rounded-3xl shadow-2xl flex justify-between items-center gap-6">
-            <div class="flex items-center gap-6">
-                <div class="bg-white p-3 px-5 rounded-2xl border-3 border-orange-500 flex items-center gap-4 shadow-md">
-                    <svg width="150" height="45" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M 125 40 L 165 5 L 125 25 Z" fill="#94a3b8"/>
-                        <path d="M 165 5 L 220 20 L 220 45 L 180 30 L 180 17 L 195 17 L 195 27 L 205 27 L 205 12 L 165 5 Z" fill="#ea580c"/>
-                        <path d="M 175 14 L 210 14 L 210 23 L 196 23 L 196 42 L 185 42 L 185 23 L 175 23 Z" fill="#ffffff"/>
-                        <text x="5" y="48" font-family="'Inter', sans-serif" font-size="34" font-weight="900" fill="#ea580c" letter-spacing="-0.5">EL TUNAL</text>
-                    </svg>
-                    <div>
-                        <h1 class="text-2xl font-black tracking-wider text-orange-500 font-digital">PLANTA EL TUNAL</h1>
-                        <p class="text-xs text-slate-300 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
-                    </div>
+        <!-- CABECERA PRINCIPAL REORGANIZADA SEGÚN INDICACIONES -->
+        <header id="main-header" class="bg-slate-900 border-4 border-orange-500 p-5 rounded-3xl shadow-2xl flex justify-between items-stretch gap-4">
+            
+            <!-- LOGO Y TÍTULO PLANTA -->
+            <div class="bg-white p-3 px-5 rounded-2xl border-3 border-orange-500 flex items-center gap-4 shadow-md shrink-0">
+                <svg width="150" height="45" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 125 40 L 165 5 L 125 25 Z" fill="#94a3b8"/>
+                    <path d="M 165 5 L 220 20 L 220 45 L 180 30 L 180 17 L 195 17 L 195 27 L 205 27 L 205 12 L 165 5 Z" fill="#ea580c"/>
+                    <path d="M 175 14 L 210 14 L 210 23 L 196 23 L 196 42 L 185 42 L 185 23 L 175 23 Z" fill="#ffffff"/>
+                    <text x="5" y="48" font-family="'Inter', sans-serif" font-size="34" font-weight="900" fill="#ea580c" letter-spacing="-0.5">EL TUNAL</text>
+                </svg>
+                <div>
+                    <h1 class="text-2xl font-black tracking-wider text-orange-500 font-digital">PLANTA EL TUNAL</h1>
+                    <p class="text-xs text-slate-300 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
                 </div>
+            </div>
 
-                <div class="bg-slate-800 p-3.5 px-6 rounded-2xl border-2 border-orange-500/60 flex items-center gap-4 shadow-inner">
-                    <i data-lucide="user" class="w-7 h-7 text-orange-400"></i>
+            <!-- BLOQUE REPORTADO POR + BADGE AUTO-GUARDADO ABAJO -->
+            <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[270px]">
+                <div class="bg-slate-800 p-3 px-5 rounded-2xl border-2 border-orange-500/60 flex items-center gap-3 shadow-inner h-full">
+                    <i data-lucide="user" class="w-6 h-6 text-orange-400 shrink-0"></i>
                     <div class="flex-1">
                         <div class="flex justify-between items-center mb-1">
-                            <div class="text-xs text-orange-400 font-black uppercase">REPORTADO POR:</div>
+                            <div class="text-[11px] text-orange-400 font-black uppercase">REPORTADO POR:</div>
                             <button type="button" onclick="toggleEditarReportadoPor()" id="btn-edit-reportado" class="text-[10px] text-orange-300 hover:text-white bg-orange-900/60 hover:bg-orange-800 px-2 py-0.5 rounded border border-orange-500/50 transition cursor-pointer flex items-center gap-1 font-bold" title="Escribir otro nombre">
                                 <i data-lucide="edit-3" class="w-3 h-3"></i> <span id="btn-edit-reportado-text">Personalizar</span>
                             </button>
                         </div>
                         <div id="container-reportado-input">
-                            <select id="global-reportado-select" class="hmi-select text-base py-1.5 px-4 border-orange-500 text-orange-500 font-black bg-slate-900 w-full" onchange="sincronizarReportadoPor(this.value)">
+                            <select id="global-reportado-select" class="hmi-select text-sm py-1 px-3 border-orange-500 text-orange-500 font-black bg-slate-900 w-full" onchange="sincronizarReportadoPor(this.value)">
                                 <option value="LUIS SOTO" selected>LUIS SOTO</option>
                                 <option value="OMAR OSORIO">OMAR OSORIO</option>
                                 <option value="SIMON LEAL">SIMON LEAL</option>
@@ -305,49 +308,55 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- BADGE AUTO-GUARDADO UBICADO DEBAJO DE REPORTADO POR -->
+                <div id="autosave-badge-header" class="bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow w-full">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span id="autosave-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span id="autosave-dot" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                    <span id="autosave-text-header" class="font-digital uppercase tracking-wider text-[11px]">AUTO-GUARDADO ACTIVO</span>
+                </div>
             </div>
 
-            <div class="flex items-center gap-5">
-                <div class="bg-slate-800 p-3.5 px-6 rounded-2xl border-2 border-orange-500/60 flex items-center gap-3">
-                    <i data-lucide="clock" class="w-6 h-6 text-orange-400"></i>
-                    <div>
-                        <label class="text-xs text-orange-400 font-extrabold block">TURNO:</label>
-                        <select id="select-turno" class="hmi-select text-sm py-1.5 px-3 border-orange-500 text-orange-500 font-black bg-slate-900 mt-1" onchange="toggleOtroInput('otro-turno-header', this.value); sincronizarTurno(this.value)">
+            <!-- BLOQUE TURNO + BOTÓN GUARDAR EN NUBE ABAJO -->
+            <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[250px]">
+                <div class="bg-slate-800 p-3 px-5 rounded-2xl border-2 border-orange-500/60 flex items-center gap-3 shadow-inner h-full">
+                    <i data-lucide="clock" class="w-6 h-6 text-orange-400 shrink-0"></i>
+                    <div class="flex-1">
+                        <label class="text-[11px] text-orange-400 font-extrabold block">TURNO:</label>
+                        <select id="select-turno" class="hmi-select text-sm py-1 px-3 border-orange-500 text-orange-500 font-black bg-slate-900 mt-1 w-full" onchange="toggleOtroInput('otro-turno-header', this.value); sincronizarTurno(this.value)">
                             <option value="TURNO 1 (06:00 - 18:00)" selected>TURNO 1 (06:00 - 18:00)</option>
                             <option value="TURNO 2 (18:00 - 06:00)">TURNO 2 (18:00 - 06:00)</option>
                             <option value="OTRO">OTRO</option>
                         </select>
-                        <input type="text" id="otro-turno-header" class="hmi-input text-sm py-1 hidden w-36 uppercase font-black mt-1" placeholder="TURNO..." oninput="sincronizarTurno(this.value)">
+                        <input type="text" id="otro-turno-header" class="hmi-input text-sm py-1 hidden w-full uppercase font-black mt-1" placeholder="TURNO..." oninput="sincronizarTurno(this.value)">
                     </div>
                 </div>
 
-                <div class="text-right bg-slate-800 p-3.5 px-5 rounded-2xl border-2 border-orange-500/60 shadow-inner flex flex-col justify-center">
-                    <div id="live-clock" class="text-2xl font-digital text-orange-400 font-black">--:--:--</div>
-                    <div id="live-date" class="text-xs text-slate-200 font-black tracking-widest mt-0.5">--/--/----</div>
-                    <div id="last-modified-container" class="mt-1.5 pt-1 border-t border-slate-700/80 flex items-center justify-end gap-1.5 text-[11px] font-bold text-amber-300">
-                        <i data-lucide="clock-4" class="w-3.5 h-3.5 text-amber-400"></i>
-                        <span>Última modif: <span id="last-modified-time" class="font-digital font-black text-amber-400 text-xs">--:--:--</span></span>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div id="autosave-badge-header" class="bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow">
-                        <span class="relative flex h-2.5 w-2.5">
-                            <span id="autosave-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span id="autosave-dot" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                        </span>
-                        <span id="autosave-text-header" class="font-digital uppercase tracking-wider text-[11px]">AUTO-GUARDADO ACTIVO</span>
-                    </div>
-
-                    <button onclick="guardarDatosEnNube()" id="btn-guardar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-sm px-6 py-2.5 rounded-xl border-2 border-emerald-400 transition shadow-xl cursor-pointer font-black tracking-wide">
-                        <i data-lucide="cloud-upload" class="w-5 h-5"></i> Guardar en Nube (Manual)
-                    </button>
-
-                    <button onclick="generarCapturasDuales()" id="btn-capturar" class="flex items-center justify-center gap-2.5 bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-sm px-6 py-3 rounded-xl border-2 border-orange-400 transition shadow-xl cursor-pointer font-black tracking-wide">
-                        <i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG
-                    </button>
-                </div>
+                <!-- BOTÓN GUARDAR EN NUBE UBICADO DEBAJO DE TURNO -->
+                <button onclick="guardarDatosEnNube()" id="btn-guardar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-xs px-4 py-2 rounded-xl border-2 border-emerald-400 transition shadow-xl cursor-pointer font-black tracking-wide w-full h-[36px]">
+                    <i data-lucide="cloud-upload" class="w-4 h-4"></i> Guardar en Nube (Manual)
+                </button>
             </div>
+
+            <!-- BLOQUE RELOJ/FECHA + BOTÓN GENERAR JPG ABAJO -->
+            <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[230px]">
+                <div class="text-right bg-slate-800 p-3 px-5 rounded-2xl border-2 border-orange-500/60 shadow-inner flex flex-col justify-center h-full">
+                    <div id="live-clock" class="text-xl font-digital text-orange-400 font-black leading-none">--:--:--</div>
+                    <div id="live-date" class="text-xs text-slate-200 font-black tracking-widest mt-0.5">--/--/----</div>
+                    <div id="last-modified-container" class="mt-1 pt-1 border-t border-slate-700/80 flex items-center justify-end gap-1.5 text-[10px] font-bold text-amber-300">
+                        <i data-lucide="clock-4" class="w-3 h-3 text-amber-400"></i>
+                        <span>Última modif: <span id="last-modified-time" class="font-digital font-black text-amber-400 text-[11px]">--:--:--</span></span>
+                    </div>
+                </div>
+
+                <!-- BOTÓN GENERAR JPG UBICADO DEBAJO DEL RELOJ -->
+                <button onclick="generarCapturasDuales()" id="btn-capturar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-xs px-4 py-2 rounded-xl border-2 border-orange-400 transition shadow-xl cursor-pointer font-black tracking-wide w-full h-[36px]">
+                    <i data-lucide="images" class="w-4 h-4"></i> Generar 2 Imágenes JPG
+                </button>
+            </div>
+
         </header>
 
         <!-- PARTE 1: RECEPCIÓN, PATIO Y SILOS -->
@@ -1517,7 +1526,7 @@
                 if (textEl) textEl.textContent = texto || "Guardando...";
                 if (iconEl) iconEl.setAttribute('data-lucide', 'cloud-upload');
 
-                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-amber-500 text-amber-300 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow animate-pulse";
+                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-amber-500 text-amber-300 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow animate-pulse w-full";
                 if (textHeader) textHeader.textContent = (texto || "GUARDANDO CAMBIOS...").toUpperCase();
                 if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-400";
                 if (pingHeader) pingHeader.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75";
@@ -1527,7 +1536,7 @@
                 if (textEl) textEl.textContent = texto || "Auto-guardado activo";
                 if (iconEl) iconEl.setAttribute('data-lucide', 'cloud-check');
 
-                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow";
+                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow w-full";
                 if (textHeader) textHeader.textContent = (texto || "AUTO-GUARDADO ACTIVO").toUpperCase();
                 if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500";
                 if (pingHeader) pingHeader.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
@@ -1537,7 +1546,7 @@
                 if (textEl) textEl.textContent = texto || "Error al guardar";
                 if (iconEl) iconEl.setAttribute('data-lucide', 'alert-circle');
 
-                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-red-500 text-red-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow";
+                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-red-500 text-red-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow w-full";
                 if (textHeader) textHeader.textContent = "ERROR DE CONEXIÓN";
                 if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500";
                 if (pingHeader) pingHeader.className = "hidden";
@@ -1568,7 +1577,7 @@
             const btn = document.getElementById('btn-guardar');
             if (!esSilencioso && btn) {
                 btn.disabled = true;
-                btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Sincronizando...`;
+                btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Sincronizando...`;
                 if (window.lucide) lucide.createIcons();
             } else if (esSilencioso) {
                 actualizarIndicadorAutoGuardado("cambio", "Guardando en nube...");
@@ -1613,7 +1622,7 @@
             } finally {
                 if (!esSilencioso && btn) {
                     btn.disabled = false;
-                    btn.innerHTML = `<i data-lucide="cloud-upload" class="w-5 h-5"></i> Guardar en Nube`;
+                    btn.innerHTML = `<i data-lucide="cloud-upload" class="w-4 h-4"></i> Guardar en Nube (Manual)`;
                     if (window.lucide) lucide.createIcons();
                 }
             }
@@ -2202,7 +2211,7 @@
         async function generarCapturasDuales() {
             const btn = document.getElementById('btn-capturar');
             btn.disabled = true;
-            btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Generando JPG...`;
+            btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Generando JPG...`;
             if (window.lucide) lucide.createIcons();
             
             document.body.classList.add('capturing-mode');
@@ -2236,7 +2245,7 @@
             } finally {
                 document.body.classList.remove('capturing-mode');
                 btn.disabled = false;
-                btn.innerHTML = `<i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG`;
+                btn.innerHTML = `<i data-lucide="images" class="w-4 h-4"></i> Generar 2 Imágenes JPG`;
                 if (window.lucide) lucide.createIcons();
             }
         }
