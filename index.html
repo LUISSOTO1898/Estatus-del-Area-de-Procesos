@@ -50,7 +50,7 @@
         @keyframes waveFlow { 0% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(-25%) rotate(4deg); } 100% { transform: translateX(-50%) rotate(0deg); } }
         .input-group { margin-top: 0.85rem; padding-top: 0.35rem; }
         
-        /* Normalización crítica para exportación fiel con html-to-image sin desbordamiento */
+        /* Normalización para exportación JPG sin desbordamientos */
         body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; text-overflow: ellipsis !important; overflow: hidden !important; white-space: nowrap !important; }
         body.capturing-mode .status-badge-container { min-height: 48px !important; height: auto !important; overflow: hidden !important; }
         body.capturing-mode .status-badge-text { font-size: 0.68rem !important; line-height: 1.1 !important; word-break: break-word !important; white-space: normal !important; overflow: hidden !important; }
@@ -1058,7 +1058,7 @@
                         </div>
                     </div>
 
-                    <!-- 5. ALSAFE 1 -->
+                    <!-- 5. ALSAFE 1 (CON ALTO CONTRASTE INTEGRADO) -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
@@ -1076,8 +1076,10 @@
                         <div class="alsafe-tank-body">
                             <div class="silo-cap-top"></div>
                             <div class="silo-steel-ring"></div>
-                            <div class="silo-sight-gauge"><div id="alsafe1-gauge-fill" class="silo-gauge-fill" style="height: 0%;"></div></div>
-                            <div id="alsafe1-liquid" class="silo-liquid-layer" style="height: 0%;"><div class="silo-wave-effect"></div></div>
+                            <div class="silo-sight-gauge"><div id="alsafe1-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div></div>
+                            <div id="alsafe1-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
+                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div>
+                            </div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
                                 <div class="silo-hmi-row">
                                     <span class="silo-label text-xs">CANTIDAD:</span>
@@ -1088,7 +1090,7 @@
                                 </div>
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
-                                    <select id="alsafe1-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="actualizarBadgeGenerico('alsafe1'); toggleOtroInput('otro-alsafe1', this.value)">
+                                    <select id="alsafe1-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusAlsafe('alsafe1'); toggleOtroInput('otro-alsafe1', this.value)">
                                         <option value="CIP">CIP</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="PRODUCCION">PRODUCCION</option>
@@ -1105,7 +1107,7 @@
                         <div class="silo-legs"><div class="silo-leg"></div><div class="silo-leg"></div></div>
                     </div>
 
-                    <!-- 6. ALSAFE 2 -->
+                    <!-- 6. ALSAFE 2 (CON ALTO CONTRASTE INTEGRADO) -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
@@ -1123,8 +1125,10 @@
                         <div class="alsafe-tank-body">
                             <div class="silo-cap-top"></div>
                             <div class="silo-steel-ring"></div>
-                            <div class="silo-sight-gauge"><div id="alsafe2-gauge-fill" class="silo-gauge-fill" style="height: 0%;"></div></div>
-                            <div id="alsafe2-liquid" class="silo-liquid-layer" style="height: 0%;"><div class="silo-wave-effect"></div></div>
+                            <div class="silo-sight-gauge"><div id="alsafe2-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div></div>
+                            <div id="alsafe2-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
+                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div>
+                            </div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
                                 <div class="silo-hmi-row">
                                     <span class="silo-label text-xs">CANTIDAD:</span>
@@ -1135,7 +1139,7 @@
                                 </div>
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
-                                    <select id="alsafe2-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="actualizarBadgeGenerico('alsafe2'); toggleOtroInput('otro-alsafe2', this.value)">
+                                    <select id="alsafe2-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusAlsafe('alsafe2'); toggleOtroInput('otro-alsafe2', this.value)">
                                         <option value="CIP">CIP</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="PRODUCCION">PRODUCCION</option>
@@ -1152,7 +1156,7 @@
                         <div class="silo-legs"><div class="silo-leg"></div><div class="silo-leg"></div></div>
                     </div>
 
-                    <!-- 7. TANQUE DE CREMA -->
+                    <!-- 7. TANQUE DE CREMA (CON ALTO CONTRASTE INTEGRADO) -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
@@ -1170,8 +1174,10 @@
                         <div class="alsafe-tank-body">
                             <div class="silo-cap-top"></div>
                             <div class="silo-steel-ring"></div>
-                            <div class="silo-sight-gauge"><div id="tqcrema-gauge-fill" class="silo-gauge-fill" style="height: 0%;"></div></div>
-                            <div id="tqcrema-liquid" class="silo-liquid-layer" style="height: 0%;"><div class="silo-wave-effect"></div></div>
+                            <div class="silo-sight-gauge"><div id="tqcrema-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div></div>
+                            <div id="tqcrema-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
+                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div>
+                            </div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
                                 <div class="silo-hmi-row">
                                     <span class="silo-label text-xs">NIVEL:</span>
@@ -1182,7 +1188,7 @@
                                 </div>
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
                                     <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
-                                    <select id="tqcrema-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="actualizarBadgeGenerico('tqcrema'); toggleOtroInput('otro-tqcrema', this.value)">
+                                    <select id="tqcrema-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusCrema(); toggleOtroInput('otro-tqcrema', this.value)">
                                         <option value="CIP">CIP</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="EN PRODUCCION">EN PRODUCCION</option>
@@ -1228,7 +1234,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT INDUSTRIAL HMI CON LOGICA REVISADA -->
+    <!-- SCRIPT INDUSTRIAL HMI CON LÓGICA COMPLETA -->
     <script>
         // CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
@@ -1370,7 +1376,7 @@
             });
         }
 
-        // CONTROLADOR MAPEO CONFIGURACIÓN DE BADGES & ÍCONOS
+        // MAPEO DE BADGES & ÍCONOS
         const ESTADOS_CONFIG = {
             'VACIO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-900', bgCont: 'bg-emerald-50 border-emerald-300' },
             'INACTIVO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-900', bgCont: 'bg-emerald-50 border-emerald-300' },
@@ -1459,11 +1465,12 @@
             return el.value;
         }
 
-        // EVALUAR Y DESHABILITAR/HABILITAR SILOS
+        // EVALUACIÓN DE SILOS CON AUTO-CERO EDITABLE
         function evaluarEstatusSilo(siloNum) {
             const prodSelect = document.getElementById(`silo${siloNum}-select`);
             const etapaSelect = document.getElementById(`silo${siloNum}-etapa`);
             const hpoInput = document.getElementById(`silo${siloNum}-hpo-input`);
+            const pctInput = document.getElementById(`silo${siloNum}-pct`);
             if (!prodSelect) return;
 
             let val = prodSelect.value;
@@ -1472,7 +1479,8 @@
                 if (otroInput && otroInput.value) val = otroInput.value.toUpperCase();
             }
 
-            const esSinProducto = (val === 'CIP' || val === 'POR CIP' || val === 'VACIO Y LIMPIO' || val === 'VACIO' || val === '6P' || val === '6P POR 6P' || val === 'AIC POR 6P');
+            const valUpper = val.toUpperCase();
+            const esSinProducto = (valUpper.includes('CIP') || valUpper.includes('VACIO') || valUpper.includes('AIC') || valUpper.includes('LIMPIO') || valUpper === '6P' || valUpper === '6P POR 6P');
 
             if (esSinProducto) {
                 etapaSelect.value = "";
@@ -1482,6 +1490,13 @@
                 hpoInput.value = "N/A";
                 hpoInput.disabled = true;
                 hpoInput.classList.add('opacity-50', 'cursor-not-allowed');
+
+                if (pctInput) {
+                    pctInput.value = 0;
+                    pctInput.disabled = false;
+                    pctInput.classList.remove('opacity-50', 'cursor-not-allowed');
+                    calcularLitros(siloNum);
+                }
             } else {
                 etapaSelect.disabled = false;
                 etapaSelect.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -1491,14 +1506,18 @@
                 if (hpoInput.value === 'N/A') {
                     hpoInput.value = (siloNum === 1) ? '19' : '-';
                 }
+                if (pctInput) {
+                    pctInput.disabled = false;
+                    pctInput.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
             }
             actualizarBadgeGenerico(`silo${siloNum}`);
         }
 
-        // EVALUAR Y DESHABILITAR/HABILITAR TANQUES DE JUGO TQ01 / TQ02
         function evaluarEstadoTanque(tqKey) {
             const prodSelect = document.getElementById(`${tqKey}-prod`);
             const etapaSelect = document.getElementById(`${tqKey}-etapa`);
+            const kgInput = document.getElementById(`${tqKey}-kg-input`);
             if (!prodSelect || !etapaSelect) return;
 
             let val = prodSelect.value;
@@ -1507,23 +1526,63 @@
                 if (otroInput && otroInput.value) val = otroInput.value.toUpperCase();
             }
 
-            const esSinProducto = (val === 'VACIO Y LIMPIO' || val === 'VACIO' || val === 'CIP' || val === 'POR CIP' || val === '6P' || val === '6P POR 6P');
+            const valUpper = val.toUpperCase();
+            const esSinProducto = (valUpper.includes('VACIO') || valUpper.includes('CIP') || valUpper.includes('AIC') || valUpper.includes('LIMPIO') || valUpper === '6P' || valUpper === '6P POR 6P');
 
             if (esSinProducto) {
                 etapaSelect.value = "";
                 etapaSelect.disabled = true;
                 etapaSelect.classList.add('opacity-50', 'cursor-not-allowed');
+
+                if (kgInput) {
+                    kgInput.value = 0;
+                    kgInput.disabled = false;
+                    kgInput.classList.remove('opacity-50', 'cursor-not-allowed');
+                    calcularLlenadoTanque(tqKey);
+                }
             } else {
                 etapaSelect.disabled = false;
                 etapaSelect.classList.remove('opacity-50', 'cursor-not-allowed');
                 if (!etapaSelect.value) {
                     etapaSelect.value = 'EN PREPARACION';
                 }
+                if (kgInput) {
+                    kgInput.disabled = false;
+                    kgInput.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
             }
             actualizarBadgeGenerico(tqKey);
         }
 
-        // PATIO DE CISTERNAS
+        function evaluarEstatusAlsafe(alsafeKey) {
+            const ltsInput = document.getElementById(`${alsafeKey}-lts-input`);
+            let val = getValorRealElemento(`${alsafeKey}-status`).toUpperCase();
+            const esSinProducto = (val.includes('VACIO') || val.includes('CIP') || val.includes('AIC') || val.includes('LIMPIO') || val === '6P');
+
+            if (esSinProducto && ltsInput) {
+                ltsInput.value = 0;
+                ltsInput.disabled = false;
+                ltsInput.classList.remove('opacity-50', 'cursor-not-allowed');
+                calcularLlenadoAlsafe(alsafeKey);
+            }
+            actualizarBadgeGenerico(alsafeKey);
+        }
+
+        function evaluarEstatusCrema() {
+            const pctInput = document.getElementById('tqcrema-pct-input');
+            let val = getValorRealElemento('tqcrema-status').toUpperCase();
+            const esSinProducto = (val.includes('VACIO') || val.includes('CIP') || val.includes('AIC') || val.includes('LIMPIO'));
+
+            if (esSinProducto && pctInput) {
+                pctInput.value = 0;
+                pctInput.disabled = false;
+                pctInput.classList.remove('opacity-50', 'cursor-not-allowed');
+                calcularLlenadoCrema();
+            }
+            actualizarBadgeGenerico('tqcrema');
+        }
+
+        // PATIO DE CISTERNAS CON SVG Y AUTO-CERO
         function renderCisternas() {
             const container = document.getElementById('cisternas-container');
             const countLabel = document.getElementById('cisterna-count');
@@ -1585,14 +1644,14 @@
                         <div class="cisterna-overlay-fields w-full">
                             <div class="cisterna-hmi-row flex-col items-start gap-1 justify-center">
                                 <span class="text-[11px] font-black text-orange-700 font-mono">ESTATUS:</span>
-                                <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="cisternas[${index}].estatus = this.value">
+                                <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="cambiarEstatusCisterna(${index}, this.value)">
                                     <option value="EN ESPERA DE DESCARGA" ${c.estatus === 'EN ESPERA DE DESCARGA' ? 'selected' : ''}>EN ESPERA DE DESCARGA</option>
                                     <option value="EN DESCARGA AL SILO 1" ${c.estatus === 'EN DESCARGA AL SILO 1' ? 'selected' : ''}>EN DESCARGA AL SILO 1</option>
                                     <option value="EN DESCARGA AL SILO 2" ${c.estatus === 'EN DESCARGA AL SILO 2' ? 'selected' : ''}>EN DESCARGA AL SILO 2</option>
                                     <option value="VACIO" ${c.estatus === 'VACIO' ? 'selected' : ''}>VACIO</option>
                                 </select>
                             </div>
-                            <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">LITROS:</span><input type="text" class="silo-input-field w-24 text-xs font-black" value="${c.litros}" oninput="cisternas[${index}].litros = this.value"></div>
+                            <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">LITROS:</span><input type="text" id="cist-litros-${c.id}" class="silo-input-field w-24 text-xs font-black" value="${c.litros}" oninput="cisternas[${index}].litros = this.value"></div>
                             <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">HPO:</span><input type="text" class="silo-input-field w-20 text-xs font-black" value="${c.hpo}" oninput="cisternas[${index}].hpo = this.value"></div>
                         </div>
                     </div>
@@ -1600,6 +1659,18 @@
                 container.appendChild(card);
             });
             if (window.lucide) lucide.createIcons();
+        }
+
+        function cambiarEstatusCisterna(index, val) {
+            if (!cisternas[index]) return;
+            cisternas[index].estatus = val;
+            const vUpper = val.toUpperCase();
+            const esSinProducto = (vUpper.includes('VACIO') || vUpper.includes('CIP') || vUpper.includes('AIC') || vUpper.includes('LIMPIO'));
+            if (esSinProducto) {
+                cisternas[index].litros = "0";
+                const inputEl = document.getElementById(`cist-litros-${cisternas[index].id}`);
+                if (inputEl) inputEl.value = "0";
+            }
         }
 
         function agregarCisterna() {
