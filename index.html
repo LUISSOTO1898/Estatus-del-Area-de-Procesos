@@ -38,15 +38,15 @@
         .silo-gauge-fill { width: 100%; border-top: 2px solid #ea580c; transition: height 0.6s ease-out; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%); }
         .silo-overlay-panel { position: absolute; inset: 0; right: 32px; z-index: 20; display: flex; flex-direction: column; justify-content: space-between; padding: 0.6rem 0.5rem; gap: 0.25rem; }
         .silo-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border: 1.5px solid #cbd5e1; border-radius: 0.6rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); line-height: 1.15; }
-        .silo-label { color: #0f172a; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; font-size: 0.85rem; }
-        .silo-input-field { background: #ffffff; border: 2px solid #94a3b8; color: #0f172a; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; border-radius: 0.45rem; padding: 0 0.4rem; height: 36px; line-height: 32px; font-size: 0.95rem; outline: none; text-align: center; display: flex; align-items: center; justify-content: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-        .silo-status-select { font-size: 0.78rem !important; font-weight: 900 !important; height: 38px !important; line-height: 1.15 !important; padding: 0.15rem 0.2rem !important; text-align: center !important; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; }
+        .silo-label { color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; font-size: 0.92rem; letter-spacing: 0.02em; }
+        .silo-input-field { background: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; border-radius: 0.5rem; padding: 0 0.4rem; height: 38px; line-height: 34px; font-size: 1.02rem; outline: none; text-align: center; display: flex; align-items: center; justify-content: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; box-shadow: inset 0 1px 2px rgba(0,0,0,0.06); }
+        .silo-status-select { font-size: 0.86rem !important; font-weight: 900 !important; height: 40px !important; line-height: 1.15 !important; padding: 0.15rem 0.25rem !important; text-align: center !important; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; color: #020617 !important; }
         .font-digital { font-family: 'Share Tech Mono', monospace, sans-serif; }
-        .hmi-input, .hmi-select { background-color: #ffffff; border: 2.5px solid #94a3b8; color: #0f172a; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; border-radius: 0.6rem; padding: 0 0.5rem; font-size: 1rem; height: 44px; line-height: 38px; outline: none; transition: all 0.2s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-        .hmi-select { color: #c2410c; font-weight: 900; font-size: 0.95rem; text-align: center !important; }
-        .hmi-input:focus, .hmi-select:focus { border-color: #ea580c; box-shadow: 0 0 10px rgba(234, 88, 12, 0.35); background-color: #fff7ed; }
-        .status-badge-container { min-height: 48px; border-width: 2px; border-radius: 0.75rem; padding: 0.35rem 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; margin-bottom: 0.5rem; overflow: hidden; }
-        .status-badge-text { font-size: 0.72rem; line-height: 1.1; font-weight: 900; text-transform: uppercase; text-align: left; overflow: hidden; word-break: break-word; }
+        .hmi-input, .hmi-select { background-color: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; border-radius: 0.6rem; padding: 0 0.5rem; font-size: 1.05rem; height: 44px; line-height: 38px; outline: none; transition: all 0.2s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+        .hmi-select { color: #9a3412; font-weight: 900; font-size: 1rem; text-align: center !important; }
+        .hmi-input:focus, .hmi-select:focus { border-color: #ea580c; box-shadow: 0 0 10px rgba(234, 88, 12, 0.4); background-color: #fff7ed; }
+        .status-badge-container { min-height: 52px; border-width: 2.5px; border-radius: 0.75rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; margin-bottom: 0.5rem; overflow: hidden; }
+        .status-badge-text { font-size: 0.82rem; line-height: 1.15; font-weight: 900; text-transform: uppercase; text-align: left; overflow: hidden; word-break: break-word; letter-spacing: 0.01em; }
         @keyframes waveFlow { 0% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(-25%) rotate(4deg); } 100% { transform: translateX(-50%) rotate(0deg); } }
         .input-group { margin-top: 0.85rem; padding-top: 0.35rem; }
         
@@ -127,9 +127,14 @@
         body.dark-theme .silo-input-field,
         body.dark-theme .hmi-input,
         body.dark-theme .hmi-select {
-            background-color: #090d16 !important;
+            background-color: #030712 !important;
             color: #ffffff !important;
-            border-color: #475569 !important;
+            border-color: #ea580c !important;
+            font-weight: 900 !important;
+        }
+        body.dark-theme .silo-label {
+            color: #fdba74 !important;
+            font-weight: 900 !important;
         }
 
         body.dark-theme .silo-status-select option,
@@ -225,9 +230,19 @@
 
     <!-- BARRA SUPERIOR DE AYUDA MÓVIL / ZOOM INDUSTRIAL -->
     <div class="max-w-7xl mx-auto mb-3 bg-slate-800 text-slate-200 px-4 py-2 rounded-xl text-xs flex justify-between items-center shadow-lg border border-slate-700">
-        <span class="font-bold flex items-center gap-2">
-            <i data-lucide="monitor" class="w-4 h-4 text-orange-400"></i> HMI VISTA INDUSTRIAL (ENLACE FIREBASE ACTIVO)
-        </span>
+        <div class="flex items-center gap-3">
+            <span class="font-bold flex items-center gap-2">
+                <i data-lucide="monitor" class="w-4 h-4 text-orange-400"></i> HMI VISTA INDUSTRIAL (ENLACE FIREBASE ACTIVO)
+            </span>
+            <span id="autosave-indicator" class="text-[11px] font-bold text-emerald-400 bg-slate-900/90 px-2.5 py-0.5 rounded-md border border-emerald-500/40 flex items-center gap-1.5 transition">
+                <i id="autosave-icon" data-lucide="cloud-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span id="autosave-text">Auto-guardado activo</span>
+            </span>
+            <span id="last-modified-topbar" class="text-[11px] font-bold text-amber-300 bg-slate-900/90 px-2.5 py-0.5 rounded-md border border-amber-500/40 flex items-center gap-1.5 transition">
+                <i data-lucide="history" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Última modif: <span id="last-modified-topbar-time" class="font-digital text-amber-300 font-black">--:--:--</span></span>
+            </span>
+        </div>
         <div class="flex items-center gap-2">
             <button onclick="toggleModoOscuro()" id="btn-theme" class="bg-slate-700 hover:bg-slate-600 text-amber-300 font-bold px-3 py-1 rounded-lg transition flex items-center gap-1.5 border border-amber-500/40 cursor-pointer shadow">
                 <i id="icon-theme" data-lucide="moon" class="w-4 h-4 text-amber-300"></i>
@@ -286,14 +301,26 @@
                     </div>
                 </div>
 
-                <div class="text-right bg-slate-800 p-4 px-6 rounded-2xl border-2 border-orange-500/60 shadow-inner">
+                <div class="text-right bg-slate-800 p-3.5 px-5 rounded-2xl border-2 border-orange-500/60 shadow-inner flex flex-col justify-center">
                     <div id="live-clock" class="text-2xl font-digital text-orange-400 font-black">--:--:--</div>
-                    <div id="live-date" class="text-sm text-slate-200 font-black tracking-widest mt-0.5">--/--/----</div>
+                    <div id="live-date" class="text-xs text-slate-200 font-black tracking-widest mt-0.5">--/--/----</div>
+                    <div id="last-modified-container" class="mt-1.5 pt-1 border-t border-slate-700/80 flex items-center justify-end gap-1.5 text-[11px] font-bold text-amber-300">
+                        <i data-lucide="clock-4" class="w-3.5 h-3.5 text-amber-400"></i>
+                        <span>Última modif: <span id="last-modified-time" class="font-digital font-black text-amber-400 text-xs">--:--:--</span></span>
+                    </div>
                 </div>
 
-                <div class="flex flex-col gap-2.5">
-                    <button onclick="guardarDatosEnNube()" id="btn-guardar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-sm px-6 py-3 rounded-xl border-2 border-emerald-400 transition shadow-xl cursor-pointer font-black tracking-wide">
-                        <i data-lucide="cloud-upload" class="w-5 h-5"></i> Guardar en Nube
+                <div class="flex flex-col gap-2">
+                    <div id="autosave-badge-header" class="bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span id="autosave-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span id="autosave-dot" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        <span id="autosave-text-header" class="font-digital uppercase tracking-wider text-[11px]">AUTO-GUARDADO ACTIVO</span>
+                    </div>
+
+                    <button onclick="guardarDatosEnNube()" id="btn-guardar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-sm px-6 py-2.5 rounded-xl border-2 border-emerald-400 transition shadow-xl cursor-pointer font-black tracking-wide">
+                        <i data-lucide="cloud-upload" class="w-5 h-5"></i> Guardar en Nube (Manual)
                     </button>
 
                     <button onclick="generarCapturasDuales()" id="btn-capturar" class="flex items-center justify-center gap-2.5 bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-sm px-6 py-3 rounded-xl border-2 border-orange-400 transition shadow-xl cursor-pointer font-black tracking-wide">
@@ -392,7 +419,7 @@
                                     <i id="silo1-icon-symbol" data-lucide="droplets" class="w-4 h-4"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO SILO 1</div>
+                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 1</div>
                                     <div id="silo1-icon-text" class="status-badge-text text-amber-900">LECHE CRUDA</div>
                                 </div>
                             </div>
@@ -486,7 +513,7 @@
                                     <i id="silo2-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO SILO 2</div>
+                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 2</div>
                                     <div id="silo2-icon-text" class="status-badge-text text-emerald-900">VACIO Y LIMPIO</div>
                                 </div>
                             </div>
@@ -584,7 +611,7 @@
                                     <i id="silo3-icon-symbol" data-lucide="clock" class="w-4 h-4"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO SILO 3</div>
+                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 3</div>
                                     <div id="silo3-icon-text" class="status-badge-text text-purple-900">EN ESPERA DE LIBERACION</div>
                                 </div>
                             </div>
@@ -747,7 +774,7 @@
                                 <i id="tq01-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
                             </div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO TANQUE</div>
+                                <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TANQUE</div>
                                 <div id="tq01-icon-text" class="status-badge-text text-emerald-900">VACIO Y LIMPIO</div>
                             </div>
                         </div>
@@ -846,7 +873,7 @@
                                 <i id="tq02-icon-symbol" data-lucide="snowflake" class="w-4 h-4"></i>
                             </div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO TANQUE</div>
+                                <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TANQUE</div>
                                 <div id="tq02-icon-text" class="status-badge-text text-blue-900">EN ENFRIAMIENTO</div>
                             </div>
                         </div>
@@ -978,7 +1005,7 @@
                                     <i id="almix-icon-symbol" data-lucide="minus-circle" class="w-4 h-4"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO SISTEMA</div>
+                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SISTEMA</div>
                                     <div id="almix-icon-text" class="status-badge-text text-slate-900">INACTIVO</div>
                                 </div>
                             </div>
@@ -1053,7 +1080,7 @@
                                     <i id="lacta-icon-symbol" data-lucide="refresh-cw" class="w-4 h-4"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO</div>
+                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
                                     <div id="lacta-icon-text" class="status-badge-text text-sky-900">6P</div>
                                 </div>
                             </div>
@@ -1104,7 +1131,7 @@
                                     <i id="flex-icon-symbol" data-lucide="refresh-cw" class="w-4 h-4"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO</div>
+                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
                                     <div id="flex-icon-text" class="status-badge-text text-sky-900">6P</div>
                                 </div>
                             </div>
@@ -1155,7 +1182,7 @@
                                     <i id="aldose-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO</div>
+                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
                                     <div id="aldose-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                                 </div>
                             </div>
@@ -1206,7 +1233,7 @@
                                     <i id="indirect-icon-symbol" data-lucide="refresh-cw" class="w-4 h-4"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO</div>
+                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
                                     <div id="indirect-icon-text" class="status-badge-text text-sky-900">6P</div>
                                 </div>
                             </div>
@@ -1240,7 +1267,7 @@
                         <div id="alsafe1-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
                             <div id="alsafe1-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="alsafe1-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i></div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO ALSAFE 1</div>
+                                <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO ALSAFE 1</div>
                                 <div id="alsafe1-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
@@ -1287,7 +1314,7 @@
                         <div id="alsafe2-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
                             <div id="alsafe2-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="alsafe2-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i></div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO ALSAFE 2</div>
+                                <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO ALSAFE 2</div>
                                 <div id="alsafe2-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
@@ -1334,7 +1361,7 @@
                         <div id="tqcrema-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
                             <div id="tqcrema-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="tqcrema-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i></div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-[9px] text-slate-500 font-black leading-none mb-0.5">ESTADO TQ. CREMA</div>
+                                <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TQ. CREMA</div>
                                 <div id="tqcrema-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
@@ -1438,13 +1465,89 @@
             }
         }
 
-        // GUARDAR DATOS EN FIREBASE
-        async function guardarDatosEnNube() {
+        // AUTO-GUARDADO AUTOMÁTICO (DEBOUNCE 1.5s)
+        let timerAutoGuardado = null;
+        let isSyncingFromCloud = false;
+
+        function programarAutoGuardado() {
+            if (isSyncingFromCloud) return;
+            actualizarIndicadorAutoGuardado("cambio", "Guardando cambios...");
+            clearTimeout(timerAutoGuardado);
+            timerAutoGuardado = setTimeout(() => {
+                guardarDatosEnNube(true); // Guardado silencioso en background
+            }, 1500);
+        }
+
+        function actualizarIndicadorAutoGuardado(estado, texto) {
+            const el = document.getElementById('autosave-indicator');
+            const textEl = document.getElementById('autosave-text');
+            const iconEl = document.getElementById('autosave-icon');
+            
+            const badgeHeader = document.getElementById('autosave-badge-header');
+            const textHeader = document.getElementById('autosave-text-header');
+            const dotHeader = document.getElementById('autosave-dot');
+            const pingHeader = document.getElementById('autosave-ping');
+
+            if (estado === 'cambio') {
+                if (el) el.className = "text-[11px] font-bold text-amber-300 bg-slate-900/90 px-2.5 py-0.5 rounded-md border border-amber-500/40 flex items-center gap-1.5 transition animate-pulse";
+                if (textEl) textEl.textContent = texto || "Guardando...";
+                if (iconEl) iconEl.setAttribute('data-lucide', 'cloud-upload');
+
+                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-amber-500 text-amber-300 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow animate-pulse";
+                if (textHeader) textHeader.textContent = (texto || "GUARDANDO CAMBIOS...").toUpperCase();
+                if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-400";
+                if (pingHeader) pingHeader.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75";
+
+            } else if (estado === 'guardado') {
+                if (el) el.className = "text-[11px] font-bold text-emerald-400 bg-slate-900/90 px-2.5 py-0.5 rounded-md border border-emerald-500/40 flex items-center gap-1.5 transition";
+                if (textEl) textEl.textContent = texto || "Auto-guardado activo";
+                if (iconEl) iconEl.setAttribute('data-lucide', 'cloud-check');
+
+                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow";
+                if (textHeader) textHeader.textContent = (texto || "AUTO-GUARDADO ACTIVO").toUpperCase();
+                if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500";
+                if (pingHeader) pingHeader.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
+
+            } else if (estado === 'error') {
+                if (el) el.className = "text-[11px] font-bold text-red-400 bg-slate-900/90 px-2.5 py-0.5 rounded-md border border-red-500/40 flex items-center gap-1.5 transition";
+                if (textEl) textEl.textContent = texto || "Error al guardar";
+                if (iconEl) iconEl.setAttribute('data-lucide', 'alert-circle');
+
+                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-red-500 text-red-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow";
+                if (textHeader) textHeader.textContent = "ERROR DE CONEXIÓN";
+                if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500";
+                if (pingHeader) pingHeader.className = "hidden";
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // GUARDAR DATOS EN FIREBASE (MANUAL O SILENCIOSO)
+        function actualizarHoraUltimaModificacion(dateObj) {
+            let fecha = dateObj;
+            if (!fecha) fecha = new Date();
+            if (fecha.toDate && typeof fecha.toDate === 'function') {
+                fecha = fecha.toDate();
+            }
+            if (!(fecha instanceof Date) || isNaN(fecha)) {
+                fecha = new Date(fecha);
+            }
+            const horaStr = fecha.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            
+            const elTime = document.getElementById('last-modified-time');
+            if (elTime) elTime.textContent = horaStr;
+
+            const elTopTime = document.getElementById('last-modified-topbar-time');
+            if (elTopTime) elTopTime.textContent = horaStr;
+        }
+
+        async function guardarDatosEnNube(esSilencioso = false) {
             const btn = document.getElementById('btn-guardar');
-            if (btn) {
+            if (!esSilencioso && btn) {
                 btn.disabled = true;
                 btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Sincronizando...`;
                 if (window.lucide) lucide.createIcons();
+            } else if (esSilencioso) {
+                actualizarIndicadorAutoGuardado("cambio", "Guardando en nube...");
             }
 
             try {
@@ -1469,12 +1572,22 @@
                 };
 
                 await db.collection("planta").doc("estadoActual").set(estadoPlanta);
-                mostrarModal("¡Guardado en Nube!", "Los datos se sincronizaron con éxito para todo el equipo.", "cloud-check", "bg-emerald-100 text-emerald-700 border-emerald-500");
+
+                if (!esSilencioso) {
+                    mostrarModal("¡Guardado en Nube!", "Los datos se sincronizaron con éxito para todo el equipo.", "cloud-check", "bg-emerald-100 text-emerald-700 border-emerald-500");
+                }
+                const ahora = new Date();
+                actualizarHoraUltimaModificacion(ahora);
+                const horaActual = ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+                actualizarIndicadorAutoGuardado("guardado", `Auto-guardado (${horaActual})`);
             } catch (err) {
                 console.error(err);
-                mostrarModal("Error de Conexión", "No se pudo conectar a Firebase. Verifique su internet.", "alert-circle", "bg-red-100 text-red-700 border-red-500");
+                if (!esSilencioso) {
+                    mostrarModal("Error de Conexión", "No se pudo conectar a Firebase. Verifique su internet.", "alert-circle", "bg-red-100 text-red-700 border-red-500");
+                }
+                actualizarIndicadorAutoGuardado("error", "Error al guardar");
             } finally {
-                if (btn) {
+                if (!esSilencioso && btn) {
                     btn.disabled = false;
                     btn.innerHTML = `<i data-lucide="cloud-upload" class="w-5 h-5"></i> Guardar en Nube`;
                     if (window.lucide) lucide.createIcons();
@@ -1486,6 +1599,7 @@
         function escucharDatosNube() {
             db.collection("planta").doc("estadoActual").onSnapshot((doc) => {
                 if (doc.exists) {
+                    isSyncingFromCloud = true;
                     const d = doc.data();
                     if (d.reportadoPor) { document.getElementById('global-reportado-select').value = d.reportadoPor; sincronizarReportadoPor(d.reportadoPor); }
                     if (d.turno) { document.getElementById('select-turno').value = d.turno; sincronizarTurno(d.turno); }
@@ -1537,40 +1651,45 @@
                     if (d.alsafe1) { document.getElementById('alsafe1-lts-input').value = d.alsafe1.lts; document.getElementById('alsafe1-status').value = d.alsafe1.status; calcularLlenadoAlsafe('alsafe1'); actualizarBadgeGenerico('alsafe1'); }
                     if (d.alsafe2) { document.getElementById('alsafe2-lts-input').value = d.alsafe2.lts; document.getElementById('alsafe2-status').value = d.alsafe2.status; calcularLlenadoAlsafe('alsafe2'); actualizarBadgeGenerico('alsafe2'); }
                     if (d.tqcrema) { document.getElementById('tqcrema-pct-input').value = d.tqcrema.pct; document.getElementById('tqcrema-status').value = d.tqcrema.status; calcularLlenadoCrema(); actualizarBadgeGenerico('tqcrema'); }
+                    
+                    if (d.actualizado) {
+                        actualizarHoraUltimaModificacion(d.actualizado);
+                    }
+                    setTimeout(() => { isSyncingFromCloud = false; }, 400);
                 }
             });
         }
 
         // CONTROLADOR MAPEO CONFIGURACIÓN DE BADGES & ÍCONOS
         const ESTADOS_CONFIG = {
-            'VACIO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-900', bgCont: 'bg-emerald-50 border-emerald-300' },
-            'INACTIVO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-900', bgCont: 'bg-emerald-50 border-emerald-300' },
-            'VACIO': { icon: 'minus-circle', bgBox: 'bg-slate-600', textCol: 'text-slate-900', bgCont: 'bg-slate-100 border-slate-300' },
-            'INACTIVO': { icon: 'minus-circle', bgBox: 'bg-slate-600', textCol: 'text-slate-900', bgCont: 'bg-slate-100 border-slate-300' },
-            'CIP': { icon: 'refresh-cw', bgBox: 'bg-sky-600', textCol: 'text-sky-900', bgCont: 'bg-sky-50 border-sky-300' },
-            '6P': { icon: 'refresh-cw', bgBox: 'bg-sky-600', textCol: 'text-sky-900', bgCont: 'bg-sky-50 border-sky-300' },
-            'POR CIP': { icon: 'alert-triangle', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
-            '6P POR 6P': { icon: 'alert-triangle', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
-            'AIC': { icon: 'zap', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
-            'AIC POR 6P': { icon: 'zap', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
-            'CIRCULACION DE AGUA': { icon: 'waves', bgBox: 'bg-cyan-600', textCol: 'text-cyan-900', bgCont: 'bg-cyan-50 border-cyan-300' },
-            'ESTERILIZACION': { icon: 'flame', bgBox: 'bg-rose-600', textCol: 'text-rose-900', bgCont: 'bg-rose-50 border-rose-300' },
-            'PRUEBA DE FILTRO': { icon: 'filter', bgBox: 'bg-indigo-600', textCol: 'text-indigo-900', bgCont: 'bg-indigo-50 border-indigo-300' },
-            'MANTENIMIENTO': { icon: 'wrench', bgBox: 'bg-amber-600', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
-            'CON PRODUCTO': { icon: 'package', bgBox: 'bg-orange-600', textCol: 'text-orange-900', bgCont: 'bg-orange-50 border-orange-300' },
-            'EN PREPARACION': { icon: 'flask-conical', bgBox: 'bg-amber-500', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
-            'EN ENFRIAMIENTO': { icon: 'snowflake', bgBox: 'bg-blue-600', textCol: 'text-blue-900', bgCont: 'bg-blue-50 border-blue-300' },
-            'EN ESPERA DE LIBERACION': { icon: 'clock', bgBox: 'bg-purple-600', textCol: 'text-purple-900', bgCont: 'bg-purple-50 border-purple-300' },
-            'EN ESPERA DE INICIO DE PRODUCCION': { icon: 'clock', bgBox: 'bg-purple-600', textCol: 'text-purple-900', bgCont: 'bg-purple-50 border-purple-300' },
-            'EN RECEPCION': { icon: 'arrow-down-circle', bgBox: 'bg-teal-600', textCol: 'text-teal-900', bgCont: 'bg-teal-50 border-teal-300' },
-            'EN PRODUCCION': { icon: 'play-circle', bgBox: 'bg-orange-600', textCol: 'text-orange-900', bgCont: 'bg-orange-50 border-orange-300' },
-            'PRODUCCION': { icon: 'play-circle', bgBox: 'bg-orange-600', textCol: 'text-orange-900', bgCont: 'bg-orange-50 border-orange-300' },
-            'LECHE CRUDA': { icon: 'droplets', bgBox: 'bg-amber-500', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
-            'LECHE COMPLETA': { icon: 'droplets', bgBox: 'bg-amber-500', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
-            'LECHE DESCREMADA': { icon: 'droplets', bgBox: 'bg-indigo-600', textCol: 'text-indigo-900', bgCont: 'bg-indigo-50 border-indigo-300' },
-            'LECHE BARISTA': { icon: 'droplets', bgBox: 'bg-amber-700', textCol: 'text-amber-900', bgCont: 'bg-amber-50 border-amber-300' },
-            'LECHE DESCREMADA PARA DESLACTOSADA': { icon: 'droplets', bgBox: 'bg-purple-600', textCol: 'text-purple-900', bgCont: 'bg-purple-50 border-purple-300' },
-            'DEFAULT': { icon: 'droplets', bgBox: 'bg-orange-600', textCol: 'text-orange-900', bgCont: 'bg-orange-50 border-orange-300' }
+            'VACIO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-950 font-black', bgCont: 'bg-emerald-100/80 border-emerald-500' },
+            'INACTIVO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-950 font-black', bgCont: 'bg-emerald-100/80 border-emerald-500' },
+            'VACIO': { icon: 'minus-circle', bgBox: 'bg-slate-700', textCol: 'text-slate-950 font-black', bgCont: 'bg-slate-200 border-slate-400' },
+            'INACTIVO': { icon: 'minus-circle', bgBox: 'bg-slate-700', textCol: 'text-slate-950 font-black', bgCont: 'bg-slate-200 border-slate-400' },
+            'CIP': { icon: 'refresh-cw', bgBox: 'bg-sky-600', textCol: 'text-sky-950 font-black', bgCont: 'bg-sky-100/80 border-sky-500' },
+            '6P': { icon: 'refresh-cw', bgBox: 'bg-sky-600', textCol: 'text-sky-950 font-black', bgCont: 'bg-sky-100/80 border-sky-500' },
+            'POR CIP': { icon: 'alert-triangle', bgBox: 'bg-amber-600', textCol: 'text-amber-950 font-black', bgCont: 'bg-amber-100/80 border-amber-500' },
+            '6P POR 6P': { icon: 'alert-triangle', bgBox: 'bg-amber-600', textCol: 'text-amber-950 font-black', bgCont: 'bg-amber-100/80 border-amber-500' },
+            'AIC': { icon: 'zap', bgBox: 'bg-amber-600', textCol: 'text-amber-950 font-black', bgCont: 'bg-amber-100/80 border-amber-500' },
+            'AIC POR 6P': { icon: 'zap', bgBox: 'bg-amber-600', textCol: 'text-amber-950 font-black', bgCont: 'bg-amber-100/80 border-amber-500' },
+            'CIRCULACION DE AGUA': { icon: 'waves', bgBox: 'bg-cyan-600', textCol: 'text-cyan-950 font-black', bgCont: 'bg-cyan-100/80 border-cyan-500' },
+            'ESTERILIZACION': { icon: 'flame', bgBox: 'bg-rose-600', textCol: 'text-rose-950 font-black', bgCont: 'bg-rose-100/80 border-rose-500' },
+            'PRUEBA DE FILTRO': { icon: 'filter', bgBox: 'bg-indigo-600', textCol: 'text-indigo-950 font-black', bgCont: 'bg-indigo-100/80 border-indigo-500' },
+            'MANTENIMIENTO': { icon: 'wrench', bgBox: 'bg-amber-600', textCol: 'text-amber-950 font-black', bgCont: 'bg-amber-100/80 border-amber-500' },
+            'CON PRODUCTO': { icon: 'package', bgBox: 'bg-orange-600', textCol: 'text-orange-950 font-black', bgCont: 'bg-orange-100/80 border-orange-500' },
+            'EN PREPARACION': { icon: 'flask-conical', bgBox: 'bg-amber-500', textCol: 'text-amber-950 font-black', bgCont: 'bg-amber-100/80 border-amber-500' },
+            'EN ENFRIAMIENTO': { icon: 'snowflake', bgBox: 'bg-blue-600', textCol: 'text-blue-950 font-black', bgCont: 'bg-blue-100/80 border-blue-500' },
+            'EN ESPERA DE LIBERACION': { icon: 'clock', bgBox: 'bg-purple-600', textCol: 'text-purple-950 font-black', bgCont: 'bg-purple-100/80 border-purple-500' },
+            'EN ESPERA DE INICIO DE PRODUCCION': { icon: 'clock', bgBox: 'bg-purple-600', textCol: 'text-purple-950 font-black', bgCont: 'bg-purple-100/80 border-purple-500' },
+            'EN RECEPCION': { icon: 'arrow-down-circle', bgBox: 'bg-teal-600', textCol: 'text-teal-950 font-black', bgCont: 'bg-teal-100/80 border-teal-500' },
+            'EN PRODUCCION': { icon: 'play-circle', bgBox: 'bg-orange-600', textCol: 'text-orange-950 font-black', bgCont: 'bg-orange-100/80 border-orange-500' },
+            'PRODUCCION': { icon: 'play-circle', bgBox: 'bg-orange-600', textCol: 'text-orange-950 font-black', bgCont: 'bg-orange-100/80 border-orange-500' },
+            'LECHE CRUDA': { icon: 'droplets', bgBox: 'bg-amber-500', textCol: 'text-amber-950 font-black', bgCont: 'bg-amber-100/80 border-amber-500' },
+            'LECHE COMPLETA': { icon: 'droplets', bgBox: 'bg-amber-500', textCol: 'text-amber-950 font-black', bgCont: 'bg-amber-100/80 border-amber-500' },
+            'LECHE DESCREMADA': { icon: 'droplets', bgBox: 'bg-indigo-600', textCol: 'text-indigo-950 font-black', bgCont: 'bg-indigo-100/80 border-indigo-500' },
+            'LECHE BARISTA': { icon: 'droplets', bgBox: 'bg-amber-700', textCol: 'text-amber-950 font-black', bgCont: 'bg-amber-100/80 border-amber-500' },
+            'LECHE DESCREMADA PARA DESLACTOSADA': { icon: 'droplets', bgBox: 'bg-purple-600', textCol: 'text-purple-950 font-black', bgCont: 'bg-purple-100/80 border-purple-500' },
+            'DEFAULT': { icon: 'droplets', bgBox: 'bg-orange-600', textCol: 'text-orange-950 font-black', bgCont: 'bg-orange-100/80 border-orange-500' }
         };
 
         function actualizarBadgeGenerico(prefix) {
@@ -1827,6 +1946,7 @@
         }
 
         function cambiarEstatusCisterna(index, val) {
+            programarAutoGuardado();
             if (!cisternas[index]) return;
             cisternas[index].estatus = val;
             const vUpper = val.toUpperCase();
@@ -1839,12 +1959,14 @@
         }
 
         function agregarCisterna() {
+            programarAutoGuardado();
             if (cisternas.length >= 4) return;
             cisternas.push({ id: Date.now(), nombre: `CISTERNA ${cisternas.length + 1}`, litros: "30,000", hpo: "12", estatus: "EN ESPERA DE DESCARGA" });
             renderCisternas();
         }
 
         function eliminarCisterna(id) {
+            programarAutoGuardado();
             cisternas = cisternas.filter(c => c.id !== id);
             renderCisternas();
         }
@@ -2066,6 +2188,13 @@
             calcularLlenadoAlsafe('alsafe1'); calcularLlenadoAlsafe('alsafe2'); calcularLlenadoCrema();
             ['almix', 'lacta', 'flex', 'aldose', 'indirect', 'alsafe1', 'alsafe2', 'tqcrema'].forEach(eq => actualizarBadgeGenerico(eq));
             escucharDatosNube();
+
+            // Escuchadores para Auto-Guardado Automático al modificar cualquier input/select
+            const masterContainer = document.getElementById('hmi-master-container');
+            if (masterContainer) {
+                masterContainer.addEventListener('input', programarAutoGuardado);
+                masterContainer.addEventListener('change', programarAutoGuardado);
+            }
         };
     </script>
 </body>
