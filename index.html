@@ -1550,8 +1550,39 @@
                         </div>
                         <button onclick="eliminarCisterna(${c.id})" class="text-slate-400 hover:text-red-600 p-1 transition" title="Eliminar"><i data-lucide="x" class="w-4 h-4"></i></button>
                     </div>
-                    <div class="cisterna-svg-container">
-                        <div class="cisterna-overlay-fields">
+                    <div class="cisterna-svg-container flex flex-col items-center">
+                        <svg viewBox="0 0 240 90" class="w-full h-auto max-h-20 my-1 drop-shadow-sm">
+                            <!-- Chassis -->
+                            <rect x="30" y="48" width="172" height="7" rx="2" fill="#334155"/>
+                            <!-- Tanker Body -->
+                            <rect x="32" y="18" width="128" height="32" rx="15" fill="url(#tankerMetal)" stroke="#64748b" stroke-width="2"/>
+                            <!-- Tank top hatches -->
+                            <rect x="56" y="14" width="22" height="5" rx="1.5" fill="#475569"/>
+                            <rect x="112" y="14" width="22" height="5" rx="1.5" fill="#475569"/>
+                            <!-- Cab (Orange) -->
+                            <path d="M 158 24 C 165 24, 185 24, 198 33 C 202 36, 202 50, 202 52 L 158 52 Z" fill="#ea580c" stroke="#c2410c" stroke-width="1.5"/>
+                            <!-- Windshield -->
+                            <path d="M 166 28 L 186 28 C 191 33, 192 38, 192 38 L 166 38 Z" fill="#7dd3fc" stroke="#0284c7" stroke-width="1"/>
+                            <!-- Headlight -->
+                            <rect x="197" y="44" width="4" height="6" rx="1" fill="#facc15"/>
+                            <!-- Wheels -->
+                            <circle cx="52" cy="56" r="9" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                            <circle cx="52" cy="56" r="3.5" fill="#94a3b8"/>
+                            <circle cx="78" cy="56" r="9" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                            <circle cx="78" cy="56" r="3.5" fill="#94a3b8"/>
+                            <circle cx="104" cy="56" r="9" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                            <circle cx="104" cy="56" r="3.5" fill="#94a3b8"/>
+                            <circle cx="180" cy="56" r="9" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                            <circle cx="180" cy="56" r="3.5" fill="#94a3b8"/>
+                            <defs>
+                                <linearGradient id="tankerMetal" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffffff"/>
+                                    <stop offset="45%" stop-color="#f1f5f9"/>
+                                    <stop offset="100%" stop-color="#cbd5e1"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="cisterna-overlay-fields w-full">
                             <div class="cisterna-hmi-row flex-col items-start gap-1 justify-center">
                                 <span class="text-[11px] font-black text-orange-700 font-mono">ESTATUS:</span>
                                 <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="cisternas[${index}].estatus = this.value">
