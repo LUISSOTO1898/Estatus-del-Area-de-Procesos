@@ -50,10 +50,22 @@
         @keyframes waveFlow { 0% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(-25%) rotate(4deg); } 100% { transform: translateX(-50%) rotate(0deg); } }
         .input-group { margin-top: 0.85rem; padding-top: 0.35rem; }
         
-        /* Normalización crítica para exportación fiel con html-to-image sin desbordamiento */
-        body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; text-overflow: ellipsis !important; overflow: hidden !important; white-space: nowrap !important; }
-        body.capturing-mode .status-badge-container { min-height: 48px !important; height: auto !important; overflow: hidden !important; }
-        body.capturing-mode .status-badge-text { font-size: 0.68rem !important; line-height: 1.1 !important; word-break: break-word !important; white-space: normal !important; overflow: hidden !important; }
+        /* Normalización crítica para exportación fiel con html-to-image sin recortes de texto ni títulos */
+        h1, h2, h3, h4, p, span { line-height: 1.25; }
+        body.capturing-mode * { text-rendering: geometricPrecision !important; -webkit-font-smoothing: antialiased !important; }
+        body.capturing-mode h1,
+        body.capturing-mode h2,
+        body.capturing-mode h3,
+        body.capturing-mode h4,
+        body.capturing-mode p,
+        body.capturing-mode span,
+        body.capturing-mode div { line-height: 1.3 !important; overflow: visible !important; }
+        body.capturing-mode #display-turno-copy,
+        body.capturing-mode #display-turno-copy-2 { white-space: nowrap !important; overflow: visible !important; display: block !important; line-height: 1.2 !important; max-width: none !important; }
+        body.capturing-mode .hmi-card { overflow: visible !important; padding-bottom: 2rem !important; }
+        body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; text-overflow: ellipsis !important; overflow: hidden !important; white-space: nowrap !important; line-height: 1.2 !important; }
+        body.capturing-mode .status-badge-container { min-height: 50px !important; height: auto !important; overflow: visible !important; padding-top: 4px !important; padding-bottom: 4px !important; }
+        body.capturing-mode .status-badge-text { font-size: 0.7rem !important; line-height: 1.15 !important; word-break: break-word !important; white-space: normal !important; overflow: visible !important; }
 
         /* ==========================================
            ESTILOS DE MODO OSCURO HMI (INDUSTRIAL DARK)
@@ -269,7 +281,7 @@
                     </svg>
                     <div>
                         <h1 class="text-2xl font-black tracking-wider text-orange-500 font-digital">PLANTA EL TUNAL</h1>
-                        <p class="text-xs text-slate-300 font-black tracking-widest uppercase">ESTATUS DEL ÁREA DE PROCESOS</p>
+                        <p class="text-xs text-slate-300 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
                     </div>
                 </div>
 
@@ -341,7 +353,7 @@
         <!-- PARTE 1: RECEPCIÓN, PATIO Y SILOS -->
         <div id="parte-1-container" class="hmi-card p-6 space-y-6 bg-white border-3 border-orange-400 rounded-2xl shadow-md">
             
-            <div class="bg-slate-900 text-white p-4.5 rounded-xl flex justify-between items-center gap-4 border-3 border-orange-500 shadow-md">
+            <div class="bg-slate-900 text-white p-5 rounded-xl flex justify-between items-center gap-4 border-3 border-orange-500 shadow-md">
                 <div class="flex items-center gap-4">
                     <div class="bg-white p-2 rounded-lg">
                         <svg width="120" height="36" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -353,29 +365,29 @@
                     </div>
                     <div>
                         <h2 class="text-lg font-black tracking-wider text-orange-400 font-digital">PLANTA EL TUNAL</h2>
-                        <p class="text-xs text-slate-200 font-black tracking-widest uppercase">ESTATUS DEL ÁREA DE PROCESOS</p>
+                        <p class="text-xs text-slate-200 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-4">
-                    <div class="bg-slate-800 px-3.5 py-2 rounded-xl border border-orange-500/50 text-left">
-                        <div class="text-[11px] text-orange-400 font-bold uppercase">TURNO:</div>
-                        <div id="display-turno-copy" class="text-sm font-digital text-white font-black">TURNO 1 (06:00 - 18:00)</div>
+                    <div class="bg-slate-800 px-4 py-2 rounded-xl border border-orange-500/50 text-left shrink-0 min-w-max flex flex-col justify-center">
+                        <div class="text-[11px] text-orange-400 font-bold uppercase whitespace-nowrap">TURNO:</div>
+                        <div id="display-turno-copy" class="text-sm font-digital text-white font-black whitespace-nowrap leading-snug">TURNO 1 (06:00 - 18:00)</div>
                     </div>
-                    <div class="text-right bg-slate-800 px-3.5 py-2 rounded-xl border border-orange-500/50">
-                        <div id="header-clock-copy" class="text-sm font-digital text-orange-400 font-black">--:--:--</div>
-                        <div id="header-date-copy" class="text-xs text-slate-200 font-bold">--/--/----</div>
+                    <div class="text-right bg-slate-800 px-4 py-2 rounded-xl border border-orange-500/50 shrink-0 min-w-max flex flex-col justify-center">
+                        <div id="header-clock-copy" class="text-sm font-digital text-orange-400 font-black whitespace-nowrap">--:--:--</div>
+                        <div id="header-date-copy" class="text-xs text-slate-200 font-bold whitespace-nowrap">--/--/----</div>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white p-4.5 rounded-2xl shadow-md flex items-center justify-between gap-4">
+            <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white p-5 rounded-2xl shadow-md flex items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div class="bg-white/20 p-3 rounded-xl border border-white/40 flex items-center justify-center shadow-inner">
                         <i data-lucide="layout-dashboard" class="w-7 h-7 text-white"></i>
                     </div>
                     <div>
-                        <h2 class="font-black text-lg uppercase tracking-wider text-white">PARTE 1: RECEPCIÓN Y ALMACENAMIENTO (SILOS Y PATIO)</h2>
+                        <h2 class="font-black text-base md:text-lg uppercase tracking-wide text-white leading-snug whitespace-nowrap py-0.5">PARTE 1: RECEPCIÓN Y ALMACENAMIENTO (SILOS Y PATIO)</h2>
                     </div>
                 </div>
                 <div class="bg-white/25 px-4 py-2 rounded-xl border border-white/40 text-sm font-mono font-black tracking-widest text-white whitespace-nowrap shadow-inner">
@@ -387,7 +399,7 @@
 
                 <div class="col-span-12 bg-slate-50 p-5 rounded-2xl border-3 border-slate-300 space-y-4">
                     <div class="border-b-2 border-slate-200 pb-3 flex justify-between items-center gap-2">
-                        <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide">
+                        <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
                             <i data-lucide="truck" class="w-5 h-5 text-orange-700"></i>
                             Recepción - Patio de Cisternas
                         </h3>
@@ -405,7 +417,7 @@
 
                 <div class="col-span-12 bg-slate-50 p-5 rounded-2xl border-3 border-slate-300 space-y-4">
                     <div class="border-b-2 border-slate-200 pb-3 flex justify-between items-center">
-                        <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide">
+                        <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
                             <i data-lucide="database" class="w-5 h-5 text-amber-700"></i>
                             Silos de Almacenamiento Principal (Silos 1, 2 y 3)
                         </h3>
@@ -710,7 +722,7 @@
                 <div><span>Sistema HMI Planta El Tunal</span></div>
                 <div class="font-black text-slate-900 bg-slate-100 px-5 py-2.5 rounded-xl border-2 border-orange-500 flex items-center gap-2.5 shadow-sm">
                     <i data-lucide="user" class="w-5 h-5 text-orange-700"></i>
-                    <span>Reportado por: <span id="footer-reportado-1" class="text-orange-800 font-black">LUIS SOTO</span></span>
+                    <span class="whitespace-nowrap">Reportado por: <span id="footer-reportado-1" class="text-orange-800 font-black">LUIS SOTO</span></span>
                 </div>
             </div>
         </div>
@@ -718,7 +730,7 @@
         <!-- PARTE 2: PREPARACIÓN DE JUGO Y ÁREA DE PROCESOS -->
         <div id="parte-2-container" class="hmi-card p-6 space-y-6 bg-white border-3 border-orange-400 rounded-2xl shadow-md">
             
-            <div class="bg-slate-900 text-white p-4.5 rounded-xl flex justify-between items-center gap-4 border-3 border-orange-500 shadow-md">
+            <div class="bg-slate-900 text-white p-5 rounded-xl flex justify-between items-center gap-4 border-3 border-orange-500 shadow-md">
                 <div class="flex items-center gap-4">
                     <div class="bg-white p-2 rounded-lg">
                         <svg width="120" height="36" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -730,29 +742,29 @@
                     </div>
                     <div>
                         <h2 class="text-lg font-black tracking-wider text-orange-400 font-digital">PLANTA EL TUNAL</h2>
-                        <p class="text-xs text-slate-200 font-black tracking-widest uppercase">ESTATUS DEL ÁREA DE PROCESOS</p>
+                        <p class="text-xs text-slate-200 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-4">
-                    <div class="bg-slate-800 px-3.5 py-2 rounded-xl border border-orange-500/50 text-left">
-                        <div class="text-[11px] text-orange-400 font-bold uppercase">TURNO:</div>
-                        <div id="display-turno-copy-2" class="text-sm font-digital text-white font-black">TURNO 1 (06:00 - 18:00)</div>
+                    <div class="bg-slate-800 px-4 py-2 rounded-xl border border-orange-500/50 text-left shrink-0 min-w-max flex flex-col justify-center">
+                        <div class="text-[11px] text-orange-400 font-bold uppercase whitespace-nowrap">TURNO:</div>
+                        <div id="display-turno-copy-2" class="text-sm font-digital text-white font-black whitespace-nowrap leading-snug">TURNO 1 (06:00 - 18:00)</div>
                     </div>
-                    <div class="text-right bg-slate-800 px-3.5 py-2 rounded-xl border border-orange-500/50">
-                        <div id="header-clock-copy-2" class="text-sm font-digital text-orange-400 font-black">--:--:--</div>
-                        <div id="header-date-copy-2" class="text-xs text-slate-200 font-bold">--/--/----</div>
+                    <div class="text-right bg-slate-800 px-4 py-2 rounded-xl border border-orange-500/50 shrink-0 min-w-max flex flex-col justify-center">
+                        <div id="header-clock-copy-2" class="text-sm font-digital text-orange-400 font-black whitespace-nowrap">--:--:--</div>
+                        <div id="header-date-copy-2" class="text-xs text-slate-200 font-bold whitespace-nowrap">--/--/----</div>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white p-4.5 rounded-2xl shadow-md flex items-center justify-between gap-4">
+            <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white p-5 rounded-2xl shadow-md flex items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div class="bg-white/20 p-3 rounded-xl border border-white/40 flex items-center justify-center shadow-inner">
                         <i data-lucide="cpu" class="w-7 h-7 text-white"></i>
                     </div>
                     <div>
-                        <h2 class="font-black text-lg uppercase tracking-wider text-white">PARTE 2: PREPARACIÓN DE JUGO Y ÁREA DE PROCESOS</h2>
+                        <h2 class="font-black text-base md:text-lg uppercase tracking-wide text-white leading-snug whitespace-nowrap py-0.5">PARTE 2: PREPARACIÓN DE JUGO Y ÁREA DE PROCESOS</h2>
                     </div>
                 </div>
                 <div class="bg-white/25 px-4 py-2 rounded-xl border border-white/40 text-sm font-mono font-black tracking-widest text-white whitespace-nowrap shadow-inner">
@@ -761,7 +773,7 @@
             </div>
 
             <div class="space-y-4">
-                <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide">
+                <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
                     <i data-lucide="cup-soda" class="w-5 h-5 text-orange-700"></i>
                     Sección: Preparación de Jugo y Mezcla (Almix)
                 </h3>
@@ -1048,7 +1060,7 @@
 
             <!-- ÁREA DE PROCESOS -->
             <div class="space-y-4 pt-3">
-                <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide">
+                <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
                     <i data-lucide="settings" class="w-5 h-5 text-orange-700"></i>
                     Sección: Área de Procesos (Líneas y Envasado Aséptico)
                 </h3>
@@ -1417,7 +1429,7 @@
                 <div><span>Sistema HMI Planta El Tunal</span></div>
                 <div class="font-black text-slate-900 bg-slate-100 px-5 py-2.5 rounded-xl border-2 border-orange-500 flex items-center gap-2.5 shadow-sm">
                     <i data-lucide="user" class="w-5 h-5 text-orange-700"></i>
-                    <span>Reportado por: <span id="footer-reportado-2" class="text-orange-800 font-black">LUIS SOTO</span></span>
+                    <span class="whitespace-nowrap">Reportado por: <span id="footer-reportado-2" class="text-orange-800 font-black">LUIS SOTO</span></span>
                 </div>
             </div>
         </div>
@@ -2196,12 +2208,22 @@
             document.body.classList.add('capturing-mode');
             try {
                 if (document.fonts && document.fonts.ready) await document.fonts.ready;
-                await new Promise(r => setTimeout(r, 400));
-                const opts = { quality: 0.95, pixelRatio: 2, backgroundColor: '#ffffff' };
+                await new Promise(r => setTimeout(r, 500));
+                const opts = { 
+                    quality: 0.98, 
+                    pixelRatio: 2, 
+                    backgroundColor: '#ffffff',
+                    style: {
+                        transform: 'none',
+                        overflow: 'visible'
+                    }
+                };
                 
                 const c1 = document.getElementById('parte-1-container');
                 const u1 = await htmlToImage.toJpeg(c1, opts);
                 const l1 = document.createElement('a'); l1.download = `REPORTE_PARTE_1_${new Date().toISOString().split('T')[0]}.jpg`; l1.href = u1; l1.click();
+
+                await new Promise(r => setTimeout(r, 200));
 
                 const c2 = document.getElementById('parte-2-container');
                 const u2 = await htmlToImage.toJpeg(c2, opts);
