@@ -275,14 +275,22 @@
 
                 <div class="bg-slate-800 p-3.5 px-6 rounded-2xl border-2 border-orange-500/60 flex items-center gap-4 shadow-inner">
                     <i data-lucide="user" class="w-7 h-7 text-orange-400"></i>
-                    <div>
-                        <div class="text-xs text-orange-400 font-black uppercase">REPORTADO POR:</div>
-                        <select id="global-reportado-select" class="hmi-select text-base py-1.5 px-4 border-orange-500 text-orange-500 font-black bg-slate-900 mt-1" onchange="sincronizarReportadoPor(this.value)">
-                            <option value="LUIS SOTO" selected>LUIS SOTO</option>
-                            <option value="OMAR OSORIO">OMAR OSORIO</option>
-                            <option value="SIMON LEAL">SIMON LEAL</option>
-                            <option value="GINES PEREZ">GINES PEREZ</option>
-                        </select>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-1">
+                            <div class="text-xs text-orange-400 font-black uppercase">REPORTADO POR:</div>
+                            <button type="button" onclick="toggleEditarReportadoPor()" id="btn-edit-reportado" class="text-[10px] text-orange-300 hover:text-white bg-orange-900/60 hover:bg-orange-800 px-2 py-0.5 rounded border border-orange-500/50 transition cursor-pointer flex items-center gap-1 font-bold" title="Escribir otro nombre">
+                                <i data-lucide="edit-3" class="w-3 h-3"></i> <span id="btn-edit-reportado-text">Personalizar</span>
+                            </button>
+                        </div>
+                        <div id="container-reportado-input">
+                            <select id="global-reportado-select" class="hmi-select text-base py-1.5 px-4 border-orange-500 text-orange-500 font-black bg-slate-900 w-full" onchange="sincronizarReportadoPor(this.value)">
+                                <option value="LUIS SOTO" selected>LUIS SOTO</option>
+                                <option value="OMAR OSORIO">OMAR OSORIO</option>
+                                <option value="SIMON LEAL">SIMON LEAL</option>
+                                <option value="GINES PEREZ">GINES PEREZ</option>
+                                <option value="OTRO">OTRO...</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -324,7 +332,7 @@
                     </button>
 
                     <button onclick="generarCapturasDuales()" id="btn-capturar" class="flex items-center justify-center gap-2.5 bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-sm px-6 py-3 rounded-xl border-2 border-orange-400 transition shadow-xl cursor-pointer font-black tracking-wide">
-                        <i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG (WhatsApp)
+                        <i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG
                     </button>
                 </div>
             </div>
@@ -810,7 +818,7 @@
 
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center">
                                     <span class="silo-label text-xs text-orange-700">PRODUCTO:</span>
-                                    <select id="tq01-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01')">
+                                    <select id="tq01-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="toggleOtroInput('otro-tq01', this.value); evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01')">
                                         <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="CIP">CIP</option>
@@ -838,6 +846,8 @@
                                         <option value="EN ENFRIAMIENTO">EN ENFRIAMIENTO</option>
                                         <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
                                         <option value="EN ESPERA DE INICIO DE PRODUCCION">EN ESPERA DE INICIO DE PRODUCCION</option>
+                                        <option value="PRODUCCION CON EL FLEX">PRODUCCION CON EL FLEX</option>
+                                        <option value="PRODUCCION CON EL INDIRECT">PRODUCCION CON EL INDIRECT</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
                                     <input type="text" id="otro-etapa-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq01')">
@@ -909,7 +919,7 @@
 
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center">
                                     <span class="silo-label text-xs text-orange-700">PRODUCTO:</span>
-                                    <select id="tq02-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02')">
+                                    <select id="tq02-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="toggleOtroInput('otro-tq02', this.value); evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02')">
                                         <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="CIP">CIP</option>
@@ -936,6 +946,8 @@
                                         <option value="EN ENFRIAMIENTO" selected>EN ENFRIAMIENTO</option>
                                         <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
                                         <option value="EN ESPERA DE INICIO DE PRODUCCION">EN ESPERA DE INICIO DE PRODUCCION</option>
+                                        <option value="PRODUCCION CON EL FLEX">PRODUCCION CON EL FLEX</option>
+                                        <option value="PRODUCCION CON EL INDIRECT">PRODUCCION CON EL INDIRECT</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
                                     <input type="text" id="otro-etapa-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq02')">
@@ -1552,7 +1564,7 @@
 
             try {
                 const estadoPlanta = {
-                    reportadoPor: document.getElementById('global-reportado-select').value,
+                    reportadoPor: getNombreReportadoActual(),
                     turno: document.getElementById('select-turno').value,
                     cisternas: cisternas,
                     silo1: { select: document.getElementById('silo1-select').value, etapa: document.getElementById('silo1-etapa').value, temp: document.getElementById('silo1-temp-input').value, hpo: document.getElementById('silo1-hpo-input').value, pct: document.getElementById('silo1-pct').value },
@@ -1601,7 +1613,20 @@
                 if (doc.exists) {
                     isSyncingFromCloud = true;
                     const d = doc.data();
-                    if (d.reportadoPor) { document.getElementById('global-reportado-select').value = d.reportadoPor; sincronizarReportadoPor(d.reportadoPor); }
+                    if (d.reportadoPor) {
+                        const valNube = d.reportadoPor.toUpperCase();
+                        const listaBase = ["LUIS SOTO", "OMAR OSORIO", "SIMON LEAL", "GINES PEREZ"];
+                        if (listaBase.includes(valNube)) {
+                            if (reportadoPersonalizadoActivo) toggleEditarReportadoPor();
+                            const sel = document.getElementById('global-reportado-select');
+                            if (sel) sel.value = valNube;
+                        } else {
+                            if (!reportadoPersonalizadoActivo) toggleEditarReportadoPor();
+                            const inp = document.getElementById('global-reportado-input');
+                            if (inp) inp.value = valNube;
+                        }
+                        sincronizarReportadoPor(valNube);
+                    }
                     if (d.turno) { document.getElementById('select-turno').value = d.turno; sincronizarTurno(d.turno); }
                     if (d.cisternas) { cisternas = d.cisternas; renderCisternas(); }
                     
@@ -1662,6 +1687,8 @@
 
         // CONTROLADOR MAPEO CONFIGURACIÓN DE BADGES & ÍCONOS
         const ESTADOS_CONFIG = {
+            'PRODUCCION CON EL FLEX': { icon: 'play-circle', bgBox: 'bg-orange-600', textCol: 'text-orange-950 font-black', bgCont: 'bg-orange-100/80 border-orange-500' },
+            'PRODUCCION CON EL INDIRECT': { icon: 'play-circle', bgBox: 'bg-orange-600', textCol: 'text-orange-950 font-black', bgCont: 'bg-orange-100/80 border-orange-500' },
             'VACIO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-950 font-black', bgCont: 'bg-emerald-100/80 border-emerald-500' },
             'INACTIVO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-950 font-black', bgCont: 'bg-emerald-100/80 border-emerald-500' },
             'VACIO': { icon: 'minus-circle', bgBox: 'bg-slate-700', textCol: 'text-slate-950 font-black', bgCont: 'bg-slate-200 border-slate-400' },
@@ -1867,6 +1894,50 @@
         }
 
         // PATIO DE CISTERNAS
+        
+        let reportadoPersonalizadoActivo = false;
+        function toggleEditarReportadoPor() {
+            reportadoPersonalizadoActivo = !reportadoPersonalizadoActivo;
+            const container = document.getElementById('container-reportado-input');
+            const btnText = document.getElementById('btn-edit-reportado-text');
+            
+            if (reportadoPersonalizadoActivo) {
+                const valorActual = getNombreReportadoActual();
+                container.innerHTML = `<input type="text" id="global-reportado-input" class="hmi-input text-base py-1.5 px-4 border-orange-500 text-orange-500 font-black bg-slate-900 w-full uppercase" value="${valorActual === 'OTRO' ? '' : valorActual}" placeholder="ESCRIBA EL NOMBRE..." oninput="sincronizarReportadoPor(this.value)">`;
+                btnText.textContent = "Ver Lista";
+                const inputEl = document.getElementById('global-reportado-input');
+                if (inputEl) inputEl.focus();
+            } else {
+                container.innerHTML = `<select id="global-reportado-select" class="hmi-select text-base py-1.5 px-4 border-orange-500 text-orange-500 font-black bg-slate-900 w-full" onchange="verificarSeleccionReportado(this.value)">
+                    <option value="LUIS SOTO">LUIS SOTO</option>
+                    <option value="OMAR OSORIO">OMAR OSORIO</option>
+                    <option value="SIMON LEAL">SIMON LEAL</option>
+                    <option value="GINES PEREZ">GINES PEREZ</option>
+                    <option value="OTRO">OTRO...</option>
+                </select>`;
+                btnText.textContent = "Personalizar";
+                sincronizarReportadoPor("LUIS SOTO");
+            }
+            if (window.lucide) lucide.createIcons();
+            programarAutoGuardado();
+        }
+
+        function verificarSeleccionReportado(val) {
+            if (val === 'OTRO') {
+                toggleEditarReportadoPor();
+            } else {
+                sincronizarReportadoPor(val);
+            }
+        }
+
+        function getNombreReportadoActual() {
+            const sel = document.getElementById('global-reportado-select');
+            const inp = document.getElementById('global-reportado-input');
+            if (inp) return inp.value.toUpperCase();
+            if (sel) return sel.value.toUpperCase();
+            return "LUIS SOTO";
+        }
+
         function renderCisternas() {
             const container = document.getElementById('cisternas-container');
             const countLabel = document.getElementById('cisterna-count');
@@ -1972,10 +2043,12 @@
         }
 
         function sincronizarReportadoPor(val) {
+            const nombreFinal = (val || "LUIS SOTO").toUpperCase();
             ['footer-reportado-1', 'footer-reportado-2'].forEach(id => {
                 const el = document.getElementById(id);
-                if (el) el.textContent = val;
+                if (el) el.textContent = nombreFinal;
             });
+            programarAutoGuardado();
         }
 
         function sincronizarTurno(val) {
@@ -2141,7 +2214,7 @@
             } finally {
                 document.body.classList.remove('capturing-mode');
                 btn.disabled = false;
-                btn.innerHTML = `<i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG (WhatsApp)`;
+                btn.innerHTML = `<i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG`;
                 if (window.lucide) lucide.createIcons();
             }
         }
