@@ -28,14 +28,14 @@
         .silo-cone-bottom { width: 80%; height: 36px; margin: -2px auto 0 auto; background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%); clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%); border-top: 2px solid #64748b; z-index: 8; }
         .silo-legs { display: flex; justify-content: space-between; width: 85%; height: 20px; margin-top: -6px; }
         .silo-leg { width: 10px; height: 100%; background: linear-gradient(90deg, #475569, #94a3b8, #334155); border-radius: 2px; }
-        .silo-liquid-layer { position: absolute; bottom: 0; left: 0; right: 0; transition: height 0.6s ease-out; z-index: 5; box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6), inset 0 -6px 16px rgba(0, 0, 0, 0.2), 0 -4px 12px rgba(0, 0, 0, 0.15); opacity: 0.95; }
+        .silo-liquid-layer { position: absolute; bottom: 0; left: 0; right: 0; transition: height 0.6s ease-out; z-index: 5; box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6), inset 0 -6px 16px rgba(0, 0, 0, 0.2), 0 -4px 12px rgba(0, 0, 0, 0.15); opacity: 0.95; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%); }
         .silo-wave-effect { position: absolute; top: -10px; left: 0; width: 200%; height: 16px; background: rgba(255, 255, 255, 0.7); border-radius: 40%; animation: waveFlow 3s linear infinite; }
         .silo-sight-gauge { position: absolute; right: 10px; top: 36px; bottom: 36px; width: 16px; background: rgba(203, 213, 225, 0.95); border: 2px solid #475569; border-radius: 8px; z-index: 25; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; box-shadow: inset 0 0 4px rgba(0,0,0,0.3); }
         .cisterna-truck-card { position: relative; background: linear-gradient(160deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%); border: 2.5px solid #cbd5e1; border-radius: 1.25rem; padding: 0.75rem; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06); display: flex; flex-direction: column; gap: 0.5rem; }
         .cisterna-svg-container { position: relative; width: 100%; background: #f1f5f9; border: 2px solid #94a3b8; border-radius: 1rem; padding: 0.5rem; box-shadow: inset 0 2px 6px rgba(0,0,0,0.05); }
         .cisterna-overlay-fields { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.25rem; }
         .cisterna-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(4px); border: 1.5px solid #cbd5e1; border-radius: 0.5rem; padding: 0.35rem 0.5rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04); }
-        .silo-gauge-fill { width: 100%; border-top: 2px solid #ea580c; transition: height 0.6s ease-out; }
+        .silo-gauge-fill { width: 100%; border-top: 2px solid #ea580c; transition: height 0.6s ease-out; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%); }
         .silo-overlay-panel { position: absolute; inset: 0; right: 32px; z-index: 20; display: flex; flex-direction: column; justify-content: space-between; padding: 0.6rem 0.5rem; gap: 0.25rem; }
         .silo-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border: 1.5px solid #cbd5e1; border-radius: 0.6rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); line-height: 1.15; }
         .silo-label { color: #0f172a; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; font-size: 0.85rem; }
@@ -50,11 +50,176 @@
         @keyframes waveFlow { 0% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(-25%) rotate(4deg); } 100% { transform: translateX(-50%) rotate(0deg); } }
         .input-group { margin-top: 0.85rem; padding-top: 0.35rem; }
         
-        /* Normalización para exportación JPG sin desbordamientos */
+        /* Normalización crítica para exportación fiel con html-to-image sin desbordamiento */
         body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; text-overflow: ellipsis !important; overflow: hidden !important; white-space: nowrap !important; }
         body.capturing-mode .status-badge-container { min-height: 48px !important; height: auto !important; overflow: hidden !important; }
         body.capturing-mode .status-badge-text { font-size: 0.68rem !important; line-height: 1.1 !important; word-break: break-word !important; white-space: normal !important; overflow: hidden !important; }
+
+        /* ==========================================
+           ESTILOS DE MODO OSCURO HMI (INDUSTRIAL DARK)
+           ========================================== */
+        body.dark-theme {
+            background-color: #030712 !important;
+            color: #f8fafc !important;
+        }
+
+        body.dark-theme .hmi-master-wrapper {
+            background-color: #0f172a !important;
+            border-color: #ea580c !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.95) !important;
+        }
+
+        body.dark-theme .hmi-card,
+        body.dark-theme #parte-1-container,
+        body.dark-theme #parte-2-container {
+            background-color: #1e293b !important;
+            border-color: #ea580c !important;
+            color: #f8fafc !important;
+        }
+
+        body.dark-theme .silo-wrapper,
+        body.dark-theme .cisterna-truck-card,
+        body.dark-theme .bg-slate-50 {
+            background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%) !important;
+            border-color: #334155 !important;
+            color: #f8fafc !important;
+        }
+
+        body.dark-theme .cisterna-svg-container {
+            background-color: #090d16 !important;
+            border-color: #334155 !important;
+        }
+
+        body.dark-theme .silo-hmi-row,
+        body.dark-theme .cisterna-hmi-row {
+            background: rgba(15, 23, 42, 0.95) !important;
+            border-color: #334155 !important;
+            color: #f8fafc !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        body.dark-theme .silo-label {
+            color: #fb923c !important;
+        }
+
+        body.dark-theme .text-slate-900,
+        body.dark-theme .text-slate-800,
+        body.dark-theme .text-slate-700,
+        body.dark-theme .text-slate-600 {
+            color: #cbd5e1 !important;
+        }
+
+        body.dark-theme .text-slate-500,
+        body.dark-theme .text-slate-400 {
+            color: #94a3b8 !important;
+        }
+
+        body.dark-theme .text-orange-950,
+        body.dark-theme .text-orange-900,
+        body.dark-theme .text-orange-800 {
+            color: #ffedd5 !important;
+        }
+
+        body.dark-theme .text-orange-700 {
+            color: #fdba74 !important;
+        }
+
+        body.dark-theme .silo-input-field,
+        body.dark-theme .hmi-input,
+        body.dark-theme .hmi-select {
+            background-color: #090d16 !important;
+            color: #ffffff !important;
+            border-color: #475569 !important;
+        }
+
+        body.dark-theme .silo-status-select option,
+        body.dark-theme .hmi-select option {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+        }
+
+        body.dark-theme .silo-hmi-row.bg-orange-50 {
+            background-color: rgba(124, 45, 18, 0.4) !important;
+            border-color: #ea580c !important;
+        }
+
+        body.dark-theme .bg-white {
+            background-color: #0f172a !important;
+            color: #f8fafc !important;
+            border-color: #334155 !important;
+        }
+
+        body.dark-theme #main-header,
+        body.dark-theme .bg-slate-900 {
+            background-color: #020617 !important;
+            border-color: #ea580c !important;
+        }
+
+        body.dark-theme .bg-slate-800 {
+            background-color: #0f172a !important;
+            border-color: rgba(234, 88, 12, 0.4) !important;
+        }
+
+        body.dark-theme .bg-slate-100 {
+            background-color: #0f172a !important;
+            border-color: #ea580c !important;
+            color: #f8fafc !important;
+        }
+
+        body.dark-theme .status-badge-container {
+            border-width: 2px !important;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        body.dark-theme .status-badge-container.bg-emerald-50 {
+            background-color: rgba(6, 78, 59, 0.35) !important;
+            border-color: #059669 !important;
+        }
+        body.dark-theme .status-badge-text.text-emerald-900 {
+            color: #6ee7b7 !important;
+        }
+
+        body.dark-theme .status-badge-container.bg-amber-50 {
+            background-color: rgba(120, 53, 15, 0.35) !important;
+            border-color: #d97706 !important;
+        }
+        body.dark-theme .status-badge-text.text-amber-900 {
+            color: #fcd34d !important;
+        }
+
+        body.dark-theme .status-badge-container.bg-sky-50 {
+            background-color: rgba(12, 74, 110, 0.35) !important;
+            border-color: #0284c7 !important;
+        }
+        body.dark-theme .status-badge-text.text-sky-900 {
+            color: #7dd3fc !important;
+        }
+
+        body.dark-theme .status-badge-container.bg-purple-50 {
+            background-color: rgba(88, 28, 135, 0.35) !important;
+            border-color: #9333ea !important;
+        }
+        body.dark-theme .status-badge-text.text-purple-900 {
+            color: #f0abfc !important;
+        }
+
+        body.dark-theme .status-badge-container.bg-blue-50 {
+            background-color: rgba(30, 58, 138, 0.35) !important;
+            border-color: #2563eb !important;
+        }
+        body.dark-theme .status-badge-text.text-blue-900 {
+            color: #93c5fd !important;
+        }
+
+        body.dark-theme .status-badge-container.bg-slate-100 {
+            background-color: rgba(30, 41, 59, 0.5) !important;
+            border-color: #475569 !important;
+        }
+        body.dark-theme .status-badge-text.text-slate-900 {
+            color: #cbd5e1 !important;
+        }
     </style>
+
 </head>
 <body class="uppercase">
 
@@ -63,9 +228,15 @@
         <span class="font-bold flex items-center gap-2">
             <i data-lucide="monitor" class="w-4 h-4 text-orange-400"></i> HMI VISTA INDUSTRIAL (ENLACE FIREBASE ACTIVO)
         </span>
-        <button onclick="toggleZoomMovil()" id="btn-zoom" class="bg-orange-600 hover:bg-orange-500 text-white font-bold px-3 py-1 rounded-lg transition">
-            Ajustar Pantalla Móvil
-        </button>
+        <div class="flex items-center gap-2">
+            <button onclick="toggleModoOscuro()" id="btn-theme" class="bg-slate-700 hover:bg-slate-600 text-amber-300 font-bold px-3 py-1 rounded-lg transition flex items-center gap-1.5 border border-amber-500/40 cursor-pointer shadow">
+                <i id="icon-theme" data-lucide="moon" class="w-4 h-4 text-amber-300"></i>
+                <span id="text-theme">Modo Oscuro</span>
+            </button>
+            <button onclick="toggleZoomMovil()" id="btn-zoom" class="bg-orange-600 hover:bg-orange-500 text-white font-bold px-3 py-1 rounded-lg transition cursor-pointer">
+                Ajustar Pantalla Móvil
+            </button>
+        </div>
     </div>
 
     <!-- CONTENEDOR INDUSTRIAL MAESTRO -->
@@ -1058,7 +1229,7 @@
                         </div>
                     </div>
 
-                    <!-- 5. ALSAFE 1 (CON ALTO CONTRASTE INTEGRADO) -->
+                    <!-- 5. ALSAFE 1 -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
@@ -1077,9 +1248,7 @@
                             <div class="silo-cap-top"></div>
                             <div class="silo-steel-ring"></div>
                             <div class="silo-sight-gauge"><div id="alsafe1-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div></div>
-                            <div id="alsafe1-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
-                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div>
-                            </div>
+                            <div id="alsafe1-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
                                 <div class="silo-hmi-row">
                                     <span class="silo-label text-xs">CANTIDAD:</span>
@@ -1107,7 +1276,7 @@
                         <div class="silo-legs"><div class="silo-leg"></div><div class="silo-leg"></div></div>
                     </div>
 
-                    <!-- 6. ALSAFE 2 (CON ALTO CONTRASTE INTEGRADO) -->
+                    <!-- 6. ALSAFE 2 -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
@@ -1126,9 +1295,7 @@
                             <div class="silo-cap-top"></div>
                             <div class="silo-steel-ring"></div>
                             <div class="silo-sight-gauge"><div id="alsafe2-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div></div>
-                            <div id="alsafe2-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
-                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div>
-                            </div>
+                            <div id="alsafe2-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
                                 <div class="silo-hmi-row">
                                     <span class="silo-label text-xs">CANTIDAD:</span>
@@ -1156,7 +1323,7 @@
                         <div class="silo-legs"><div class="silo-leg"></div><div class="silo-leg"></div></div>
                     </div>
 
-                    <!-- 7. TANQUE DE CREMA (CON ALTO CONTRASTE INTEGRADO) -->
+                    <!-- 7. TANQUE DE CREMA -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
@@ -1175,9 +1342,7 @@
                             <div class="silo-cap-top"></div>
                             <div class="silo-steel-ring"></div>
                             <div class="silo-sight-gauge"><div id="tqcrema-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div></div>
-                            <div id="tqcrema-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);">
-                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div>
-                            </div>
+                            <div id="tqcrema-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
                                 <div class="silo-hmi-row">
                                     <span class="silo-label text-xs">NIVEL:</span>
@@ -1234,7 +1399,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT INDUSTRIAL HMI CON LÓGICA COMPLETA -->
+    <!-- SCRIPT INDUSTRIAL HMI CON LOGICA REVISADA -->
     <script>
         // CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
@@ -1376,7 +1541,7 @@
             });
         }
 
-        // MAPEO DE BADGES & ÍCONOS
+        // CONTROLADOR MAPEO CONFIGURACIÓN DE BADGES & ÍCONOS
         const ESTADOS_CONFIG = {
             'VACIO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-900', bgCont: 'bg-emerald-50 border-emerald-300' },
             'INACTIVO Y LIMPIO': { icon: 'check-circle', bgBox: 'bg-emerald-600', textCol: 'text-emerald-900', bgCont: 'bg-emerald-50 border-emerald-300' },
@@ -1465,7 +1630,7 @@
             return el.value;
         }
 
-        // EVALUACIÓN DE SILOS CON AUTO-CERO EDITABLE
+        // EVALUAR Y DESHABILITAR/HABILITAR SILOS
         function evaluarEstatusSilo(siloNum) {
             const prodSelect = document.getElementById(`silo${siloNum}-select`);
             const etapaSelect = document.getElementById(`silo${siloNum}-etapa`);
@@ -1582,7 +1747,7 @@
             actualizarBadgeGenerico('tqcrema');
         }
 
-        // PATIO DE CISTERNAS CON SVG Y AUTO-CERO
+        // PATIO DE CISTERNAS
         function renderCisternas() {
             const container = document.getElementById('cisternas-container');
             const countLabel = document.getElementById('cisterna-count');
@@ -1859,7 +2024,40 @@
             }
         }
 
+        
+        let modoOscuroActivo = false;
+        function toggleModoOscuro() {
+            modoOscuroActivo = !modoOscuroActivo;
+            const btnTheme = document.getElementById('btn-theme');
+            const iconTheme = document.getElementById('icon-theme');
+            const textTheme = document.getElementById('text-theme');
+            
+            if (modoOscuroActivo) {
+                document.body.classList.add('dark-theme');
+                if (textTheme) textTheme.textContent = "Modo Claro";
+                if (iconTheme) iconTheme.setAttribute('data-lucide', 'sun');
+                if (btnTheme) btnTheme.className = "bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded-lg transition flex items-center gap-1.5 border border-amber-300 cursor-pointer shadow";
+                localStorage.setItem('hmi-theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-theme');
+                if (textTheme) textTheme.textContent = "Modo Oscuro";
+                if (iconTheme) iconTheme.setAttribute('data-lucide', 'moon');
+                if (btnTheme) btnTheme.className = "bg-slate-700 hover:bg-slate-600 text-amber-300 font-bold px-3 py-1 rounded-lg transition flex items-center gap-1.5 border border-amber-500/40 cursor-pointer shadow";
+                localStorage.setItem('hmi-theme', 'light');
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function cargarPreferenciaTema() {
+            const temaGuardado = localStorage.getItem('hmi-theme');
+            if (temaGuardado === 'dark') {
+                modoOscuroActivo = false;
+                toggleModoOscuro();
+            }
+        }
+
         window.onload = function() {
+            cargarPreferenciaTema();
             if (window.lucide) lucide.createIcons();
             renderCisternas();
             evaluarEstatusSilo(1); evaluarEstatusSilo(2); evaluarEstatusSilo(3);
