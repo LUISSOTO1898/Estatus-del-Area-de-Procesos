@@ -28,7 +28,22 @@
         .silo-cone-bottom { width: 80%; height: 36px; margin: -2px auto 0 auto; background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%); clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%); border-top: 2px solid #64748b; z-index: 8; }
         .silo-legs { display: flex; justify-space-between; width: 85%; height: 20px; margin-top: -6px; }
         .silo-leg { width: 10px; height: 100%; background: linear-gradient(90deg, #475569, #94a3b8, #334155); border-radius: 2px; }
-        .silo-liquid-layer { position: absolute; bottom: 0; left: 0; right: 0; transition: height 0.6s ease-out; z-index: 5; box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6), inset 0 -6px 16px rgba(0, 0, 0, 0.2), 0 -4px 12px rgba(0, 0, 0, 0.15); opacity: 0.95; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%); }
+        
+        /* CORRECCIÓN DE MANCHAS EN HTML-TO-IMAGE: Se fuerza el radio inferior del líquido */
+        .silo-liquid-layer { 
+            position: absolute; bottom: 0; left: 0; right: 0; transition: height 0.6s ease-out; z-index: 5; 
+            box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6), inset 0 -6px 16px rgba(0, 0, 0, 0.2), 0 -4px 12px rgba(0, 0, 0, 0.15); 
+            opacity: 0.95; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%); 
+            /* Para silos y tanques de jugo el radio inferior es 1.25rem aprox 20px */
+            border-bottom-left-radius: 1.15rem; 
+            border-bottom-right-radius: 1.15rem;
+        }
+        /* Los Alsafe tienen un radio inferior de 1rem, por lo tanto el líquido requiere un radio menor */
+        .alsafe-tank-body .silo-liquid-layer {
+            border-bottom-left-radius: 0.85rem;
+            border-bottom-right-radius: 0.85rem;
+        }
+
         .silo-wave-effect { position: absolute; top: -10px; left: 0; width: 200%; height: 16px; background: rgba(255, 255, 255, 0.7); border-radius: 40%; animation: waveFlow 3s linear infinite; }
         .silo-sight-gauge { position: absolute; right: 10px; top: 36px; bottom: 36px; width: 16px; background: rgba(203, 213, 225, 0.95); border: 2px solid #475569; border-radius: 8px; z-index: 25; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; box-shadow: inset 0 0 4px rgba(0,0,0,0.3); }
         .cisterna-truck-card { position: relative; background: linear-gradient(160deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%); border: 2.5px solid #cbd5e1; border-radius: 1.25rem; padding: 0.75rem; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06); display: flex; flex-direction: column; gap: 0.5rem; }
@@ -70,171 +85,38 @@
         /* ==========================================
            ESTILOS DE MODO OSCURO HMI (INDUSTRIAL DARK)
            ========================================== */
-        body.dark-theme {
-            background-color: #030712 !important;
-            color: #f8fafc !important;
-        }
-
-        body.dark-theme .hmi-master-wrapper {
-            background-color: #0f172a !important;
-            border-color: #ea580c !important;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.95) !important;
-        }
-
-        body.dark-theme .hmi-card,
-        body.dark-theme #parte-1-container,
-        body.dark-theme #parte-2-container {
-            background-color: #1e293b !important;
-            border-color: #ea580c !important;
-            color: #f8fafc !important;
-        }
-
-        body.dark-theme .silo-wrapper,
-        body.dark-theme .cisterna-truck-card,
-        body.dark-theme .bg-slate-50 {
-            background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%) !important;
-            border-color: #334155 !important;
-            color: #f8fafc !important;
-        }
-
-        body.dark-theme .cisterna-svg-container {
-            background-color: #090d16 !important;
-            border-color: #334155 !important;
-        }
-
-        body.dark-theme .silo-hmi-row,
-        body.dark-theme .cisterna-hmi-row {
-            background: rgba(15, 23, 42, 0.95) !important;
-            border-color: #334155 !important;
-            color: #f8fafc !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
-        }
-
-        body.dark-theme .silo-label {
-            color: #fb923c !important;
-        }
-
-        body.dark-theme .text-slate-900,
-        body.dark-theme .text-slate-800,
-        body.dark-theme .text-slate-700,
-        body.dark-theme .text-slate-600 {
-            color: #cbd5e1 !important;
-        }
-
-        body.dark-theme .text-slate-500,
-        body.dark-theme .text-slate-400 {
-            color: #94a3b8 !important;
-        }
-
-        body.dark-theme .text-orange-950,
-        body.dark-theme .text-orange-900,
-        body.dark-theme .text-orange-800 {
-            color: #ffedd5 !important;
-        }
-
-        body.dark-theme .text-orange-700 {
-            color: #fdba74 !important;
-        }
-
-        body.dark-theme .silo-input-field,
-        body.dark-theme .hmi-input,
-        body.dark-theme .hmi-select {
-            background-color: #030712 !important;
-            color: #ffffff !important;
-            border-color: #ea580c !important;
-            font-weight: 900 !important;
-        }
-        body.dark-theme .silo-label {
-            color: #fdba74 !important;
-            font-weight: 900 !important;
-        }
-
-        body.dark-theme .silo-status-select option,
-        body.dark-theme .hmi-select option {
-            background-color: #0f172a !important;
-            color: #ffffff !important;
-        }
-
-        body.dark-theme .silo-hmi-row.bg-orange-50 {
-            background-color: rgba(124, 45, 18, 0.4) !important;
-            border-color: #ea580c !important;
-        }
-
-        body.dark-theme .bg-white {
-            background-color: #0f172a !important;
-            color: #f8fafc !important;
-            border-color: #334155 !important;
-        }
-
-        body.dark-theme #main-header,
-        body.dark-theme .bg-slate-900 {
-            background-color: #020617 !important;
-            border-color: #ea580c !important;
-        }
-
-        body.dark-theme .bg-slate-800 {
-            background-color: #0f172a !important;
-            border-color: rgba(234, 88, 12, 0.4) !important;
-        }
-
-        body.dark-theme .bg-slate-100 {
-            background-color: #0f172a !important;
-            border-color: #ea580c !important;
-            color: #f8fafc !important;
-        }
-
-        body.dark-theme .status-badge-container {
-            border-width: 2px !important;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3) !important;
-        }
-
-        body.dark-theme .status-badge-container.bg-emerald-50 {
-            background-color: rgba(6, 78, 59, 0.35) !important;
-            border-color: #059669 !important;
-        }
-        body.dark-theme .status-badge-text.text-emerald-900 {
-            color: #6ee7b7 !important;
-        }
-
-        body.dark-theme .status-badge-container.bg-amber-50 {
-            background-color: rgba(120, 53, 15, 0.35) !important;
-            border-color: #d97706 !important;
-        }
-        body.dark-theme .status-badge-text.text-amber-900 {
-            color: #fcd34d !important;
-        }
-
-        body.dark-theme .status-badge-container.bg-sky-50 {
-            background-color: rgba(12, 74, 110, 0.35) !important;
-            border-color: #0284c7 !important;
-        }
-        body.dark-theme .status-badge-text.text-sky-900 {
-            color: #7dd3fc !important;
-        }
-
-        body.dark-theme .status-badge-container.bg-purple-50 {
-            background-color: rgba(88, 28, 135, 0.35) !important;
-            border-color: #9333ea !important;
-        }
-        body.dark-theme .status-badge-text.text-purple-900 {
-            color: #f0abfc !important;
-        }
-
-        body.dark-theme .status-badge-container.bg-blue-50 {
-            background-color: rgba(30, 58, 138, 0.35) !important;
-            border-color: #2563eb !important;
-        }
-        body.dark-theme .status-badge-text.text-blue-900 {
-            color: #93c5fd !important;
-        }
-
-        body.dark-theme .status-badge-container.bg-slate-100 {
-            background-color: rgba(30, 41, 59, 0.5) !important;
-            border-color: #475569 !important;
-        }
-        body.dark-theme .status-badge-text.text-slate-900 {
-            color: #cbd5e1 !important;
-        }
+        body.dark-theme { background-color: #030712 !important; color: #f8fafc !important; }
+        body.dark-theme .hmi-master-wrapper { background-color: #0f172a !important; border-color: #ea580c !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.95) !important; }
+        body.dark-theme .hmi-card, body.dark-theme #parte-1-container, body.dark-theme #parte-2-container { background-color: #1e293b !important; border-color: #ea580c !important; color: #f8fafc !important; }
+        body.dark-theme .silo-wrapper, body.dark-theme .cisterna-truck-card, body.dark-theme .bg-slate-50 { background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%) !important; border-color: #334155 !important; color: #f8fafc !important; }
+        body.dark-theme .cisterna-svg-container { background-color: #090d16 !important; border-color: #334155 !important; }
+        body.dark-theme .silo-hmi-row, body.dark-theme .cisterna-hmi-row { background: rgba(15, 23, 42, 0.95) !important; border-color: #334155 !important; color: #f8fafc !important; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important; }
+        body.dark-theme .silo-label { color: #fb923c !important; }
+        body.dark-theme .text-slate-900, body.dark-theme .text-slate-800, body.dark-theme .text-slate-700, body.dark-theme .text-slate-600 { color: #cbd5e1 !important; }
+        body.dark-theme .text-slate-500, body.dark-theme .text-slate-400 { color: #94a3b8 !important; }
+        body.dark-theme .text-orange-950, body.dark-theme .text-orange-900, body.dark-theme .text-orange-800 { color: #ffedd5 !important; }
+        body.dark-theme .text-orange-700 { color: #fdba74 !important; }
+        body.dark-theme .silo-input-field, body.dark-theme .hmi-input, body.dark-theme .hmi-select { background-color: #030712 !important; color: #ffffff !important; border-color: #ea580c !important; font-weight: 900 !important; }
+        body.dark-theme .silo-label { color: #fdba74 !important; font-weight: 900 !important; }
+        body.dark-theme .silo-status-select option, body.dark-theme .hmi-select option { background-color: #0f172a !important; color: #ffffff !important; }
+        body.dark-theme .silo-hmi-row.bg-orange-50 { background-color: rgba(124, 45, 18, 0.4) !important; border-color: #ea580c !important; }
+        body.dark-theme .bg-white { background-color: #0f172a !important; color: #f8fafc !important; border-color: #334155 !important; }
+        body.dark-theme #main-header, body.dark-theme .bg-slate-900 { background-color: #020617 !important; border-color: #ea580c !important; }
+        body.dark-theme .bg-slate-800 { background-color: #0f172a !important; border-color: rgba(234, 88, 12, 0.4) !important; }
+        body.dark-theme .bg-slate-100 { background-color: #0f172a !important; border-color: #ea580c !important; color: #f8fafc !important; }
+        body.dark-theme .status-badge-container { border-width: 2px !important; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3) !important; }
+        body.dark-theme .status-badge-container.bg-emerald-50 { background-color: rgba(6, 78, 59, 0.35) !important; border-color: #059669 !important; }
+        body.dark-theme .status-badge-text.text-emerald-900 { color: #6ee7b7 !important; }
+        body.dark-theme .status-badge-container.bg-amber-50 { background-color: rgba(120, 53, 15, 0.35) !important; border-color: #d97706 !important; }
+        body.dark-theme .status-badge-text.text-amber-900 { color: #fcd34d !important; }
+        body.dark-theme .status-badge-container.bg-sky-50 { background-color: rgba(12, 74, 110, 0.35) !important; border-color: #0284c7 !important; }
+        body.dark-theme .status-badge-text.text-sky-900 { color: #7dd3fc !important; }
+        body.dark-theme .status-badge-container.bg-purple-50 { background-color: rgba(88, 28, 135, 0.35) !important; border-color: #9333ea !important; }
+        body.dark-theme .status-badge-text.text-purple-900 { color: #f0abfc !important; }
+        body.dark-theme .status-badge-container.bg-blue-50 { background-color: rgba(30, 58, 138, 0.35) !important; border-color: #2563eb !important; }
+        body.dark-theme .status-badge-text.text-blue-900 { color: #93c5fd !important; }
+        body.dark-theme .status-badge-container.bg-slate-100 { background-color: rgba(30, 41, 59, 0.5) !important; border-color: #475569 !important; }
+        body.dark-theme .status-badge-text.text-slate-900 { color: #cbd5e1 !important; }
     </style>
 
 </head>
