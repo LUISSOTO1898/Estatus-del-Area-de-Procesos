@@ -14,19 +14,21 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #0f172a; margin: 0; padding: 12px; }
-        .hmi-master-wrapper { width: 1360px; margin: 0 auto; background-color: #ffffff; border-radius: 2rem; border: 4px solid #f97316; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); padding: 24px; }
+        * { box-sizing: border-box; font-weight: 700 !important; }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #0f172a; margin: 0; padding: 12px; font-weight: 700 !important; }
+        .font-black, .font-digital, h1, h2, h3, h4, th, td, label, select, input, button, .silo-label, .silo-input-field, .hmi-input, .hmi-select, .status-badge-text { font-weight: 900 !important; }
+        
+        .hmi-master-wrapper { width: 1420px; margin: 0 auto; background-color: #ffffff; border-radius: 2rem; border: 4px solid #f97316; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); padding: 24px; }
         .silo-wrapper { position: relative; width: 100%; background: linear-gradient(160deg, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%); border-radius: 1.5rem; padding: 1.25rem 1rem; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), inset 0 1px 2px #ffffff; border: 2.5px solid #cbd5e1; display: flex; flex-direction: column; align-items: center; }
-        .silo-tank-body { position: relative; width: 100%; height: 480px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
-        .juice-tank-body { position: relative; width: 100%; height: 384px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
-        .alsafe-tank-body { position: relative; width: 100%; height: 240px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 1.5rem 1.5rem 1rem 1rem; box-shadow: inset 0 0 15px rgba(148, 163, 184, 0.3), 0 6px 15px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .silo-tank-body { position: relative; width: 100%; height: 540px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .juice-tank-body { position: relative; width: 100%; height: 450px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .alsafe-tank-body { position: relative; width: 100%; height: 290px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 1.5rem 1.5rem 1rem 1rem; box-shadow: inset 0 0 15px rgba(148, 163, 184, 0.3), 0 6px 15px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
         .silo-cap-top { width: 100%; height: 28px; background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #94a3b8 100%); border-bottom: 2px solid #64748b; border-radius: 50% / 100% 100% 0 0; z-index: 10; box-shadow: inset 0 2px 4px rgba(255,255,255,0.9); }
         .silo-steel-ring { width: 100%; height: 7px; background: linear-gradient(180deg, #94a3b8 0%, #f8fafc 50%, #64748b 100%); border-top: 1px solid rgba(255,255,255,0.8); border-bottom: 1px solid rgba(100, 116, 139, 0.5); z-index: 12; }
         .silo-cone-bottom { width: 80%; height: 36px; margin: -2px auto 0 auto; background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%); clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%); border-top: 2px solid #64748b; z-index: 8; }
-        .silo-legs { display: flex; justify-space-between; width: 85%; height: 20px; margin-top: -6px; }
+        .silo-legs { display: flex; justify-content: space-between; width: 85%; height: 20px; margin-top: -6px; }
         .silo-leg { width: 10px; height: 100%; background: linear-gradient(90deg, #475569, #94a3b8, #334155); border-radius: 2px; }
         
         /* CORRECCIÓN DE MANCHAS EN HTML-TO-IMAGE: Se fuerza el radio inferior del líquido */
@@ -34,11 +36,9 @@
             position: absolute; bottom: 0; left: 0; right: 0; transition: height 0.6s ease-out; z-index: 5; 
             box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6), inset 0 -6px 16px rgba(0, 0, 0, 0.2), 0 -4px 12px rgba(0, 0, 0, 0.15); 
             opacity: 0.95; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%); 
-            /* Para silos y tanques de jugo el radio inferior es 1.25rem aprox 20px */
             border-bottom-left-radius: 1.15rem; 
             border-bottom-right-radius: 1.15rem;
         }
-        /* Los Alsafe tienen un radio inferior de 1rem, por lo tanto el líquido requiere un radio menor */
         .alsafe-tank-body .silo-liquid-layer {
             border-bottom-left-radius: 0.85rem;
             border-bottom-right-radius: 0.85rem;
@@ -48,25 +48,27 @@
         .silo-sight-gauge { position: absolute; right: 10px; top: 36px; bottom: 36px; width: 16px; background: rgba(203, 213, 225, 0.95); border: 2px solid #475569; border-radius: 8px; z-index: 25; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; box-shadow: inset 0 0 4px rgba(0,0,0,0.3); }
         .cisterna-truck-card { position: relative; background: linear-gradient(160deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%); border: 2.5px solid #cbd5e1; border-radius: 1.25rem; padding: 0.75rem; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06); display: flex; flex-direction: column; gap: 0.5rem; }
         .cisterna-svg-container { position: relative; width: 100%; background: #f1f5f9; border: 2px solid #94a3b8; border-radius: 1rem; padding: 0.5rem; box-shadow: inset 0 2px 6px rgba(0,0,0,0.05); }
-        .cisterna-overlay-fields { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.25rem; }
-        .cisterna-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(4px); border: 1.5px solid #cbd5e1; border-radius: 0.5rem; padding: 0.35rem 0.5rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04); }
+        .cisterna-overlay-fields { display: flex; flex-direction: column; gap: 0.45rem; margin-top: 0.35rem; }
+        .cisterna-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(4px); border: 1.5px solid #cbd5e1; border-radius: 0.5rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04); }
         .silo-gauge-fill { width: 100%; border-top: 2px solid #ea580c; transition: height 0.6s ease-out; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%); }
-        .silo-overlay-panel { position: absolute; inset: 0; right: 32px; z-index: 20; display: flex; flex-direction: column; justify-content: space-between; padding: 0.6rem 0.5rem; gap: 0.25rem; }
-        .silo-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border: 1.5px solid #cbd5e1; border-radius: 0.6rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); line-height: 1.15; }
-        .silo-label { color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; font-size: 0.92rem; letter-spacing: 0.02em; }
-        .silo-input-field { background: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; border-radius: 0.5rem; padding: 0 0.4rem; height: 38px; line-height: 34px; font-size: 1.02rem; outline: none; text-align: center; display: flex; align-items: center; justify-content: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; box-shadow: inset 0 1px 2px rgba(0,0,0,0.06); }
-        .silo-status-select { font-size: 0.86rem !important; font-weight: 900 !important; height: 40px !important; line-height: 1.15 !important; padding: 0.15rem 0.25rem !important; text-align: center !important; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; color: #020617 !important; }
-        .font-digital { font-family: 'Share Tech Mono', monospace, sans-serif; }
-        .hmi-input, .hmi-select { background-color: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900; border-radius: 0.6rem; padding: 0 0.5rem; font-size: 1.05rem; height: 44px; line-height: 38px; outline: none; transition: all 0.2s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-        .hmi-select { color: #9a3412; font-weight: 900; font-size: 1rem; text-align: center !important; }
+        .silo-overlay-panel { position: absolute; inset: 0; right: 32px; z-index: 20; display: flex; flex-direction: column; justify-content: space-between; padding: 0.65rem 0.55rem; gap: 0.3rem; }
+        .silo-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border: 1.5px solid #cbd5e1; border-radius: 0.65rem; padding: 0.45rem 0.65rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); line-height: 1.2; }
+        
+        /* AUMENTO ASIMÉTRICO +25% EN FUENTES Y AJUSTE DE RECUADROS */
+        .silo-label { color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; font-size: 1.15rem; letter-spacing: 0.02em; }
+        .silo-input-field { background: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; border-radius: 0.6rem; padding: 0 0.5rem; height: 44px; line-height: 40px; font-size: 1.25rem; outline: none; text-align: center; display: flex; align-items: center; justify-content: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; box-shadow: inset 0 1px 2px rgba(0,0,0,0.06); }
+        .silo-status-select { font-size: 1.08rem !important; font-weight: 900 !important; height: 46px !important; line-height: 1.2 !important; padding: 0.2rem 0.3rem !important; text-align: center !important; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; color: #020617 !important; }
+        .font-digital { font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; }
+        .hmi-input, .hmi-select { background-color: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; border-radius: 0.65rem; padding: 0 0.6rem; font-size: 1.3rem; height: 50px; line-height: 44px; outline: none; transition: all 0.2s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+        .hmi-select { color: #9a3412; font-weight: 900 !important; font-size: 1.2rem; text-align: center !important; }
         .hmi-input:focus, .hmi-select:focus { border-color: #ea580c; box-shadow: 0 0 10px rgba(234, 88, 12, 0.4); background-color: #fff7ed; }
-        .status-badge-container { min-height: 52px; border-width: 2.5px; border-radius: 0.75rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; margin-bottom: 0.5rem; overflow: hidden; }
-        .status-badge-text { font-size: 0.82rem; line-height: 1.15; font-weight: 900; text-transform: uppercase; text-align: left; overflow: hidden; word-break: break-word; letter-spacing: 0.01em; }
+        .status-badge-container { min-height: 64px; border-width: 2.5px; border-radius: 0.85rem; padding: 0.5rem 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; margin-bottom: 0.5rem; overflow: hidden; }
+        .status-badge-text { font-size: 1.05rem; line-height: 1.2; font-weight: 900 !important; text-transform: uppercase; text-align: left; overflow: hidden; word-break: break-word; letter-spacing: 0.01em; }
         @keyframes waveFlow { 0% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(-25%) rotate(4deg); } 100% { transform: translateX(-50%) rotate(0deg); } }
         .input-group { margin-top: 0.85rem; padding-top: 0.35rem; }
         
         /* Normalización crítica para exportación fiel con html-to-image sin recortes de texto ni títulos */
-        h1, h2, h3, h4, p, span { line-height: 1.25; }
+        h1, h2, h3, h4, p, span { line-height: 1.25; font-weight: 900 !important; }
         body.capturing-mode * { text-rendering: geometricPrecision !important; -webkit-font-smoothing: antialiased !important; }
         body.capturing-mode h1,
         body.capturing-mode h2,
@@ -79,8 +81,8 @@
         body.capturing-mode #display-turno-copy-2 { white-space: nowrap !important; overflow: visible !important; display: block !important; line-height: 1.2 !important; max-width: none !important; }
         body.capturing-mode .hmi-card { overflow: visible !important; padding-bottom: 2rem !important; }
         body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; text-overflow: ellipsis !important; overflow: hidden !important; white-space: nowrap !important; line-height: 1.2 !important; }
-        body.capturing-mode .status-badge-container { min-height: 50px !important; height: auto !important; overflow: visible !important; padding-top: 4px !important; padding-bottom: 4px !important; }
-        body.capturing-mode .status-badge-text { font-size: 0.7rem !important; line-height: 1.15 !important; word-break: break-word !important; white-space: normal !important; overflow: visible !important; }
+        body.capturing-mode .status-badge-container { min-height: 60px !important; height: auto !important; overflow: visible !important; padding-top: 6px !important; padding-bottom: 6px !important; }
+        body.capturing-mode .status-badge-text { font-size: 0.9rem !important; line-height: 1.18 !important; word-break: break-word !important; white-space: normal !important; overflow: visible !important; font-weight: 900 !important; }
 
         /* ==========================================
            ESTILOS DE MODO OSCURO HMI (INDUSTRIAL DARK)
@@ -120,29 +122,29 @@
     </style>
 
 </head>
-<body class="uppercase">
+<body class="uppercase font-bold">
 
     <!-- BARRA SUPERIOR DE AYUDA MÓVIL / ZOOM INDUSTRIAL -->
-    <div class="max-w-7xl mx-auto mb-3 bg-slate-800 text-slate-200 px-4 py-2 rounded-xl text-xs flex justify-between items-center shadow-lg border border-slate-700">
+    <div class="max-w-7xl mx-auto mb-3 bg-slate-800 text-slate-200 px-4 py-2.5 rounded-xl text-sm flex justify-between items-center shadow-lg border border-slate-700 font-bold">
         <div class="flex items-center gap-3">
-            <span class="font-bold flex items-center gap-2">
-                <i data-lucide="monitor" class="w-4 h-4 text-orange-400"></i> HMI VISTA INDUSTRIAL (ENLACE FIREBASE ACTIVO)
+            <span class="font-black flex items-center gap-2">
+                <i data-lucide="monitor" class="w-5 h-5 text-orange-400"></i> HMI VISTA INDUSTRIAL (ENLACE FIREBASE ACTIVO)
             </span>
-            <span id="autosave-indicator" class="text-[11px] font-bold text-emerald-400 bg-slate-900/90 px-2.5 py-0.5 rounded-md border border-emerald-500/40 flex items-center gap-1.5 transition">
-                <i id="autosave-icon" data-lucide="cloud-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span id="autosave-indicator" class="text-xs font-black text-emerald-400 bg-slate-900/90 px-3 py-1 rounded-md border border-emerald-500/40 flex items-center gap-1.5 transition">
+                <i id="autosave-icon" data-lucide="cloud-check" class="w-4 h-4 text-emerald-400"></i>
                 <span id="autosave-text">Auto-guardado activo</span>
             </span>
-            <span id="last-modified-topbar" class="text-[11px] font-bold text-amber-300 bg-slate-900/90 px-2.5 py-0.5 rounded-md border border-amber-500/40 flex items-center gap-1.5 transition">
-                <i data-lucide="history" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span id="last-modified-topbar" class="text-xs font-black text-amber-300 bg-slate-900/90 px-3 py-1 rounded-md border border-amber-500/40 flex items-center gap-1.5 transition">
+                <i data-lucide="history" class="w-4 h-4 text-amber-400"></i>
                 <span>Última modif: <span id="last-modified-topbar-time" class="font-digital text-amber-300 font-black">--:--:--</span></span>
             </span>
         </div>
         <div class="flex items-center gap-2">
-            <button onclick="toggleModoOscuro()" id="btn-theme" class="bg-slate-700 hover:bg-slate-600 text-amber-300 font-bold px-3 py-1 rounded-lg transition flex items-center gap-1.5 border border-amber-500/40 cursor-pointer shadow">
+            <button onclick="toggleModoOscuro()" id="btn-theme" class="bg-slate-700 hover:bg-slate-600 text-amber-300 font-black px-3.5 py-1.5 rounded-lg transition flex items-center gap-1.5 border border-amber-500/40 cursor-pointer shadow text-xs">
                 <i id="icon-theme" data-lucide="moon" class="w-4 h-4 text-amber-300"></i>
                 <span id="text-theme">Modo Oscuro</span>
             </button>
-            <button onclick="toggleZoomMovil()" id="btn-zoom" class="bg-orange-600 hover:bg-orange-500 text-white font-bold px-3 py-1 rounded-lg transition cursor-pointer">
+            <button onclick="toggleZoomMovil()" id="btn-zoom" class="bg-orange-600 hover:bg-orange-500 text-white font-black px-3.5 py-1.5 rounded-lg transition cursor-pointer text-xs">
                 Ajustar Pantalla Móvil
             </button>
         </div>
@@ -156,31 +158,31 @@
             
             <!-- LOGO Y TÍTULO PLANTA -->
             <div class="bg-white p-3 px-5 rounded-2xl border-3 border-orange-500 flex items-center gap-4 shadow-md shrink-0">
-                <svg width="150" height="45" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="165" height="50" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M 125 40 L 165 5 L 125 25 Z" fill="#94a3b8"/>
                     <path d="M 165 5 L 220 20 L 220 45 L 180 30 L 180 17 L 195 17 L 195 27 L 205 27 L 205 12 L 165 5 Z" fill="#ea580c"/>
                     <path d="M 175 14 L 210 14 L 210 23 L 196 23 L 196 42 L 185 42 L 185 23 L 175 23 Z" fill="#ffffff"/>
                     <text x="5" y="48" font-family="'Inter', sans-serif" font-size="34" font-weight="900" fill="#ea580c" letter-spacing="-0.5">EL TUNAL</text>
                 </svg>
                 <div>
-                    <h1 class="text-2xl font-black tracking-wider text-orange-500 font-digital">PLANTA EL TUNAL</h1>
-                    <p class="text-xs text-slate-300 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
+                    <h1 class="text-3xl font-black tracking-wider text-orange-500 font-digital">PLANTA EL TUNAL</h1>
+                    <p class="text-sm text-slate-300 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
                 </div>
             </div>
 
             <!-- BLOQUE REPORTADO POR + BADGE AUTO-GUARDADO ABAJO -->
-            <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[270px]">
+            <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[280px]">
                 <div class="bg-slate-800 p-3 px-5 rounded-2xl border-2 border-orange-500/60 flex items-center gap-3 shadow-inner h-full">
-                    <i data-lucide="user" class="w-6 h-6 text-orange-400 shrink-0"></i>
+                    <i data-lucide="user" class="w-7 h-7 text-orange-400 shrink-0"></i>
                     <div class="flex-1">
                         <div class="flex justify-between items-center mb-1">
-                            <div class="text-[11px] text-orange-400 font-black uppercase">REPORTADO POR:</div>
-                            <button type="button" onclick="toggleEditarReportadoPor()" id="btn-edit-reportado" class="text-[10px] text-orange-300 hover:text-white bg-orange-900/60 hover:bg-orange-800 px-2 py-0.5 rounded border border-orange-500/50 transition cursor-pointer flex items-center gap-1 font-bold" title="Escribir otro nombre">
-                                <i data-lucide="edit-3" class="w-3 h-3"></i> <span id="btn-edit-reportado-text">Personalizar</span>
+                            <div class="text-xs text-orange-400 font-black uppercase">REPORTADO POR:</div>
+                            <button type="button" onclick="toggleEditarReportadoPor()" id="btn-edit-reportado" class="text-xs text-orange-300 hover:text-white bg-orange-900/60 hover:bg-orange-800 px-2 py-0.5 rounded border border-orange-500/50 transition cursor-pointer flex items-center gap-1 font-black" title="Escribir otro nombre">
+                                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> <span id="btn-edit-reportado-text">Personalizar</span>
                             </button>
                         </div>
                         <div id="container-reportado-input">
-                            <select id="global-reportado-select" class="hmi-select text-sm py-1 px-3 border-orange-500 text-orange-500 font-black bg-slate-900 w-full" onchange="sincronizarReportadoPor(this.value)">
+                            <select id="global-reportado-select" class="hmi-select text-base py-1 px-3 border-orange-500 text-orange-500 font-black bg-slate-900 w-full" onchange="sincronizarReportadoPor(this.value)">
                                 <option value="LUIS SOTO" selected>LUIS SOTO</option>
                                 <option value="OMAR OSORIO">OMAR OSORIO</option>
                                 <option value="SIMON LEAL">SIMON LEAL</option>
@@ -192,50 +194,50 @@
                 </div>
 
                 <!-- BADGE AUTO-GUARDADO UBICADO DEBAJO DE REPORTADO POR -->
-                <div id="autosave-badge-header" class="bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow w-full">
-                    <span class="relative flex h-2.5 w-2.5">
+                <div id="autosave-badge-header" class="bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3.5 py-2 rounded-xl font-black flex items-center justify-center gap-2 shadow w-full">
+                    <span class="relative flex h-3 w-3">
                         <span id="autosave-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span id="autosave-dot" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        <span id="autosave-dot" class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                     </span>
-                    <span id="autosave-text-header" class="font-digital uppercase tracking-wider text-[11px]">AUTO-GUARDADO ACTIVO</span>
+                    <span id="autosave-text-header" class="font-digital uppercase tracking-wider text-xs font-black">AUTO-GUARDADO ACTIVO</span>
                 </div>
             </div>
 
             <!-- BLOQUE TURNO + BOTÓN GUARDAR EN NUBE ABAJO -->
-            <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[250px]">
+            <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[260px]">
                 <div class="bg-slate-800 p-3 px-5 rounded-2xl border-2 border-orange-500/60 flex items-center gap-3 shadow-inner h-full">
-                    <i data-lucide="clock" class="w-6 h-6 text-orange-400 shrink-0"></i>
+                    <i data-lucide="clock" class="w-7 h-7 text-orange-400 shrink-0"></i>
                     <div class="flex-1">
-                        <label class="text-[11px] text-orange-400 font-extrabold block">TURNO:</label>
-                        <select id="select-turno" class="hmi-select text-sm py-1 px-3 border-orange-500 text-orange-500 font-black bg-slate-900 mt-1 w-full" onchange="toggleOtroInput('otro-turno-header', this.value); sincronizarTurno(this.value)">
+                        <label class="text-xs text-orange-400 font-black block">TURNO:</label>
+                        <select id="select-turno" class="hmi-select text-base py-1 px-3 border-orange-500 text-orange-500 font-black bg-slate-900 mt-1 w-full" onchange="toggleOtroInput('otro-turno-header', this.value); sincronizarTurno(this.value)">
                             <option value="TURNO 1 (06:00 - 18:00)" selected>TURNO 1 (06:00 - 18:00)</option>
                             <option value="TURNO 2 (18:00 - 06:00)">TURNO 2 (18:00 - 06:00)</option>
                             <option value="OTRO">OTRO</option>
                         </select>
-                        <input type="text" id="otro-turno-header" class="hmi-input text-sm py-1 hidden w-full uppercase font-black mt-1" placeholder="TURNO..." oninput="sincronizarTurno(this.value)">
+                        <input type="text" id="otro-turno-header" class="hmi-input text-base py-1 hidden w-full uppercase font-black mt-1" placeholder="TURNO..." oninput="sincronizarTurno(this.value)">
                     </div>
                 </div>
 
                 <!-- BOTÓN GUARDAR EN NUBE UBICADO DEBAJO DE TURNO -->
-                <button onclick="guardarDatosEnNube()" id="btn-guardar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-xs px-4 py-2 rounded-xl border-2 border-emerald-400 transition shadow-xl cursor-pointer font-black tracking-wide w-full h-[36px]">
-                    <i data-lucide="cloud-upload" class="w-4 h-4"></i> Guardar en Nube (Manual)
+                <button onclick="guardarDatosEnNube()" id="btn-guardar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-sm px-4 py-2.5 rounded-xl border-2 border-emerald-400 transition shadow-xl cursor-pointer font-black tracking-wide w-full h-[42px]">
+                    <i data-lucide="cloud-upload" class="w-5 h-5"></i> Guardar en Nube (Manual)
                 </button>
             </div>
 
             <!-- BLOQUE RELOJ/FECHA + BOTÓN GENERAR JPG ABAJO -->
-            <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[230px]">
+            <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[240px]">
                 <div class="text-right bg-slate-800 p-3 px-5 rounded-2xl border-2 border-orange-500/60 shadow-inner flex flex-col justify-center h-full">
-                    <div id="live-clock" class="text-xl font-digital text-orange-400 font-black leading-none">--:--:--</div>
-                    <div id="live-date" class="text-xs text-slate-200 font-black tracking-widest mt-0.5">--/--/----</div>
-                    <div id="last-modified-container" class="mt-1 pt-1 border-t border-slate-700/80 flex items-center justify-end gap-1.5 text-[10px] font-bold text-amber-300">
-                        <i data-lucide="clock-4" class="w-3 h-3 text-amber-400"></i>
-                        <span>Última modif: <span id="last-modified-time" class="font-digital font-black text-amber-400 text-[11px]">--:--:--</span></span>
+                    <div id="live-clock" class="text-2xl font-digital text-orange-400 font-black leading-none">--:--:--</div>
+                    <div id="live-date" class="text-sm text-slate-200 font-black tracking-widest mt-0.5">--/--/----</div>
+                    <div id="last-modified-container" class="mt-1 pt-1 border-t border-slate-700/80 flex items-center justify-end gap-1.5 text-xs font-black text-amber-300">
+                        <i data-lucide="clock-4" class="w-3.5 h-3.5 text-amber-400"></i>
+                        <span>Última modif: <span id="last-modified-time" class="font-digital font-black text-amber-400 text-xs">--:--:--</span></span>
                     </div>
                 </div>
 
                 <!-- BOTÓN GENERAR JPG UBICADO DEBAJO DEL RELOJ -->
-                <button onclick="generarCapturasDuales()" id="btn-capturar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-xs px-4 py-2 rounded-xl border-2 border-orange-400 transition shadow-xl cursor-pointer font-black tracking-wide w-full h-[36px]">
-                    <i data-lucide="images" class="w-4 h-4"></i> Generar 2 Imágenes JPG
+                <button onclick="generarCapturasDuales()" id="btn-capturar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-sm px-4 py-2.5 rounded-xl border-2 border-orange-400 transition shadow-xl cursor-pointer font-black tracking-wide w-full h-[42px]">
+                    <i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG
                 </button>
             </div>
 
@@ -247,7 +249,7 @@
             <div class="bg-slate-900 text-white p-5 rounded-xl flex justify-between items-center gap-4 border-3 border-orange-500 shadow-md">
                 <div class="flex items-center gap-4">
                     <div class="bg-white p-2 rounded-lg">
-                        <svg width="120" height="36" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="135" height="40" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M 125 40 L 165 5 L 125 25 Z" fill="#94a3b8"/>
                             <path d="M 165 5 L 220 20 L 220 45 L 180 30 L 180 17 L 195 17 L 195 27 L 205 27 L 205 12 L 165 5 Z" fill="#ea580c"/>
                             <path d="M 175 14 L 210 14 L 210 23 L 196 23 L 196 42 L 185 42 L 185 23 L 175 23 Z" fill="#ffffff"/>
@@ -255,19 +257,19 @@
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-lg font-black tracking-wider text-orange-400 font-digital">PLANTA EL TUNAL</h2>
-                        <p class="text-xs text-slate-200 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
+                        <h2 class="text-xl font-black tracking-wider text-orange-400 font-digital">PLANTA EL TUNAL</h2>
+                        <p class="text-sm text-slate-200 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-4">
                     <div class="bg-slate-800 px-4 py-2 rounded-xl border border-orange-500/50 text-left shrink-0 min-w-max flex flex-col justify-center">
-                        <div class="text-[11px] text-orange-400 font-bold uppercase whitespace-nowrap">TURNO:</div>
-                        <div id="display-turno-copy" class="text-sm font-digital text-white font-black whitespace-nowrap leading-snug">TURNO 1 (06:00 - 18:00)</div>
+                        <div class="text-xs text-orange-400 font-black uppercase whitespace-nowrap">TURNO:</div>
+                        <div id="display-turno-copy" class="text-base font-digital text-white font-black whitespace-nowrap leading-snug">TURNO 1 (06:00 - 18:00)</div>
                     </div>
                     <div class="text-right bg-slate-800 px-4 py-2 rounded-xl border border-orange-500/50 shrink-0 min-w-max flex flex-col justify-center">
-                        <div id="header-clock-copy" class="text-sm font-digital text-orange-400 font-black whitespace-nowrap">--:--:--</div>
-                        <div id="header-date-copy" class="text-xs text-slate-200 font-bold whitespace-nowrap">--/--/----</div>
+                        <div id="header-clock-copy" class="text-base font-digital text-orange-400 font-black whitespace-nowrap">--:--:--</div>
+                        <div id="header-date-copy" class="text-sm text-slate-200 font-black whitespace-nowrap">--/--/----</div>
                     </div>
                 </div>
             </div>
@@ -275,13 +277,13 @@
             <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white p-5 rounded-2xl shadow-md flex items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div class="bg-white/20 p-3 rounded-xl border border-white/40 flex items-center justify-center shadow-inner">
-                        <i data-lucide="layout-dashboard" class="w-7 h-7 text-white"></i>
+                        <i data-lucide="layout-dashboard" class="w-8 h-8 text-white"></i>
                     </div>
                     <div>
-                        <h2 class="font-black text-base md:text-lg uppercase tracking-wide text-white leading-snug whitespace-nowrap py-0.5">PARTE 1: RECEPCIÓN Y ALMACENAMIENTO (SILOS Y PATIO)</h2>
+                        <h2 class="font-black text-lg md:text-xl uppercase tracking-wide text-white leading-snug whitespace-nowrap py-0.5">PARTE 1: RECEPCIÓN Y ALMACENAMIENTO (SILOS Y PATIO)</h2>
                     </div>
                 </div>
-                <div class="bg-white/25 px-4 py-2 rounded-xl border border-white/40 text-sm font-mono font-black tracking-widest text-white whitespace-nowrap shadow-inner">
+                <div class="bg-white/25 px-4.5 py-2.5 rounded-xl border border-white/40 text-base font-mono font-black tracking-widest text-white whitespace-nowrap shadow-inner">
                     PÁGINA 1 DE 2
                 </div>
             </div>
@@ -290,26 +292,26 @@
 
                 <div class="col-span-12 bg-slate-50 p-5 rounded-2xl border-3 border-slate-300 space-y-4">
                     <div class="border-b-2 border-slate-200 pb-3 flex justify-between items-center gap-2">
-                        <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
-                            <i data-lucide="truck" class="w-5 h-5 text-orange-700"></i>
+                        <h3 class="font-black text-orange-800 text-lg md:text-xl flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
+                            <i data-lucide="truck" class="w-6 h-6 text-orange-700"></i>
                             Recepción - Patio de Cisternas
                         </h3>
                         <div class="flex items-center gap-3">
-                            <span id="cisterna-count" class="text-xs font-mono font-black bg-orange-100 text-orange-900 border border-orange-300 px-3 py-1 rounded-full">2 / 4</span>
-                            <button id="add-cisterna-btn" onclick="agregarCisterna()" class="flex items-center gap-1.5 bg-orange-600 hover:bg-orange-500 text-white text-xs px-3.5 py-2 rounded-xl transition shadow font-black cursor-pointer">
-                                <i data-lucide="plus" class="w-4 h-4"></i> Agregar Cisterna
+                            <span id="cisterna-count" class="text-sm font-mono font-black bg-orange-100 text-orange-900 border border-orange-300 px-3.5 py-1.5 rounded-full">2 / 4</span>
+                            <button id="add-cisterna-btn" onclick="agregarCisterna()" class="flex items-center gap-1.5 bg-orange-600 hover:bg-orange-500 text-white text-sm px-4 py-2.5 rounded-xl transition shadow font-black cursor-pointer">
+                                <i data-lucide="plus" class="w-5 h-5"></i> Agregar Cisterna
                             </button>
                         </div>
                     </div>
 
                     <div id="cisternas-container" class="grid grid-cols-4 gap-4"></div>
-                    <div id="no-cisternas-msg" class="text-center py-6 text-slate-400 font-black text-xs hidden">NO HAY CISTERNAS ACTIVAS EN EL PATIO</div>
+                    <div id="no-cisternas-msg" class="text-center py-6 text-slate-400 font-black text-sm hidden">NO HAY CISTERNAS ACTIVAS EN EL PATIO</div>
                 </div>
 
                 <div class="col-span-12 bg-slate-50 p-5 rounded-2xl border-3 border-slate-300 space-y-4">
                     <div class="border-b-2 border-slate-200 pb-3 flex justify-between items-center">
-                        <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
-                            <i data-lucide="database" class="w-5 h-5 text-amber-700"></i>
+                        <h3 class="font-black text-orange-800 text-lg md:text-xl flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
+                            <i data-lucide="database" class="w-6 h-6 text-amber-700"></i>
                             Silos de Almacenamiento Principal (Silos 1, 2 y 3)
                         </h3>
                     </div>
@@ -319,18 +321,18 @@
                         <!-- SILO 1 -->
                         <div class="silo-wrapper">
                             <div class="flex justify-between items-center w-full mb-2 px-1">
-                                <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
-                                    <i data-lucide="cylinder" class="w-5 h-5 text-orange-600"></i> SILO 1
+                                <span class="text-xl font-black text-slate-900 flex items-center gap-2 font-digital">
+                                    <i data-lucide="cylinder" class="w-6 h-6 text-orange-600"></i> SILO 1
                                 </span>
-                                <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
+                                <span class="w-4 h-4 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
                             </div>
 
                             <div id="silo1-icon-container" class="status-badge-container bg-amber-50 border-amber-300">
                                 <div id="silo1-icon-box" class="bg-amber-500 text-white p-1.5 rounded-lg shadow shrink-0">
-                                    <i id="silo1-icon-symbol" data-lucide="droplets" class="w-4 h-4"></i>
+                                    <i id="silo1-icon-symbol" data-lucide="droplets" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 1</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 1</div>
                                     <div id="silo1-icon-text" class="status-badge-text text-amber-900">LECHE CRUDA</div>
                                 </div>
                             </div>
@@ -348,21 +350,21 @@
                                 </div>
 
                                 <div class="silo-overlay-panel">
-                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
-                                        <span class="silo-label text-orange-700 text-xs">PRODUCTO / ESTATUS:</span>
-                                        <select id="silo1-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo1', this.value); evaluarEstatusSilo(1)">
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
+                                        <span class="silo-label text-orange-700 text-sm">PRODUCTO / ESTATUS:</span>
+                                        <select id="silo1-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo1', this.value); evaluarEstatusSilo(1); sincronizarAtributosDOM();">
                                             <option value="LECHE CRUDA" selected>LECHE CRUDA</option>
                                             <option value="CIP">CIP</option>
                                             <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
                                             <option value="POR CIP">POR CIP</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
-                                        <input type="text" id="otro-silo1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstatusSilo(1)">
+                                        <input type="text" id="otro-silo1" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="evaluarEstatusSilo(1); sincronizarAtributosDOM();">
                                     </div>
 
-                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
-                                        <span class="silo-label text-orange-700 text-xs">ETAPA / ESTADO:</span>
-                                        <select id="silo1-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-etapa-silo1', this.value); evaluarEstatusSilo(1)">
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
+                                        <span class="silo-label text-orange-700 text-sm">ETAPA / ESTADO:</span>
+                                        <select id="silo1-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-etapa-silo1', this.value); evaluarEstatusSilo(1); sincronizarAtributosDOM();">
                                             <option value="">-- N/A (SIN PRODUCTO) --</option>
                                             <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
                                             <option value="EN RECEPCION">EN RECEPCION</option>
@@ -370,33 +372,33 @@
                                             <option value="EN PRODUCCION">EN PRODUCCION</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
-                                        <input type="text" id="otro-etapa-silo1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="evaluarEstatusSilo(1)">
+                                        <input type="text" id="otro-etapa-silo1" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstatusSilo(1); sincronizarAtributosDOM();">
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-xs">TEMP:</span>
+                                        <span class="silo-label text-sm">TEMP:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="text" id="silo1-temp-input" class="silo-input-field w-20" value="2.4">
-                                            <span class="silo-label text-slate-600 text-xs">°C</span>
+                                            <input type="text" id="silo1-temp-input" class="silo-input-field w-24" value="2.4" oninput="sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm">°C</span>
                                         </div>
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-xs">HPO:</span>
-                                        <input type="text" id="silo1-hpo-input" class="silo-input-field w-24" value="19">
+                                        <span class="silo-label text-sm">HPO:</span>
+                                        <input type="text" id="silo1-hpo-input" class="silo-input-field w-28" value="19" oninput="sincronizarAtributosDOM();">
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-xs">NIVEL:</span>
+                                        <span class="silo-label text-sm">NIVEL:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="number" id="silo1-pct" class="silo-input-field w-20" value="48" min="0" max="100" oninput="calcularLitros(1)">
-                                            <span class="silo-label text-slate-600 text-xs">%</span>
+                                            <input type="number" id="silo1-pct" class="silo-input-field w-24" value="48" min="0" max="100" oninput="calcularLitros(1); sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm">%</span>
                                         </div>
                                     </div>
 
-                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5">
-                                        <span id="silo1-readout-lts" class="text-lg font-digital font-black text-orange-950">28,800</span>
-                                        <span class="silo-label ml-1 text-xs text-orange-700">LTS</span>
+                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-2">
+                                        <span id="silo1-readout-lts" class="text-xl font-digital font-black text-orange-950">28,800</span>
+                                        <span class="silo-label ml-1 text-sm text-orange-700">LTS</span>
                                     </div>
                                 </div>
 
@@ -413,18 +415,18 @@
                         <!-- SILO 2 -->
                         <div class="silo-wrapper">
                             <div class="flex justify-between items-center w-full mb-2 px-1">
-                                <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
-                                    <i data-lucide="cylinder" class="w-5 h-5 text-orange-600"></i> SILO 2
+                                <span class="text-xl font-black text-slate-900 flex items-center gap-2 font-digital">
+                                    <i data-lucide="cylinder" class="w-6 h-6 text-orange-600"></i> SILO 2
                                 </span>
-                                <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
+                                <span class="w-4 h-4 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
                             </div>
 
                             <div id="silo2-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
                                 <div id="silo2-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0">
-                                    <i id="silo2-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
+                                    <i id="silo2-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 2</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 2</div>
                                     <div id="silo2-icon-text" class="status-badge-text text-emerald-900">VACIO Y LIMPIO</div>
                                 </div>
                             </div>
@@ -442,9 +444,9 @@
                                 </div>
 
                                 <div class="silo-overlay-panel">
-                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
-                                        <span class="silo-label text-orange-700 text-xs">PRODUCTO / ESTATUS:</span>
-                                        <select id="silo2-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo2', this.value); evaluarEstatusSilo(2)">
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
+                                        <span class="silo-label text-orange-700 text-sm">PRODUCTO / ESTATUS:</span>
+                                        <select id="silo2-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo2', this.value); evaluarEstatusSilo(2); sincronizarAtributosDOM();">
                                             <option value="LECHE CRUDA">LECHE CRUDA</option>
                                             <option value="CIP">CIP</option>
                                             <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
@@ -455,12 +457,12 @@
                                             <option value="LECHE DESCREMADA PARA DESLACTOSADA">LECHE DESCREMADA PARA DESLACTOSADA</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
-                                        <input type="text" id="otro-silo2" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstatusSilo(2)">
+                                        <input type="text" id="otro-silo2" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="evaluarEstatusSilo(2); sincronizarAtributosDOM();">
                                     </div>
 
-                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
-                                        <span class="silo-label text-orange-700 text-xs">ETAPA / ESTADO:</span>
-                                        <select id="silo2-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-silo2', this.value); evaluarEstatusSilo(2)">
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
+                                        <span class="silo-label text-orange-700 text-sm">ETAPA / ESTADO:</span>
+                                        <select id="silo2-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-silo2', this.value); evaluarEstatusSilo(2); sincronizarAtributosDOM();">
                                             <option value="" selected>-- N/A (SIN PRODUCTO) --</option>
                                             <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
                                             <option value="EN RECEPCION">EN RECEPCION</option>
@@ -468,33 +470,33 @@
                                             <option value="EN PRODUCCION">EN PRODUCCION</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
-                                        <input type="text" id="otro-etapa-silo2" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="evaluarEstatusSilo(2)">
+                                        <input type="text" id="otro-etapa-silo2" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstatusSilo(2); sincronizarAtributosDOM();">
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-xs">TEMP:</span>
+                                        <span class="silo-label text-sm">TEMP:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="text" id="silo2-temp-input" class="silo-input-field w-20" value="21.6">
-                                            <span class="silo-label text-slate-600 text-xs">°C</span>
+                                            <input type="text" id="silo2-temp-input" class="silo-input-field w-24" value="21.6" oninput="sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm">°C</span>
                                         </div>
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-xs">HPO:</span>
-                                        <input type="text" id="silo2-hpo-input" class="silo-input-field w-24 opacity-50 cursor-not-allowed" value="N/A" disabled>
+                                        <span class="silo-label text-sm">HPO:</span>
+                                        <input type="text" id="silo2-hpo-input" class="silo-input-field w-28 opacity-50 cursor-not-allowed" value="N/A" disabled oninput="sincronizarAtributosDOM();">
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-xs">NIVEL:</span>
+                                        <span class="silo-label text-sm">NIVEL:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="number" id="silo2-pct" class="silo-input-field w-20" value="50" min="0" max="100" oninput="calcularLitros(2)">
-                                            <span class="silo-label text-slate-600 text-xs">%</span>
+                                            <input type="number" id="silo2-pct" class="silo-input-field w-24" value="50" min="0" max="100" oninput="calcularLitros(2); sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm">%</span>
                                         </div>
                                     </div>
 
-                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5">
-                                        <span id="silo2-readout-lts" class="text-lg font-digital font-black text-orange-950">30,000</span>
-                                        <span class="silo-label ml-1 text-xs text-orange-700">LTS</span>
+                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-2">
+                                        <span id="silo2-readout-lts" class="text-xl font-digital font-black text-orange-950">30,000</span>
+                                        <span class="silo-label ml-1 text-sm text-orange-700">LTS</span>
                                     </div>
                                 </div>
 
@@ -511,18 +513,18 @@
                         <!-- SILO 3 -->
                         <div class="silo-wrapper">
                             <div class="flex justify-between items-center w-full mb-2 px-1">
-                                <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
-                                    <i data-lucide="cylinder" class="w-5 h-5 text-orange-600"></i> SILO 3
+                                <span class="text-xl font-black text-slate-900 flex items-center gap-2 font-digital">
+                                    <i data-lucide="cylinder" class="w-6 h-6 text-orange-600"></i> SILO 3
                                 </span>
-                                <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
+                                <span class="w-4 h-4 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
                             </div>
 
                             <div id="silo3-icon-container" class="status-badge-container bg-purple-50 border-purple-300">
                                 <div id="silo3-icon-box" class="bg-purple-600 text-white p-1.5 rounded-lg shadow shrink-0">
-                                    <i id="silo3-icon-symbol" data-lucide="clock" class="w-4 h-4"></i>
+                                    <i id="silo3-icon-symbol" data-lucide="clock" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 3</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 3</div>
                                     <div id="silo3-icon-text" class="status-badge-text text-purple-900">EN ESPERA DE LIBERACION</div>
                                 </div>
                             </div>
@@ -540,9 +542,9 @@
                                 </div>
 
                                 <div class="silo-overlay-panel">
-                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
-                                        <span class="silo-label text-orange-700 text-xs">PRODUCTO / ESTATUS:</span>
-                                        <select id="silo3-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo3', this.value); evaluarEstatusSilo(3)">
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
+                                        <span class="silo-label text-orange-700 text-sm">PRODUCTO / ESTATUS:</span>
+                                        <select id="silo3-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo3', this.value); evaluarEstatusSilo(3); sincronizarAtributosDOM();">
                                             <option value="CIP">CIP</option>
                                             <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
                                             <option value="POR CIP">POR CIP</option>
@@ -552,45 +554,45 @@
                                             <option value="LECHE DESCREMADA PARA DESLACTOSADA" selected>LECHE DESCREMADA PARA DESLACTOSADA</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
-                                        <input type="text" id="otro-silo3" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstatusSilo(3)">
+                                        <input type="text" id="otro-silo3" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="evaluarEstatusSilo(3); sincronizarAtributosDOM();">
                                     </div>
 
-                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[75px] justify-center">
-                                        <span class="silo-label text-orange-700 text-xs">ETAPA / ESTADO:</span>
-                                        <select id="silo3-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-etapa-silo3', this.value); evaluarEstatusSilo(3)">
+                                    <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
+                                        <span class="silo-label text-orange-700 text-sm">ETAPA / ESTADO:</span>
+                                        <select id="silo3-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-etapa-silo3', this.value); evaluarEstatusSilo(3); sincronizarAtributosDOM();">
                                             <option value="">-- N/A (SIN PRODUCTO) --</option>
                                             <option value="EN ESPERA DE LIBERACION" selected>EN ESPERA DE LIBERACION</option>
                                             <option value="EN ESPERA DE INICIO DE PRODUCCION">EN ESPERA DE INICIO DE PRODUCCION</option>
                                             <option value="EN PRODUCCION">EN PRODUCCION</option>
                                             <option value="OTRO">OTRO</option>
                                         </select>
-                                        <input type="text" id="otro-etapa-silo3" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="evaluarEstatusSilo(3)">
+                                        <input type="text" id="otro-etapa-silo3" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstatusSilo(3); sincronizarAtributosDOM();">
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-xs">TEMP:</span>
+                                        <span class="silo-label text-sm">TEMP:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="text" id="silo3-temp-input" class="silo-input-field w-20" value="26.1">
-                                            <span class="silo-label text-slate-600 text-xs">°C</span>
+                                            <input type="text" id="silo3-temp-input" class="silo-input-field w-24" value="26.1" oninput="sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm">°C</span>
                                         </div>
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-xs">HPO:</span>
-                                        <input type="text" id="silo3-hpo-input" class="silo-input-field w-24" value="-">
+                                        <span class="silo-label text-sm">HPO:</span>
+                                        <input type="text" id="silo3-hpo-input" class="silo-input-field w-28" value="-" oninput="sincronizarAtributosDOM();">
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-xs">NIVEL:</span>
+                                        <span class="silo-label text-sm">NIVEL:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="number" id="silo3-pct" class="silo-input-field w-20" value="50" min="0" max="100" oninput="calcularLitros(3)">
-                                            <span class="silo-label text-slate-600 text-xs">%</span>
+                                            <input type="number" id="silo3-pct" class="silo-input-field w-24" value="50" min="0" max="100" oninput="calcularLitros(3); sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm">%</span>
                                         </div>
                                     </div>
 
-                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5">
-                                        <span id="silo3-readout-lts" class="text-lg font-digital font-black text-orange-950">30,000</span>
-                                        <span class="silo-label ml-1 text-xs text-orange-700">LTS</span>
+                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-2">
+                                        <span id="silo3-readout-lts" class="text-xl font-digital font-black text-orange-950">30,000</span>
+                                        <span class="silo-label ml-1 text-sm text-orange-700">LTS</span>
                                     </div>
                                 </div>
 
@@ -609,10 +611,10 @@
 
             </div>
 
-            <div class="bg-white p-4 rounded-xl border-3 border-slate-300 flex justify-between items-center text-sm text-slate-800 font-black shadow-md mt-4">
+            <div class="bg-white p-4 rounded-xl border-3 border-slate-300 flex justify-between items-center text-base text-slate-800 font-black shadow-md mt-4">
                 <div><span>Sistema HMI Planta El Tunal</span></div>
                 <div class="font-black text-slate-900 bg-slate-100 px-5 py-2.5 rounded-xl border-2 border-orange-500 flex items-center gap-2.5 shadow-sm">
-                    <i data-lucide="user" class="w-5 h-5 text-orange-700"></i>
+                    <i data-lucide="user" class="w-6 h-6 text-orange-700"></i>
                     <span class="whitespace-nowrap">Reportado por: <span id="footer-reportado-1" class="text-orange-800 font-black">LUIS SOTO</span></span>
                 </div>
             </div>
@@ -624,7 +626,7 @@
             <div class="bg-slate-900 text-white p-5 rounded-xl flex justify-between items-center gap-4 border-3 border-orange-500 shadow-md">
                 <div class="flex items-center gap-4">
                     <div class="bg-white p-2 rounded-lg">
-                        <svg width="120" height="36" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="135" height="40" viewBox="0 0 240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M 125 40 L 165 5 L 125 25 Z" fill="#94a3b8"/>
                             <path d="M 165 5 L 220 20 L 220 45 L 180 30 L 180 17 L 195 17 L 195 27 L 205 27 L 205 12 L 165 5 Z" fill="#ea580c"/>
                             <path d="M 175 14 L 210 14 L 210 23 L 196 23 L 196 42 L 185 42 L 185 23 L 175 23 Z" fill="#ffffff"/>
@@ -632,19 +634,19 @@
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-lg font-black tracking-wider text-orange-400 font-digital">PLANTA EL TUNAL</h2>
-                        <p class="text-xs text-slate-200 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
+                        <h2 class="text-xl font-black tracking-wider text-orange-400 font-digital">PLANTA EL TUNAL</h2>
+                        <p class="text-sm text-slate-200 font-black tracking-widest uppercase leading-tight whitespace-nowrap py-0.5">ESTATUS DEL ÁREA DE PROCESOS</p>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-4">
                     <div class="bg-slate-800 px-4 py-2 rounded-xl border border-orange-500/50 text-left shrink-0 min-w-max flex flex-col justify-center">
-                        <div class="text-[11px] text-orange-400 font-bold uppercase whitespace-nowrap">TURNO:</div>
-                        <div id="display-turno-copy-2" class="text-sm font-digital text-white font-black whitespace-nowrap leading-snug">TURNO 1 (06:00 - 18:00)</div>
+                        <div class="text-xs text-orange-400 font-black uppercase whitespace-nowrap">TURNO:</div>
+                        <div id="display-turno-copy-2" class="text-base font-digital text-white font-black whitespace-nowrap leading-snug">TURNO 1 (06:00 - 18:00)</div>
                     </div>
                     <div class="text-right bg-slate-800 px-4 py-2 rounded-xl border border-orange-500/50 shrink-0 min-w-max flex flex-col justify-center">
-                        <div id="header-clock-copy-2" class="text-sm font-digital text-orange-400 font-black whitespace-nowrap">--:--:--</div>
-                        <div id="header-date-copy-2" class="text-xs text-slate-200 font-bold whitespace-nowrap">--/--/----</div>
+                        <div id="header-clock-copy-2" class="text-base font-digital text-orange-400 font-black whitespace-nowrap">--:--:--</div>
+                        <div id="header-date-copy-2" class="text-sm text-slate-200 font-black whitespace-nowrap">--/--/----</div>
                     </div>
                 </div>
             </div>
@@ -652,20 +654,20 @@
             <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white p-5 rounded-2xl shadow-md flex items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div class="bg-white/20 p-3 rounded-xl border border-white/40 flex items-center justify-center shadow-inner">
-                        <i data-lucide="cpu" class="w-7 h-7 text-white"></i>
+                        <i data-lucide="cpu" class="w-8 h-8 text-white"></i>
                     </div>
                     <div>
-                        <h2 class="font-black text-base md:text-lg uppercase tracking-wide text-white leading-snug whitespace-nowrap py-0.5">PARTE 2: PREPARACIÓN DE JUGO Y ÁREA DE PROCESOS</h2>
+                        <h2 class="font-black text-lg md:text-xl uppercase tracking-wide text-white leading-snug whitespace-nowrap py-0.5">PARTE 2: PREPARACIÓN DE JUGO Y ÁREA DE PROCESOS</h2>
                     </div>
                 </div>
-                <div class="bg-white/25 px-4 py-2 rounded-xl border border-white/40 text-sm font-mono font-black tracking-widest text-white whitespace-nowrap shadow-inner">
+                <div class="bg-white/25 px-4.5 py-2.5 rounded-xl border border-white/40 text-base font-mono font-black tracking-widest text-white whitespace-nowrap shadow-inner">
                     PÁGINA 2 DE 2
                 </div>
             </div>
 
             <div class="space-y-4">
-                <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
-                    <i data-lucide="cup-soda" class="w-5 h-5 text-orange-700"></i>
+                <h3 class="font-black text-orange-800 text-lg md:text-xl flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
+                    <i data-lucide="cup-soda" class="w-6 h-6 text-orange-700"></i>
                     Sección: Preparación de Jugo y Mezcla (Almix)
                 </h3>
                 
@@ -674,18 +676,18 @@
                     <!-- TANQUE 01 -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
-                            <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
-                                <i data-lucide="flask-conical" class="w-5 h-5 text-orange-600"></i> TANQUE 01
+                            <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
+                                <i data-lucide="flask-conical" class="w-6 h-6 text-orange-600"></i> TANQUE 01
                             </span>
-                            <span class="text-xs font-black bg-amber-200 text-amber-900 px-2.5 py-1 rounded-md shadow-sm">Preparación</span>
+                            <span class="text-xs font-black bg-amber-200 text-amber-900 px-3 py-1 rounded-md shadow-sm">Preparación</span>
                         </div>
 
                         <div id="tq01-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
                             <div id="tq01-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0">
-                                <i id="tq01-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
+                                <i id="tq01-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i>
                             </div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TANQUE</div>
+                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TANQUE</div>
                                 <div id="tq01-icon-text" class="status-badge-text text-emerald-900">VACIO Y LIMPIO</div>
                             </div>
                         </div>
@@ -704,24 +706,24 @@
 
                             <div class="silo-overlay-panel">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-xs">CANTIDAD:</span>
+                                    <span class="silo-label text-sm">CANTIDAD:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="tq01-kg-input" class="silo-input-field w-24 text-sm" value="0" min="0" max="30000" oninput="calcularLlenadoTanque('tq01')">
-                                        <span class="silo-label text-slate-600 text-xs">KG</span>
+                                        <input type="number" id="tq01-kg-input" class="silo-input-field w-28 text-base" value="0" min="0" max="30000" oninput="calcularLlenadoTanque('tq01'); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm">KG</span>
                                     </div>
                                 </div>
 
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-xs">TEMP:</span>
+                                    <span class="silo-label text-sm">TEMP:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="text" id="tq01-temp-input" class="silo-input-field w-20 text-sm" value="31.8">
-                                        <span class="silo-label text-slate-600 text-xs">°C</span>
+                                        <input type="text" id="tq01-temp-input" class="silo-input-field w-24 text-base" value="31.8" oninput="sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm">°C</span>
                                     </div>
                                 </div>
 
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center">
-                                    <span class="silo-label text-xs text-orange-700">PRODUCTO:</span>
-                                    <select id="tq01-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="toggleOtroInput('otro-tq01', this.value); evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01')">
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
+                                    <span class="silo-label text-sm text-orange-700">PRODUCTO:</span>
+                                    <select id="tq01-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-10" onchange="toggleOtroInput('otro-tq01', this.value); evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01'); sincronizarAtributosDOM();">
                                         <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="CIP">CIP</option>
@@ -738,12 +740,12 @@
                                         <option value="TE DE FRUTOS ROJOS">TE DE FRUTOS ROJOS</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstadoTanque('tq01')">
+                                    <input type="text" id="otro-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
                                 </div>
 
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center">
-                                    <span class="silo-label text-xs text-orange-700">ETAPA:</span>
-                                    <select id="tq01-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9 opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq01', this.value); evaluarEstadoTanque('tq01')">
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
+                                    <span class="silo-label text-sm text-orange-700">ETAPA:</span>
+                                    <select id="tq01-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-10 opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq01', this.value); evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
                                         <option value="" selected>-- N/A (SIN PRODUCTO) --</option>
                                         <option value="EN PREPARACION">EN PREPARACION</option>
                                         <option value="EN ENFRIAMIENTO">EN ENFRIAMIENTO</option>
@@ -753,11 +755,11 @@
                                         <option value="PRODUCCION CON EL INDIRECT">PRODUCCION CON EL INDIRECT</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-etapa-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq01')">
+                                    <input type="text" id="otro-etapa-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
                                 </div>
 
-                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5">
-                                    <span id="tq01-pct-display" class="text-base font-digital font-black text-orange-950">0%</span>
+                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-2">
+                                    <span id="tq01-pct-display" class="text-lg font-digital font-black text-orange-950">0%</span>
                                     <span class="silo-label ml-1 text-xs text-orange-700">(MÁX 30.000 KG)</span>
                                 </div>
                             </div>
@@ -775,19 +777,19 @@
                     <!-- TANQUE 02 -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
-                            <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
-                                <i data-lucide="flask-conical" class="w-5 h-5 text-orange-600"></i> TANQUE 02
+                            <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
+                                <i data-lucide="flask-conical" class="w-6 h-6 text-orange-600"></i> TANQUE 02
                             </span>
-                            <span class="text-xs font-black bg-amber-200 text-amber-900 px-2.5 py-1 rounded-md shadow-sm">Preparación</span>
+                            <span class="text-xs font-black bg-amber-200 text-amber-900 px-3 py-1 rounded-md shadow-sm">Preparación</span>
                         </div>
 
-                        <div id="tq02-icon-container" class="status-badge-container bg-blue-50 border-blue-300">
-                            <div id="tq02-icon-box" class="bg-blue-600 text-white p-1.5 rounded-lg shadow shrink-0">
-                                <i id="tq02-icon-symbol" data-lucide="snowflake" class="w-4 h-4"></i>
+                        <div id="tq02-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
+                            <div id="tq02-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0">
+                                <i id="tq02-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i>
                             </div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TANQUE</div>
-                                <div id="tq02-icon-text" class="status-badge-text text-blue-900">EN ENFRIAMIENTO</div>
+                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TANQUE</div>
+                                <div id="tq02-icon-text" class="status-badge-text text-emerald-900">VACIO Y LIMPIO</div>
                             </div>
                         </div>
 
@@ -796,38 +798,38 @@
                             <div class="silo-steel-ring"></div>
 
                             <div class="silo-sight-gauge">
-                                <div id="tq02-gauge-fill" class="silo-gauge-fill" style="height: 5.17%; background: linear-gradient(180deg, #dcfce7 0%, #22c55e 100%);"></div>
+                                <div id="tq02-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);"></div>
                             </div>
 
-                            <div id="tq02-liquid" class="silo-liquid-layer" style="height: 5.17%; background: linear-gradient(180deg, #f0fdf4 0%, #bbf7d0 30%, #4ade80 70%, #16a34a 100%); opacity: 0.95;">
-                                <div class="silo-wave-effect" style="background: rgba(187, 247, 208, 0.9);"></div>
+                            <div id="tq02-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%); opacity: 0.95;">
+                                <div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9);"></div>
                             </div>
 
                             <div class="silo-overlay-panel">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-xs">CANTIDAD:</span>
+                                    <span class="silo-label text-sm">CANTIDAD:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="tq02-kg-input" class="silo-input-field w-24 text-sm" value="1550" min="0" max="30000" oninput="calcularLlenadoTanque('tq02')">
-                                        <span class="silo-label text-slate-600 text-xs">KG</span>
+                                        <input type="number" id="tq02-kg-input" class="silo-input-field w-28 text-base" value="0" min="0" max="30000" oninput="calcularLlenadoTanque('tq02'); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm">KG</span>
                                     </div>
                                 </div>
 
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-xs">TEMP:</span>
+                                    <span class="silo-label text-sm">TEMP:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="text" id="tq02-temp-input" class="silo-input-field w-20 text-sm" value="9.9">
-                                        <span class="silo-label text-slate-600 text-xs">°C</span>
+                                        <input type="text" id="tq02-temp-input" class="silo-input-field w-24 text-base" value="20.0" oninput="sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm">°C</span>
                                     </div>
                                 </div>
 
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center">
-                                    <span class="silo-label text-xs text-orange-700">PRODUCTO:</span>
-                                    <select id="tq02-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="toggleOtroInput('otro-tq02', this.value); evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02')">
-                                        <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
+                                    <span class="silo-label text-sm text-orange-700">PRODUCTO:</span>
+                                    <select id="tq02-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-10" onchange="toggleOtroInput('otro-tq02', this.value); evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02'); sincronizarAtributosDOM();">
+                                        <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="CIP">CIP</option>
                                         <option value="NECTAR DE DURAZNO">NECTAR DE DURAZNO</option>
-                                        <option value="NECTAR DE PERA" selected>NECTAR DE PERA</option>
+                                        <option value="NECTAR DE PERA">NECTAR DE PERA</option>
                                         <option value="TE DE DURAZNO">TE DE DURAZNO</option>
                                         <option value="NECTAR DE MANZANA">NECTAR DE MANZANA</option>
                                         <option value="NARANJADA">NARANJADA</option>
@@ -838,26 +840,26 @@
                                         <option value="TE DE LIMON">TE DE LIMON</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="evaluarEstadoTanque('tq02')">
+                                    <input type="text" id="otro-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
                                 </div>
 
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center">
-                                    <span class="silo-label text-xs text-orange-700">ETAPA:</span>
-                                    <select id="tq02-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="toggleOtroInput('otro-etapa-tq02', this.value); evaluarEstadoTanque('tq02')">
-                                        <option value="">-- N/A (SIN PRODUCTO) --</option>
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
+                                    <span class="silo-label text-sm text-orange-700">ETAPA:</span>
+                                    <select id="tq02-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-10 opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq02', this.value); evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
+                                        <option value="" selected>-- N/A (SIN PRODUCTO) --</option>
                                         <option value="EN PREPARACION">EN PREPARACION</option>
-                                        <option value="EN ENFRIAMIENTO" selected>EN ENFRIAMIENTO</option>
+                                        <option value="EN ENFRIAMIENTO">EN ENFRIAMIENTO</option>
                                         <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
                                         <option value="EN ESPERA DE INICIO DE PRODUCCION">EN ESPERA DE INICIO DE PRODUCCION</option>
                                         <option value="PRODUCCION CON EL FLEX">PRODUCCION CON EL FLEX</option>
                                         <option value="PRODUCCION CON EL INDIRECT">PRODUCCION CON EL INDIRECT</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-etapa-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq02')">
+                                    <input type="text" id="otro-etapa-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
                                 </div>
 
-                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5">
-                                    <span id="tq02-pct-display" class="text-base font-digital font-black text-orange-950">5.2%</span>
+                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-2">
+                                    <span id="tq02-pct-display" class="text-lg font-digital font-black text-orange-950">0.0%</span>
                                     <span class="silo-label ml-1 text-xs text-orange-700">(MÁX 30.000 KG)</span>
                                 </div>
                             </div>
@@ -876,14 +878,14 @@
                     <div class="p-4 bg-slate-50 rounded-2xl border-3 border-slate-300 hover:border-orange-500 transition space-y-3 shadow-md flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-3">
-                                <span class="text-sm font-black text-slate-900 flex items-center gap-1.5">
-                                    <i data-lucide="blend" class="w-4 h-4 text-orange-700"></i> Almix (Mezclador Industrial)
+                                <span class="text-base font-black text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="blend" class="w-5 h-5 text-orange-700"></i> Almix (Mezclador Industrial)
                                 </span>
-                                <span class="text-xs font-black bg-slate-200 text-slate-800 px-2.5 py-1 rounded-md shadow-sm">Mezcla</span>
+                                <span class="text-xs font-black bg-slate-200 text-slate-800 px-3 py-1 rounded-md shadow-sm">Mezcla</span>
                             </div>
 
                             <div class="bg-white p-2.5 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-3">
-                                <svg viewBox="0 0 300 180" class="w-full h-auto max-h-32 drop-shadow-sm">
+                                <svg viewBox="0 0 300 180" class="w-full h-auto max-h-36 drop-shadow-sm">
                                     <rect x="50" y="35" width="90" height="95" rx="15" fill="url(#tankMetal)" stroke="#64748b" stroke-width="2.5"/>
                                     <path d="M 50 115 L 95 155 L 140 115 Z" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
                                     <path d="M 55 35 Q 95 25 135 35" fill="none" stroke="#475569" stroke-width="3"/>
@@ -917,17 +919,17 @@
 
                             <div id="almix-icon-container" class="status-badge-container bg-slate-100 border-slate-300">
                                 <div id="almix-icon-box" class="bg-slate-600 text-white p-1.5 rounded-lg shadow shrink-0">
-                                    <i id="almix-icon-symbol" data-lucide="minus-circle" class="w-4 h-4"></i>
+                                    <i id="almix-icon-symbol" data-lucide="minus-circle" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SISTEMA</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SISTEMA</div>
                                     <div id="almix-icon-text" class="status-badge-text text-slate-900">INACTIVO</div>
                                 </div>
                             </div>
 
                             <div class="input-group mt-1">
-                                <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
-                                <select id="almix-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('almix'); toggleOtroInput('otro-almix', this.value)">
+                                <label class="text-sm text-slate-600 font-black block mb-1">Estatus</label>
+                                <select id="almix-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('almix'); toggleOtroInput('otro-almix', this.value); sincronizarAtributosDOM();">
                                     <option value="PRODUCCION CON EL TANQUE 01">PRODUCCION CON EL TANQUE 01</option>
                                     <option value="PRODUCCION CON EL TANQUE 02">PRODUCCION CON EL TANQUE 02</option>
                                     <option value="CIP">CIP</option>
@@ -936,13 +938,13 @@
                                     <option value="INACTIVO" selected>INACTIVO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
-                                <input type="text" id="otro-almix" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('almix')">
+                                <input type="text" id="otro-almix" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('almix'); sincronizarAtributosDOM();">
                             </div>
                         </div>
 
                         <div class="p-2.5 bg-white rounded-xl border border-slate-200 text-center mt-2">
-                            <span class="text-[10px] text-slate-500 font-bold block">SISTEMA MEZCLADOR</span>
-                            <span class="text-xs font-digital font-black text-orange-600">ALMIX ALTA VELOCIDAD</span>
+                            <span class="text-xs text-slate-500 font-black block">SISTEMA MEZCLADOR</span>
+                            <span class="text-sm font-digital font-black text-orange-600">ALMIX ALTA VELOCIDAD</span>
                         </div>
                     </div>
 
@@ -951,25 +953,25 @@
 
             <!-- ÁREA DE PROCESOS -->
             <div class="space-y-4 pt-3">
-                <h3 class="font-black text-orange-800 text-base flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
-                    <i data-lucide="settings" class="w-5 h-5 text-orange-700"></i>
+                <h3 class="font-black text-orange-800 text-lg md:text-xl flex items-center gap-2.5 uppercase tracking-wide leading-snug py-0.5 overflow-visible">
+                    <i data-lucide="settings" class="w-6 h-6 text-orange-700"></i>
                     Sección: Área de Procesos (Líneas y Envasado Aséptico)
                 </h3>
 
                 <div class="grid grid-cols-4 gap-4">
 
                     <!-- 1. LACTA -->
-                    <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
+                    <div class="p-4 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-3 shadow-md flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-black text-slate-900 flex items-center gap-1.5">
-                                    <i data-lucide="activity" class="w-4 h-4 text-orange-700"></i> Lacta
+                                <span class="text-base font-black text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="activity" class="w-5 h-5 text-orange-700"></i> Lacta
                                 </span>
-                                <span class="text-[10px] font-black bg-slate-200 text-slate-800 px-2 py-0.5 rounded">Pasteurizador</span>
+                                <span class="text-xs font-black bg-slate-200 text-slate-800 px-2.5 py-1 rounded">Pasteurizador</span>
                             </div>
 
                             <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
-                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
+                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-30 drop-shadow-sm">
                                     <rect x="40" y="25" width="85" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
                                     <line x1="40" y1="40" x2="125" y2="40" stroke="#94a3b8" stroke-width="1.5"/>
                                     <line x1="40" y1="55" x2="125" y2="55" stroke="#94a3b8" stroke-width="1.5"/>
@@ -992,17 +994,17 @@
 
                             <div id="lacta-icon-container" class="status-badge-container bg-sky-50 border-sky-300">
                                 <div id="lacta-icon-box" class="bg-sky-600 text-white p-1.5 rounded-lg shadow shrink-0">
-                                    <i id="lacta-icon-symbol" data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                    <i id="lacta-icon-symbol" data-lucide="refresh-cw" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
-                                    <div id="lacta-icon-text" class="status-badge-text text-sky-900">6P</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
+                                    <div id="lacta-icon-text" class="status-badge-text text-sky-900">CIP</div>
                                 </div>
                             </div>
 
                             <div class="input-group">
-                                <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
-                                <select id="lacta-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('lacta'); toggleOtroInput('otro-lacta', this.value)">
+                                <label class="text-sm text-slate-600 font-black block mb-1">Estatus</label>
+                                <select id="lacta-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('lacta'); toggleOtroInput('otro-lacta', this.value); sincronizarAtributosDOM();">
                                     <option value="CIP" selected>CIP</option>
                                     <option value="POR CIP">POR CIP</option>
                                     <option value="AIC">AIC</option>
@@ -1014,23 +1016,23 @@
                                     <option value="PRODUCCION DESDE EL SILO 2 AL SILO 3">PRODUCCION DESDE EL SILO 2 AL SILO 3</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
-                                <input type="text" id="otro-lacta" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('lacta')">
+                                <input type="text" id="otro-lacta" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('lacta'); sincronizarAtributosDOM();">
                             </div>
                         </div>
                     </div>
 
                     <!-- 2. FLEX -->
-                    <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
+                    <div class="p-4 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-3 shadow-md flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-black text-slate-900 flex items-center gap-1.5">
-                                    <i data-lucide="activity" class="w-4 h-4 text-orange-700"></i> Flex
+                                <span class="text-base font-black text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="activity" class="w-5 h-5 text-orange-700"></i> Flex
                                 </span>
-                                <span class="text-[10px] font-black bg-slate-200 text-slate-800 px-2 py-0.5 rounded">UHT Flex</span>
+                                <span class="text-xs font-black bg-slate-200 text-slate-800 px-2.5 py-1 rounded">UHT Flex</span>
                             </div>
 
                             <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
-                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
+                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-30 drop-shadow-sm">
                                     <rect x="35" y="25" width="95" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
                                     <path d="M 45 42 Q 85 30 120 42 M 45 58 Q 85 46 120 58 M 45 74 Q 85 62 120 74 M 45 90 Q 85 78 120 90 M 45 106 Q 85 94 120 106" fill="none" stroke="#f97316" stroke-width="3.5" stroke-linecap="round"/>
                                     <rect x="145" y="32" width="95" height="95" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
@@ -1043,17 +1045,17 @@
 
                             <div id="flex-icon-container" class="status-badge-container bg-sky-50 border-sky-300">
                                 <div id="flex-icon-box" class="bg-sky-600 text-white p-1.5 rounded-lg shadow shrink-0">
-                                    <i id="flex-icon-symbol" data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                    <i id="flex-icon-symbol" data-lucide="refresh-cw" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
-                                    <div id="flex-icon-text" class="status-badge-text text-sky-900">6P</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
+                                    <div id="flex-icon-text" class="status-badge-text text-sky-900">CIP</div>
                                 </div>
                             </div>
 
                             <div class="input-group">
-                                <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
-                                <select id="flex-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('flex'); toggleOtroInput('otro-flex', this.value)">
+                                <label class="text-sm text-slate-600 font-black block mb-1">Estatus</label>
+                                <select id="flex-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('flex'); toggleOtroInput('otro-flex', this.value); sincronizarAtributosDOM();">
                                     <option value="CIP" selected>CIP</option>
                                     <option value="POR CIP">POR CIP</option>
                                     <option value="AIC">AIC</option>
@@ -1065,23 +1067,23 @@
                                     <option value="PRODUCCION DESDE EL TANQUE 02">PRODUCCION DESDE EL TANQUE 02</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
-                                <input type="text" id="otro-flex" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('flex')">
+                                <input type="text" id="otro-flex" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('flex'); sincronizarAtributosDOM();">
                             </div>
                         </div>
                     </div>
 
                     <!-- 3. ALDOSE -->
-                    <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
+                    <div class="p-4 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-3 shadow-md flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-black text-slate-900 flex items-center gap-1.5">
-                                    <i data-lucide="cpu" class="w-4 h-4 text-orange-700"></i> Aldose
+                                <span class="text-base font-black text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="cpu" class="w-5 h-5 text-orange-700"></i> Aldose
                                 </span>
-                                <span class="text-[10px] font-black bg-purple-100 text-purple-900 px-2 py-0.5 rounded">Dosificador</span>
+                                <span class="text-xs font-black bg-purple-100 text-purple-900 px-2.5 py-1 rounded">Dosificador</span>
                             </div>
 
                             <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
-                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
+                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-30 drop-shadow-sm">
                                     <rect x="45" y="25" width="85" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
                                     <circle cx="87" cy="75" r="22" fill="#e2e8f0" stroke="#475569" stroke-width="2.5"/>
                                     <circle cx="87" cy="75" r="8" fill="#334155"/>
@@ -1094,17 +1096,17 @@
 
                             <div id="aldose-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
                                 <div id="aldose-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0">
-                                    <i id="aldose-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i>
+                                    <i id="aldose-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
                                     <div id="aldose-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                                 </div>
                             </div>
 
                             <div class="input-group">
-                                <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
-                                <select id="aldose-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('aldose'); toggleOtroInput('otro-aldose', this.value)">
+                                <label class="text-sm text-slate-600 font-black block mb-1">Estatus</label>
+                                <select id="aldose-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('aldose'); toggleOtroInput('otro-aldose', this.value); sincronizarAtributosDOM();">
                                     <option value="CIP">CIP</option>
                                     <option value="POR CIP">POR CIP</option>
                                     <option value="PRODUCCION">PRODUCCION</option>
@@ -1113,23 +1115,23 @@
                                     <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
-                                <input type="text" id="otro-aldose" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('aldose')">
+                                <input type="text" id="otro-aldose" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('aldose'); sincronizarAtributosDOM();">
                             </div>
                         </div>
                     </div>
 
                     <!-- 4. INDIRECT -->
-                    <div class="p-3.5 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-2.5 shadow-md flex flex-col justify-between">
+                    <div class="p-4 bg-slate-50 rounded-2xl border-3 border-slate-300 space-y-3 shadow-md flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-black text-slate-900 flex items-center gap-1.5">
-                                    <i data-lucide="activity" class="w-4 h-4 text-orange-700"></i> Indirect
+                                <span class="text-base font-black text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="activity" class="w-5 h-5 text-orange-700"></i> Indirect
                                 </span>
-                                <span class="text-[10px] font-black bg-slate-200 text-slate-800 px-2 py-0.5 rounded">UHT Indirect</span>
+                                <span class="text-xs font-black bg-slate-200 text-slate-800 px-2.5 py-1 rounded">UHT Indirect</span>
                             </div>
 
                             <div class="bg-white p-2 rounded-xl border-2 border-slate-300 shadow-inner flex flex-col items-center mb-2">
-                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-28 drop-shadow-sm">
+                                <svg viewBox="0 0 280 150" class="w-full h-auto max-h-30 drop-shadow-sm">
                                     <rect x="35" y="25" width="95" height="105" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="2.5"/>
                                     <line x1="45" y1="45" x2="120" y2="45" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
                                     <line x1="45" y1="65" x2="120" y2="65" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
@@ -1145,17 +1147,17 @@
 
                             <div id="indirect-icon-container" class="status-badge-container bg-sky-50 border-sky-300">
                                 <div id="indirect-icon-box" class="bg-sky-600 text-white p-1.5 rounded-lg shadow shrink-0">
-                                    <i id="indirect-icon-symbol" data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                    <i id="indirect-icon-symbol" data-lucide="refresh-cw" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
-                                    <div id="indirect-icon-text" class="status-badge-text text-sky-900">6P</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO</div>
+                                    <div id="indirect-icon-text" class="status-badge-text text-sky-900">CIP</div>
                                 </div>
                             </div>
 
                             <div class="input-group">
-                                <label class="text-xs text-slate-600 font-black block mb-1">Estatus</label>
-                                <select id="indirect-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('indirect'); toggleOtroInput('otro-indirect', this.value)">
+                                <label class="text-sm text-slate-600 font-black block mb-1">Estatus</label>
+                                <select id="indirect-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('indirect'); toggleOtroInput('otro-indirect', this.value); sincronizarAtributosDOM();">
                                     <option value="CIP" selected>CIP</option>
                                     <option value="POR CIP">POR CIP</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
@@ -1166,7 +1168,7 @@
                                     <option value="MANTENIMIENTO">MANTENIMIENTO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
-                                <input type="text" id="otro-indirect" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('indirect')">
+                                <input type="text" id="otro-indirect" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('indirect'); sincronizarAtributosDOM();">
                             </div>
                         </div>
                     </div>
@@ -1174,15 +1176,15 @@
                     <!-- 5. ALSAFE 1 -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
-                            <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
-                                <i data-lucide="package" class="w-5 h-5 text-orange-600"></i> ALSAFE 1
+                            <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
+                                <i data-lucide="package" class="w-6 h-6 text-orange-600"></i> ALSAFE 1
                             </span>
-                            <span class="text-xs font-black bg-purple-100 text-purple-900 px-2.5 py-1 rounded-md shadow-sm">Aséptico</span>
+                            <span class="text-xs font-black bg-purple-100 text-purple-900 px-3 py-1 rounded-md shadow-sm">Aséptico</span>
                         </div>
                         <div id="alsafe1-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
-                            <div id="alsafe1-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="alsafe1-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i></div>
+                            <div id="alsafe1-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="alsafe1-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i></div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO ALSAFE 1</div>
+                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO ALSAFE 1</div>
                                 <div id="alsafe1-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
@@ -1191,17 +1193,17 @@
                             <div class="silo-steel-ring"></div>
                             <div class="silo-sight-gauge"><div id="alsafe1-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div></div>
                             <div id="alsafe1-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
-                            <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
+                            <div class="silo-overlay-panel" style="justify-content: center; gap: 0.6rem;">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-xs">CANTIDAD:</span>
+                                    <span class="silo-label text-sm">CANTIDAD:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="alsafe1-lts-input" class="silo-input-field w-24 text-sm" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe1')">
-                                        <span class="silo-label text-slate-600 text-xs">LTS</span>
+                                        <input type="number" id="alsafe1-lts-input" class="silo-input-field w-28 text-base" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe1'); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm">LTS</span>
                                     </div>
                                 </div>
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
-                                    <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
-                                    <select id="alsafe1-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusAlsafe('alsafe1'); toggleOtroInput('otro-alsafe1', this.value)">
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[75px]">
+                                    <span class="silo-label text-sm text-orange-700">ESTATUS:</span>
+                                    <select id="alsafe1-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusAlsafe('alsafe1'); toggleOtroInput('otro-alsafe1', this.value); sincronizarAtributosDOM();">
                                         <option value="CIP">CIP</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="PRODUCCION">PRODUCCION</option>
@@ -1209,7 +1211,7 @@
                                         <option value="ESTERILIZACION">ESTERILIZACION</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-alsafe1" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarBadgeGenerico('alsafe1')">
+                                    <input type="text" id="otro-alsafe1" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('alsafe1'); sincronizarAtributosDOM();">
                                 </div>
                             </div>
                             <div class="silo-steel-ring"></div>
@@ -1221,15 +1223,15 @@
                     <!-- 6. ALSAFE 2 -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
-                            <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
-                                <i data-lucide="package" class="w-5 h-5 text-orange-600"></i> ALSAFE 2
+                            <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
+                                <i data-lucide="package" class="w-6 h-6 text-orange-600"></i> ALSAFE 2
                             </span>
-                            <span class="text-xs font-black bg-purple-100 text-purple-900 px-2.5 py-1 rounded-md shadow-sm">Aséptico</span>
+                            <span class="text-xs font-black bg-purple-100 text-purple-900 px-3 py-1 rounded-md shadow-sm">Aséptico</span>
                         </div>
                         <div id="alsafe2-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
-                            <div id="alsafe2-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="alsafe2-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i></div>
+                            <div id="alsafe2-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="alsafe2-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i></div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO ALSAFE 2</div>
+                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO ALSAFE 2</div>
                                 <div id="alsafe2-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
@@ -1238,17 +1240,17 @@
                             <div class="silo-steel-ring"></div>
                             <div class="silo-sight-gauge"><div id="alsafe2-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div></div>
                             <div id="alsafe2-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
-                            <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
+                            <div class="silo-overlay-panel" style="justify-content: center; gap: 0.6rem;">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-xs">CANTIDAD:</span>
+                                    <span class="silo-label text-sm">CANTIDAD:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="alsafe2-lts-input" class="silo-input-field w-24 text-sm" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe2')">
-                                        <span class="silo-label text-slate-600 text-xs">LTS</span>
+                                        <input type="number" id="alsafe2-lts-input" class="silo-input-field w-28 text-base" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe2'); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm">LTS</span>
                                     </div>
                                 </div>
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
-                                    <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
-                                    <select id="alsafe2-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusAlsafe('alsafe2'); toggleOtroInput('otro-alsafe2', this.value)">
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[75px]">
+                                    <span class="silo-label text-sm text-orange-700">ESTATUS:</span>
+                                    <select id="alsafe2-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusAlsafe('alsafe2'); toggleOtroInput('otro-alsafe2', this.value); sincronizarAtributosDOM();">
                                         <option value="CIP">CIP</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="PRODUCCION">PRODUCCION</option>
@@ -1256,7 +1258,7 @@
                                         <option value="ESTERILIZACION">ESTERILIZACION</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-alsafe2" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarBadgeGenerico('alsafe2')">
+                                    <input type="text" id="otro-alsafe2" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('alsafe2'); sincronizarAtributosDOM();">
                                 </div>
                             </div>
                             <div class="silo-steel-ring"></div>
@@ -1268,15 +1270,15 @@
                     <!-- 7. TANQUE DE CREMA -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
-                            <span class="text-base font-black text-slate-900 flex items-center gap-2 font-digital">
-                                <i data-lucide="droplet" class="w-5 h-5 text-orange-600"></i> TQ. CREMA
+                            <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
+                                <i data-lucide="droplet" class="w-6 h-6 text-orange-600"></i> TQ. CREMA
                             </span>
-                            <span class="text-xs font-black bg-amber-100 text-amber-900 px-2.5 py-1 rounded-md shadow-sm">Almacén</span>
+                            <span class="text-xs font-black bg-amber-100 text-amber-900 px-3 py-1 rounded-md shadow-sm">Almacén</span>
                         </div>
                         <div id="tqcrema-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
-                            <div id="tqcrema-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="tqcrema-icon-symbol" data-lucide="check-circle" class="w-4 h-4"></i></div>
+                            <div id="tqcrema-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="tqcrema-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i></div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-[10px] text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TQ. CREMA</div>
+                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TQ. CREMA</div>
                                 <div id="tqcrema-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
@@ -1285,17 +1287,17 @@
                             <div class="silo-steel-ring"></div>
                             <div class="silo-sight-gauge"><div id="tqcrema-gauge-fill" class="silo-gauge-fill" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%);"></div></div>
                             <div id="tqcrema-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
-                            <div class="silo-overlay-panel" style="justify-content: center; gap: 0.5rem;">
+                            <div class="silo-overlay-panel" style="justify-content: center; gap: 0.6rem;">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-xs">NIVEL:</span>
+                                    <span class="silo-label text-sm">NIVEL:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="tqcrema-pct-input" class="silo-input-field w-20 text-sm" value="0" min="0" max="100" oninput="calcularLlenadoCrema()">
-                                        <span class="silo-label text-slate-600 text-xs">%</span>
+                                        <input type="number" id="tqcrema-pct-input" class="silo-input-field w-24 text-base" value="0" min="0" max="100" oninput="calcularLlenadoCrema(); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm">%</span>
                                     </div>
                                 </div>
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[65px]">
-                                    <span class="silo-label text-xs text-orange-700">ESTATUS:</span>
-                                    <select id="tqcrema-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusCrema(); toggleOtroInput('otro-tqcrema', this.value)">
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[75px]">
+                                    <span class="silo-label text-sm text-orange-700">ESTATUS:</span>
+                                    <select id="tqcrema-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusCrema(); toggleOtroInput('otro-tqcrema', this.value); sincronizarAtributosDOM();">
                                         <option value="CIP">CIP</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="EN PRODUCCION">EN PRODUCCION</option>
@@ -1304,7 +1306,7 @@
                                         <option value="AIC">AIC</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-tqcrema" class="silo-input-field w-full mt-1 hidden uppercase text-xs" placeholder="OTRO..." oninput="actualizarBadgeGenerico('tqcrema')">
+                                    <input type="text" id="otro-tqcrema" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('tqcrema'); sincronizarAtributosDOM();">
                                 </div>
                             </div>
                             <div class="silo-steel-ring"></div>
@@ -1316,10 +1318,10 @@
                 </div>
             </div>
 
-            <div class="bg-white p-4 rounded-xl border-3 border-slate-300 flex justify-between items-center text-sm text-slate-800 font-black shadow-md mt-4">
+            <div class="bg-white p-4 rounded-xl border-3 border-slate-300 flex justify-between items-center text-base text-slate-800 font-black shadow-md mt-4">
                 <div><span>Sistema HMI Planta El Tunal</span></div>
                 <div class="font-black text-slate-900 bg-slate-100 px-5 py-2.5 rounded-xl border-2 border-orange-500 flex items-center gap-2.5 shadow-sm">
-                    <i data-lucide="user" class="w-5 h-5 text-orange-700"></i>
+                    <i data-lucide="user" class="w-6 h-6 text-orange-700"></i>
                     <span class="whitespace-nowrap">Reportado por: <span id="footer-reportado-2" class="text-orange-800 font-black">LUIS SOTO</span></span>
                 </div>
             </div>
@@ -1329,19 +1331,19 @@
 
     <!-- MODAL DE NOTIFICACIÓN -->
     <div id="notification-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white border-4 border-orange-500 rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center space-y-4 animate-fade-in">
-            <div id="modal-icon-container" class="w-14 h-14 bg-emerald-100 border-2 border-emerald-500 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-inner">
-                <i id="modal-icon" data-lucide="check-circle" class="w-8 h-8"></i>
+        <div class="bg-white border-4 border-orange-500 rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center space-y-4 animate-fade-in font-bold">
+            <div id="modal-icon-container" class="w-16 h-16 bg-emerald-100 border-2 border-emerald-500 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                <i id="modal-icon" data-lucide="check-circle" class="w-10 h-10"></i>
             </div>
-            <h3 id="modal-title" class="text-lg font-black text-slate-900">¡Guardado Exitoso!</h3>
-            <p id="modal-message" class="text-sm font-bold text-slate-600">Todos los datos se han guardado correctamente.</p>
-            <button onclick="cerrarModal()" class="w-full bg-orange-600 hover:bg-orange-500 text-white text-sm font-black py-3 rounded-xl border-2 border-orange-400 transition shadow-md">
+            <h3 id="modal-title" class="text-xl font-black text-slate-900">¡Guardado Exitoso!</h3>
+            <p id="modal-message" class="text-base font-bold text-slate-600">Todos los datos se han guardado correctamente.</p>
+            <button onclick="cerrarModal()" class="w-full bg-orange-600 hover:bg-orange-500 text-white text-base font-black py-3 rounded-xl border-2 border-orange-400 transition shadow-md cursor-pointer">
                 Aceptar
             </button>
         </div>
     </div>
 
-    <!-- SCRIPT INDUSTRIAL HMI CON LOGICA REVISADA -->
+    <!-- SCRIPT INDUSTRIAL HMI CON LOGICA REVISADA Y SINCRONIZACIÓN DOM PARA CAPTURAS -->
     <script>
         // CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
@@ -1380,11 +1382,40 @@
             }
         }
 
+        // SINCRONIZADOR CRÍTICO DE ATRIBUTOS HTML/DOM (SOLUCIONA EL ERROR AL TOMAR CAPTURAS)
+        function sincronizarAtributosDOM() {
+            // Sincronizar todos los inputs en el DOM
+            document.querySelectorAll('input').forEach(inp => {
+                if (inp.type === 'checkbox' || inp.type === 'radio') {
+                    if (inp.checked) inp.setAttribute('checked', 'checked');
+                    else inp.removeAttribute('checked');
+                } else {
+                    inp.setAttribute('value', inp.value);
+                }
+            });
+
+            // Sincronizar todos los select y sus opciones en el DOM HTML
+            document.querySelectorAll('select').forEach(sel => {
+                const currentVal = sel.value;
+                sel.setAttribute('value', currentVal);
+                Array.from(sel.options).forEach(opt => {
+                    if (opt.value === currentVal) {
+                        opt.setAttribute('selected', 'selected');
+                        opt.selected = true;
+                    } else {
+                        opt.removeAttribute('selected');
+                        opt.selected = false;
+                    }
+                });
+            });
+        }
+
         // AUTO-GUARDADO AUTOMÁTICO (DEBOUNCE 1.5s)
         let timerAutoGuardado = null;
         let isSyncingFromCloud = false;
 
         function programarAutoGuardado() {
+            sincronizarAtributosDOM();
             if (isSyncingFromCloud) return;
             actualizarIndicadorAutoGuardado("cambio", "Guardando cambios...");
             clearTimeout(timerAutoGuardado);
@@ -1404,33 +1435,33 @@
             const pingHeader = document.getElementById('autosave-ping');
 
             if (estado === 'cambio') {
-                if (el) el.className = "text-[11px] font-bold text-amber-300 bg-slate-900/90 px-2.5 py-0.5 rounded-md border border-amber-500/40 flex items-center gap-1.5 transition animate-pulse";
+                if (el) el.className = "text-xs font-black text-amber-300 bg-slate-900/90 px-3 py-1 rounded-md border border-amber-500/40 flex items-center gap-1.5 transition animate-pulse";
                 if (textEl) textEl.textContent = texto || "Guardando...";
                 if (iconEl) iconEl.setAttribute('data-lucide', 'cloud-upload');
 
-                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-amber-500 text-amber-300 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow animate-pulse w-full";
+                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-amber-500 text-amber-300 text-xs px-3.5 py-2 rounded-xl font-black flex items-center justify-center gap-2 shadow animate-pulse w-full";
                 if (textHeader) textHeader.textContent = (texto || "GUARDANDO CAMBIOS...").toUpperCase();
-                if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-400";
+                if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-3 w-3 bg-amber-400";
                 if (pingHeader) pingHeader.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75";
 
             } else if (estado === 'guardado') {
-                if (el) el.className = "text-[11px] font-bold text-emerald-400 bg-slate-900/90 px-2.5 py-0.5 rounded-md border border-emerald-500/40 flex items-center gap-1.5 transition";
+                if (el) el.className = "text-xs font-black text-emerald-400 bg-slate-900/90 px-3 py-1 rounded-md border border-emerald-500/40 flex items-center gap-1.5 transition";
                 if (textEl) textEl.textContent = texto || "Auto-guardado activo";
                 if (iconEl) iconEl.setAttribute('data-lucide', 'cloud-check');
 
-                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow w-full";
+                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3.5 py-2 rounded-xl font-black flex items-center justify-center gap-2 shadow w-full";
                 if (textHeader) textHeader.textContent = (texto || "AUTO-GUARDADO ACTIVO").toUpperCase();
-                if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500";
+                if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-3 w-3 bg-emerald-500";
                 if (pingHeader) pingHeader.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
 
             } else if (estado === 'error') {
-                if (el) el.className = "text-[11px] font-bold text-red-400 bg-slate-900/90 px-2.5 py-0.5 rounded-md border border-red-500/40 flex items-center gap-1.5 transition";
+                if (el) el.className = "text-xs font-black text-red-400 bg-slate-900/90 px-3 py-1 rounded-md border border-red-500/40 flex items-center gap-1.5 transition";
                 if (textEl) textEl.textContent = texto || "Error al guardar";
                 if (iconEl) iconEl.setAttribute('data-lucide', 'alert-circle');
 
-                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-red-500 text-red-400 text-xs px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow w-full";
+                if (badgeHeader) badgeHeader.className = "bg-slate-800 border-2 border-red-500 text-red-400 text-xs px-3.5 py-2 rounded-xl font-black flex items-center justify-center gap-2 shadow w-full";
                 if (textHeader) textHeader.textContent = "ERROR DE CONEXIÓN";
-                if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500";
+                if (dotHeader) dotHeader.className = "relative inline-flex rounded-full h-3 w-3 bg-red-500";
                 if (pingHeader) pingHeader.className = "hidden";
             }
             if (window.lucide) lucide.createIcons();
@@ -1456,10 +1487,11 @@
         }
 
         async function guardarDatosEnNube(esSilencioso = false) {
+            sincronizarAtributosDOM();
             const btn = document.getElementById('btn-guardar');
             if (!esSilencioso && btn) {
                 btn.disabled = true;
-                btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Sincronizando...`;
+                btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Sincronizando...`;
                 if (window.lucide) lucide.createIcons();
             } else if (esSilencioso) {
                 actualizarIndicadorAutoGuardado("cambio", "Guardando en nube...");
@@ -1504,7 +1536,7 @@
             } finally {
                 if (!esSilencioso && btn) {
                     btn.disabled = false;
-                    btn.innerHTML = `<i data-lucide="cloud-upload" class="w-4 h-4"></i> Guardar en Nube (Manual)`;
+                    btn.innerHTML = `<i data-lucide="cloud-upload" class="w-5 h-5"></i> Guardar en Nube (Manual)`;
                     if (window.lucide) lucide.createIcons();
                 }
             }
@@ -1583,6 +1615,7 @@
                     if (d.actualizado) {
                         actualizarHoraUltimaModificacion(d.actualizado);
                     }
+                    sincronizarAtributosDOM();
                     setTimeout(() => { isSyncingFromCloud = false; }, 400);
                 }
             });
@@ -1862,13 +1895,13 @@
                 card.innerHTML = `
                     <div class="flex justify-between items-center px-1">
                         <div class="flex items-center gap-1.5 w-full mr-2">
-                            <span class="text-xs font-black text-orange-700 whitespace-nowrap font-digital">#${index + 1}</span>
-                            <input type="text" class="hmi-input text-xs font-black text-orange-900 w-full uppercase h-8 py-0" value="${c.nombre}" onchange="cisternas[${index}].nombre = this.value.toUpperCase()">
+                            <span class="text-sm font-black text-orange-700 whitespace-nowrap font-digital">#${index + 1}</span>
+                            <input type="text" class="hmi-input text-xs font-black text-orange-900 w-full uppercase h-9 py-0" value="${c.nombre}" onchange="cisternas[${index}].nombre = this.value.toUpperCase(); sincronizarAtributosDOM();">
                         </div>
-                        <button onclick="eliminarCisterna(${c.id})" class="text-slate-400 hover:text-red-600 p-1 transition" title="Eliminar"><i data-lucide="x" class="w-4 h-4"></i></button>
+                        <button onclick="eliminarCisterna(${c.id})" class="text-slate-400 hover:text-red-600 p-1 transition cursor-pointer" title="Eliminar"><i data-lucide="x" class="w-5 h-5"></i></button>
                     </div>
                     <div class="cisterna-svg-container flex flex-col items-center">
-                        <svg viewBox="0 0 240 90" class="w-full h-auto max-h-20 my-1 drop-shadow-sm">
+                        <svg viewBox="0 0 240 90" class="w-full h-auto max-h-24 my-1 drop-shadow-sm">
                             <!-- Chassis -->
                             <rect x="30" y="48" width="172" height="7" rx="2" fill="#334155"/>
                             <!-- Tanker Body -->
@@ -1901,7 +1934,7 @@
                         </svg>
                         <div class="cisterna-overlay-fields w-full">
                             <div class="cisterna-hmi-row flex-col items-start gap-1 justify-center">
-                                <span class="text-[11px] font-black text-orange-700 font-mono">ESTATUS:</span>
+                                <span class="text-xs font-black text-orange-700 font-mono">ESTATUS:</span>
                                 <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="cambiarEstatusCisterna(${index}, this.value)">
                                     <option value="EN ESPERA DE DESCARGA" ${c.estatus === 'EN ESPERA DE DESCARGA' ? 'selected' : ''}>EN ESPERA DE DESCARGA</option>
                                     <option value="EN DESCARGA AL SILO 1" ${c.estatus === 'EN DESCARGA AL SILO 1' ? 'selected' : ''}>EN DESCARGA AL SILO 1</option>
@@ -1909,14 +1942,15 @@
                                     <option value="VACIO" ${c.estatus === 'VACIO' ? 'selected' : ''}>VACIO</option>
                                 </select>
                             </div>
-                            <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">LITROS:</span><input type="text" id="cist-litros-${c.id}" class="silo-input-field w-24 text-xs font-black" value="${c.litros}" oninput="cisternas[${index}].litros = this.value"></div>
-                            <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">HPO:</span><input type="text" class="silo-input-field w-20 text-xs font-black" value="${c.hpo}" oninput="cisternas[${index}].hpo = this.value"></div>
+                            <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">LITROS:</span><input type="text" id="cist-litros-${c.id}" class="silo-input-field w-26 text-xs font-black" value="${c.litros}" oninput="cisternas[${index}].litros = this.value; sincronizarAtributosDOM();"></div>
+                            <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">HPO:</span><input type="text" class="silo-input-field w-24 text-xs font-black" value="${c.hpo}" oninput="cisternas[${index}].hpo = this.value; sincronizarAtributosDOM();"></div>
                         </div>
                     </div>
                 `;
                 container.appendChild(card);
             });
             if (window.lucide) lucide.createIcons();
+            sincronizarAtributosDOM();
         }
 
         function cambiarEstatusCisterna(index, val) {
@@ -1930,6 +1964,7 @@
                 const inputEl = document.getElementById(`cist-litros-${cisternas[index].id}`);
                 if (inputEl) inputEl.value = "0";
             }
+            sincronizarAtributosDOM();
         }
 
         function agregarCisterna() {
@@ -1961,6 +1996,7 @@
             let t = val === 'OTRO' && otroInput ? otroInput.value.toUpperCase() : val;
             if (el1) el1.textContent = t;
             if (el2) el2.textContent = t;
+            sincronizarAtributosDOM();
         }
 
         function calcularLitros(siloNum) {
@@ -2091,15 +2127,25 @@
         function cerrarModal() { document.getElementById('notification-modal').classList.add('hidden'); }
 
         async function generarCapturasDuales() {
+            // Asegurar sincronización 100% de atributos DOM antes de renderizar canvas/JPEG
+            sincronizarAtributosDOM();
+
+            // Re-ejecutar refresco de badges para coincidir de forma impecable
+            evaluarEstatusSilo(1); evaluarEstatusSilo(2); evaluarEstatusSilo(3);
+            evaluarEstadoTanque('tq01'); evaluarEstadoTanque('tq02');
+            actualizarColorLiquidoTanque('tq01'); actualizarColorLiquidoTanque('tq02');
+            evaluarEstatusAlsafe('alsafe1'); evaluarEstatusAlsafe('alsafe2'); evaluarEstatusCrema();
+            ['almix', 'lacta', 'flex', 'aldose', 'indirect', 'alsafe1', 'alsafe2', 'tqcrema'].forEach(eq => actualizarBadgeGenerico(eq));
+
             const btn = document.getElementById('btn-capturar');
             btn.disabled = true;
-            btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Generando JPG...`;
+            btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Generando JPG...`;
             if (window.lucide) lucide.createIcons();
             
             document.body.classList.add('capturing-mode');
             try {
                 if (document.fonts && document.fonts.ready) await document.fonts.ready;
-                await new Promise(r => setTimeout(r, 500));
+                await new Promise(r => setTimeout(r, 400));
                 const opts = { 
                     quality: 0.98, 
                     pixelRatio: 2, 
@@ -2120,19 +2166,18 @@
                 const u2 = await htmlToImage.toJpeg(c2, opts);
                 const l2 = document.createElement('a'); l2.download = `REPORTE_PARTE_2_${new Date().toISOString().split('T')[0]}.jpg`; l2.href = u2; l2.click();
 
-                mostrarModal("¡Imágenes Generadas!", "Las 2 imágenes JPG se descargaron con éxito.", "check-circle", "");
+                mostrarModal("¡Imágenes Generadas!", "Las 2 imágenes JPG se descargaron con éxito sin desfasar ni alterar ningún dato.", "check-circle", "");
             } catch (err) {
                 console.error(err);
                 mostrarModal("Error", "No se pudieron generar las imágenes.", "alert-circle", "");
             } finally {
                 document.body.classList.remove('capturing-mode');
                 btn.disabled = false;
-                btn.innerHTML = `<i data-lucide="images" class="w-4 h-4"></i> Generar 2 Imágenes JPG`;
+                btn.innerHTML = `<i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG`;
                 if (window.lucide) lucide.createIcons();
             }
         }
 
-        
         let modoOscuroActivo = false;
         function toggleModoOscuro() {
             modoOscuroActivo = !modoOscuroActivo;
@@ -2144,13 +2189,13 @@
                 document.body.classList.add('dark-theme');
                 if (textTheme) textTheme.textContent = "Modo Claro";
                 if (iconTheme) iconTheme.setAttribute('data-lucide', 'sun');
-                if (btnTheme) btnTheme.className = "bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded-lg transition flex items-center gap-1.5 border border-amber-300 cursor-pointer shadow";
+                if (btnTheme) btnTheme.className = "bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-3.5 py-1.5 rounded-lg transition flex items-center gap-1.5 border border-amber-300 cursor-pointer shadow text-xs";
                 localStorage.setItem('hmi-theme', 'dark');
             } else {
                 document.body.classList.remove('dark-theme');
                 if (textTheme) textTheme.textContent = "Modo Oscuro";
                 if (iconTheme) iconTheme.setAttribute('data-lucide', 'moon');
-                if (btnTheme) btnTheme.className = "bg-slate-700 hover:bg-slate-600 text-amber-300 font-bold px-3 py-1 rounded-lg transition flex items-center gap-1.5 border border-amber-500/40 cursor-pointer shadow";
+                if (btnTheme) btnTheme.className = "bg-slate-700 hover:bg-slate-600 text-amber-300 font-black px-3.5 py-1.5 rounded-lg transition flex items-center gap-1.5 border border-amber-500/40 cursor-pointer shadow text-xs";
                 localStorage.setItem('hmi-theme', 'light');
             }
             if (window.lucide) lucide.createIcons();
@@ -2173,6 +2218,7 @@
             actualizarColorLiquidoTanque('tq01'); actualizarColorLiquidoTanque('tq02');
             calcularLlenadoAlsafe('alsafe1'); calcularLlenadoAlsafe('alsafe2'); calcularLlenadoCrema();
             ['almix', 'lacta', 'flex', 'aldose', 'indirect', 'alsafe1', 'alsafe2', 'tqcrema'].forEach(eq => actualizarBadgeGenerico(eq));
+            sincronizarAtributosDOM();
             escucharDatosNube();
 
             // Escuchadores para Auto-Guardado Automático al modificar cualquier input/select
