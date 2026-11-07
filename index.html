@@ -102,8 +102,8 @@
         body.capturing-mode .status-badge-container { min-height: 84px !important; height: auto !important; overflow: hidden !important; padding: 6px 8px !important; white-space: normal !important; }
 
         
-        .process-select { font-size: 1.12rem !important; min-height: 64px !important; height: auto !important; line-height: 1.2 !important; padding: 0.35rem 0.5rem !important; text-align: center !important; text-align-last: center; }
-        body.capturing-mode .process-select { font-size: 1.12rem !important; min-height: 64px !important; height: auto !important; line-height: 1.2 !important; }
+        .process-select { font-size: 1.0rem !important; min-height: 64px !important; height: auto !important; line-height: 1.2 !important; padding: 0.35rem 0.5rem !important; text-align: center !important; text-align-last: center; }
+        body.capturing-mode .process-select { font-size: 1.0rem !important; min-height: 64px !important; height: auto !important; line-height: 1.2 !important; }
 /* MODO OSCURO CON CONSTRASTE ULTRA NEGRITA */
         body.dark-theme { background-color: #030712 !important; color: #f8fafc !important; }
         body.dark-theme .hmi-master-wrapper { background-color: #0f172a !important; border-color: #ea580c !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.95) !important; }
@@ -411,7 +411,7 @@
                                     </div>
 
                                     <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
-                                        <span id="silo1-readout-lts" class="text-xl font-digital font-black text-orange-950 whitespace-nowrap shrink-0">28,800 </span>
+                                        <span id="silo1-readout-lts" class="text-sm font-digital font-black text-orange-950 whitespace-nowrap shrink-0">28,800 </span>
                                         <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
                                     </div>
                                 </div>
@@ -509,7 +509,7 @@
                                     </div>
 
                                     <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
-                                        <span id="silo2-readout-lts" class="text-xl font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000 </span>
+                                        <span id="silo2-readout-lts" class="text-sm font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000 </span>
                                         <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
                                     </div>
                                 </div>
@@ -605,7 +605,7 @@
                                     </div>
 
                                     <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
-                                        <span id="silo3-readout-lts" class="text-xl font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000 </span>
+                                        <span id="silo3-readout-lts" class="text-sm font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000 </span>
                                         <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
                                     </div>
                                 </div>
@@ -773,8 +773,8 @@
                                 </div>
 
                                 <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap min-h-[44px] overflow-visible items-center">
-                                    <span id="tq01-pct-display" class="text-base font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0% </span>
-                                    <span class="silo-label ml-1 text-xs text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30.000 KG)</span>
+                                    <span id="tq01-pct-display" class="text-xs font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0% </span>
+                                    <span class="silo-label ml-1 text-[0.7rem] text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30K KG)</span>
                                 </div>
                             </div>
 
@@ -873,8 +873,8 @@
                                 </div>
 
                                 <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap min-h-[44px] overflow-visible items-center">
-                                    <span id="tq02-pct-display" class="text-base font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0.0% </span>
-                                    <span class="silo-label ml-1 text-xs text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30.000 KG)</span>
+                                    <span id="tq02-pct-display" class="text-xs font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0.0% </span>
+                                    <span class="silo-label ml-1 text-[0.7rem] text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30K KG)</span>
                                 </div>
                             </div>
 
@@ -1209,10 +1209,10 @@
                             <div id="alsafe1-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.6rem;">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-sm font-black">CANTIDAD:</span>
+                                    <span class="silo-label text-sm font-black">CANT:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="alsafe1-lts-input" class="silo-input-field w-28 text-base font-black" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe1'); sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 text-sm font-black">LTS</span>
+                                        <input type="number" id="alsafe1-lts-input" class="silo-input-field w-24 text-base font-black" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe1'); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 font-black" style="font-size: 0.97rem !important;">LTS</span>
                                     </div>
                                 </div>
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[75px]">
@@ -1256,10 +1256,10 @@
                             <div id="alsafe2-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.6rem;">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-sm font-black">CANTIDAD:</span>
+                                    <span class="silo-label text-sm font-black">CANT:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="alsafe2-lts-input" class="silo-input-field w-28 text-base font-black" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe2'); sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 text-sm font-black">LTS</span>
+                                        <input type="number" id="alsafe2-lts-input" class="silo-input-field w-24 text-base font-black" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe2'); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 font-black" style="font-size: 0.97rem !important;">LTS</span>
                                     </div>
                                 </div>
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[75px]">
