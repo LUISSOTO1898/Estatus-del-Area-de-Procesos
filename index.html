@@ -16,25 +16,25 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; font-weight: 800 !important; }
-        html, body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #0f172a; margin: 0; padding: 12px; font-weight: 800 !important; font-size: 112% !important; }
-        .font-black, .font-digital, h1, h2, h3, h4, th, td, label, select, input, button, .silo-label, .silo-input-field, .hmi-input, .hmi-select, .status-badge-text, .nowrap-title { font-weight: 900 !important; }
-        
-        /* Escalado de fuentes (Reducción ~10% para optimizar encuadre) */
-        .text-xs { font-size: 0.85rem !important; }
-        .text-sm { font-size: 0.98rem !important; }
-        .text-base { font-size: 1.12rem !important; }
-        .text-lg { font-size: 1.26rem !important; }
-        .text-xl { font-size: 1.4rem !important; }
-        .text-2xl { font-size: 1.68rem !important; }
-        .text-3xl { font-size: 2.1rem !important; }
+        * { box-sizing: border-box; font-weight: 900 !important; }
+        html, body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #0f172a; margin: 0; padding: 12px; font-weight: 900 !important; font-size: 123% !important; }
+        input, select, option, button, textarea, span, p, div, label, h1, h2, h3, h4, th, td, text, tspan { font-weight: 900 !important; }
+
+        /* Escalado de fuentes (+10% ampliado respecto a la versión anterior) */
+        .text-xs { font-size: 0.94rem !important; font-weight: 900 !important; }
+        .text-sm { font-size: 1.08rem !important; font-weight: 900 !important; }
+        .text-base { font-size: 1.23rem !important; font-weight: 900 !important; }
+        .text-lg { font-size: 1.39rem !important; font-weight: 900 !important; }
+        .text-xl { font-size: 1.54rem !important; font-weight: 900 !important; }
+        .text-2xl { font-size: 1.85rem !important; font-weight: 900 !important; }
+        .text-3xl { font-size: 2.31rem !important; font-weight: 900 !important; }
 
         /* ANCHO AMPLIADO DEL CONTENEDOR INDUSTRIAL MAESTRO (1750px) */
         .hmi-master-wrapper { width: 1750px; max-width: 1800px; margin: 0 auto; background-color: #ffffff; border-radius: 2rem; border: 4px solid #f97316; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); padding: 24px; }
         .silo-wrapper { position: relative; width: 100%; background: linear-gradient(160deg, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%); border-radius: 1.5rem; padding: 1.25rem 0.85rem; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), inset 0 1px 2px #ffffff; border: 2.5px solid #cbd5e1; display: flex; flex-direction: column; align-items: center; }
-        .silo-tank-body { position: relative; width: 100%; height: 590px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
-        .juice-tank-body { position: relative; width: 100%; height: 500px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
-        .alsafe-tank-body { position: relative; width: 100%; height: 330px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 1.5rem 1.5rem 1rem 1rem; box-shadow: inset 0 0 15px rgba(148, 163, 184, 0.3), 0 6px 15px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .silo-tank-body { position: relative; width: 100%; height: 610px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .juice-tank-body { position: relative; width: 100%; height: 550px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .alsafe-tank-body { position: relative; width: 100%; height: 350px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 1.5rem 1.5rem 1rem 1rem; box-shadow: inset 0 0 15px rgba(148, 163, 184, 0.3), 0 6px 15px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
         .silo-cap-top { width: 100%; height: 28px; background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #94a3b8 100%); border-bottom: 2px solid #64748b; border-radius: 50% / 100% 100% 0 0; z-index: 10; box-shadow: inset 0 2px 4px rgba(255,255,255,0.9); }
         .silo-steel-ring { width: 100%; height: 7px; background: linear-gradient(180deg, #94a3b8 0%, #f8fafc 50%, #64748b 100%); border-top: 1px solid rgba(255,255,255,0.8); border-bottom: 1px solid rgba(100, 116, 139, 0.5); z-index: 12; }
         .silo-cone-bottom { width: 80%; height: 36px; margin: -2px auto 0 auto; background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%); clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%); border-top: 2px solid #64748b; z-index: 8; }
@@ -58,61 +58,60 @@
         .cisterna-truck-card { position: relative; background: linear-gradient(160deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%); border: 2.5px solid #cbd5e1; border-radius: 1.25rem; padding: 0.75rem; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06); display: flex; flex-direction: column; gap: 0.5rem; }
         .cisterna-svg-container { position: relative; width: 100%; background: #f1f5f9; border: 2px solid #94a3b8; border-radius: 1rem; padding: 0.5rem; box-shadow: inset 0 2px 6px rgba(0,0,0,0.05); }
         .cisterna-overlay-fields { display: flex; flex-direction: column; gap: 0.45rem; margin-top: 0.35rem; }
-        .cisterna-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(4px); border: 1.5px solid #cbd5e1; border-radius: 0.5rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04); white-space: nowrap !important; flex-wrap: nowrap !important; }
+        .cisterna-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(4px); border: 1.5px solid #cbd5e1; border-radius: 0.5rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04); white-space: normal !important; flex-wrap: wrap !important; word-break: break-word !important; }
         .silo-gauge-fill { width: 100%; border-top: 2px solid #ea580c; transition: height 0.6s ease-out; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%); }
         .silo-overlay-panel { position: absolute; inset: 0; right: 32px; z-index: 20; display: flex; flex-direction: column; justify-content: space-between; padding: 0.65rem 0.55rem; gap: 0.3rem; }
-        .silo-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border: 1.5px solid #cbd5e1; border-radius: 0.65rem; padding: 0.45rem 0.65rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); line-height: 1.2; white-space: normal !important; word-break: break-word; }
+        .silo-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border: 1.5px solid #cbd5e1; border-radius: 0.65rem; padding: 0.45rem 0.65rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); line-height: 1.2; white-space: normal !important; word-break: break-word !important; }
         
-        /* FUENTES Y NEGRITAS INDUSTRIALES CON ALTURA ADECUADA PARA 2 FILAS */
-        .silo-label { color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; font-size: 1.15rem !important; letter-spacing: 0.01em; white-space: nowrap !important; word-break: keep-all !important; flex-shrink: 0 !important; }
-        .silo-input-field { background: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; border-radius: 0.6rem; padding: 0.25rem 0.4rem; min-height: 48px !important; height: auto !important; line-height: 1.2 !important; font-size: 1.2rem; outline: none; text-align: center; display: flex; align-items: center; justify-content: center; text-overflow: clip; overflow: visible; white-space: normal !important; word-break: break-word !important; box-shadow: inset 0 1px 2px rgba(0,0,0,0.06); }
-        .silo-status-select { font-size: 1.15rem !important; font-weight: 900 !important; min-height: 72px !important; height: auto !important; line-height: 1.25 !important; padding: 0.35rem 0.5rem !important; text-align: center !important; text-align-last: center; text-overflow: clip; overflow: visible; white-space: normal !important; word-break: break-word !important; width: 100%; color: #020617 !important; border-radius: 0.6rem; }
-        .font-digital { font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; white-space: normal !important; word-break: break-word; }
-        .hmi-input, .hmi-select { background-color: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; border-radius: 0.65rem; padding: 0.35rem 0.5rem; font-size: 1.18rem !important; min-height: 72px !important; height: auto !important; line-height: 1.25 !important; outline: none; transition: all 0.2s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; text-align-last: center; text-overflow: clip; overflow: visible; white-space: normal !important; word-break: break-word !important; }
-        .hmi-select { color: #9a3412; font-weight: 900 !important; font-size: 1.18rem !important; text-align: center !important; text-align-last: center; min-height: 72px !important; height: auto !important; }
+        /* FUENTES Y NEGRITAS INDUSTRIALES (+10% AMPLIADAS) */
+        .silo-label { color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; font-size: 1.27rem !important; letter-spacing: 0.01em; white-space: normal !important; word-break: break-word !important; flex-shrink: 0 !important; }
+        .silo-input-field { background: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; border-radius: 0.6rem; padding: 0.25rem 0.4rem; min-height: 48px !important; height: auto !important; line-height: 1.2 !important; font-size: 1.32rem; outline: none; text-align: center; display: flex; align-items: center; justify-content: center; text-overflow: clip; overflow: visible; white-space: normal !important; word-break: break-word !important; box-shadow: inset 0 1px 2px rgba(0,0,0,0.06); }
+        .silo-status-select { font-size: 1.27rem !important; font-weight: 900 !important; min-height: 72px !important; height: auto !important; line-height: 1.25 !important; padding: 0.35rem 0.5rem !important; text-align: center !important; text-align-last: center; text-overflow: clip; overflow: visible; white-space: normal !important; word-break: break-word !important; width: 100%; color: #020617 !important; border-radius: 0.6rem; }
+        .font-digital { font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; white-space: normal !important; word-break: break-word !important; }
+        .hmi-input, .hmi-select { background-color: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; border-radius: 0.65rem; padding: 0.35rem 0.5rem; font-size: 1.3rem !important; min-height: 72px !important; height: auto !important; line-height: 1.25 !important; outline: none; transition: all 0.2s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; text-align-last: center; text-overflow: clip; overflow: visible; white-space: normal !important; word-break: break-word !important; }
+        .hmi-select { color: #9a3412; font-weight: 900 !important; font-size: 1.3rem !important; text-align: center !important; text-align-last: center; min-height: 72px !important; height: auto !important; }
         .hmi-input:focus, .hmi-select:focus { border-color: #ea580c; box-shadow: 0 0 10px rgba(234, 88, 12, 0.4); background-color: #fff7ed; }
         
-        /* AJUSTE DE BADGES DE ESTATUS CON DOBLE FILA / MULTILÍNEA DE TAMAÑO GRANDE */
+        /* BADGES DE ESTATUS CON ADAPTACIÓN MULTILÍNEA Y TAMAÑO AMPLIADO */
         .status-badge-container { min-height: 84px !important; height: auto !important; border-width: 2.5px; border-radius: 0.85rem; padding: 0.5rem 0.75rem; display: flex; align-items: center; justify-content: flex-start; gap: 0.6rem; width: 100%; margin-bottom: 0.5rem; overflow: hidden; white-space: normal !important; }
-        .status-badge-text { font-size: 1.16rem !important; line-height: 1.2 !important; font-weight: 900 !important; text-transform: uppercase; text-align: left; overflow: hidden; white-space: normal !important; word-break: break-word !important; letter-spacing: 0.01em; text-overflow: clip; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .status-badge-text { font-size: 1.28rem !important; line-height: 1.2 !important; font-weight: 900 !important; text-transform: uppercase; text-align: left; overflow: hidden; white-space: normal !important; word-break: break-word !important; letter-spacing: 0.01em; text-overflow: clip; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
         @keyframes waveFlow { 0% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(-25%) rotate(4deg); } 100% { transform: translateX(-50%) rotate(0deg); } }
         .input-group { margin-top: 0.85rem; padding-top: 0.35rem; }
         
-        /* CORRECCIÓN ESTRICTA PARA CAPTURA SIN SALIR DEL CUADRO */
+        /* CORRECCIÓN DE CAPTURA CON MANEJO DE TEXTO MULTILÍNEA */
         h1, h2, h3, h4, p, span { line-height: 1.25; font-weight: 900 !important; }
-        body.capturing-mode * { text-rendering: geometricPrecision !important; -webkit-font-smoothing: antialiased !important; }
+        body.capturing-mode * { text-rendering: geometricPrecision !important; -webkit-font-smoothing: antialiased !important; font-weight: 900 !important; }
         body.capturing-mode h1,
         body.capturing-mode h2,
         body.capturing-mode h3,
         body.capturing-mode h4,
         body.capturing-mode p,
         body.capturing-mode span,
-        body.capturing-mode div { line-height: 1.25 !important; overflow: visible !important; }
+        body.capturing-mode div { line-height: 1.25 !important; overflow: visible !important; font-weight: 900 !important; }
         body.capturing-mode #display-turno-copy,
         body.capturing-mode #display-turno-copy-2,
         body.capturing-mode .nowrap-title { white-space: nowrap !important; word-break: keep-all !important; overflow: visible !important; display: inline-block !important; max-width: none !important; }
-        body.capturing-mode .status-badge-text { white-space: normal !important; word-break: break-word !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; max-width: 100% !important; line-height: 1.2 !important; }
+        body.capturing-mode .status-badge-text { white-space: normal !important; word-break: break-word !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; max-width: 100% !important; line-height: 1.2 !important; font-weight: 900 !important; }
         body.capturing-mode .font-digital,
-        body.capturing-mode .silo-label, body.capturing-mode .cisterna-hmi-row span, body.capturing-mode .silo-hmi-row span { white-space: nowrap !important; word-break: keep-all !important; flex-shrink: 0 !important; overflow: visible !important; }
+        body.capturing-mode .silo-label, body.capturing-mode .cisterna-hmi-row span, body.capturing-mode .silo-hmi-row span { font-weight: 900 !important; }
         body.capturing-mode .hmi-card { overflow: visible !important; padding-bottom: 2rem !important; }
-        body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; text-overflow: clip !important; overflow: visible !important; white-space: normal !important; word-break: break-word !important; line-height: 1.25 !important; height: auto !important; min-height: 72px !important; }
+        body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; text-overflow: clip !important; overflow: visible !important; white-space: normal !important; word-break: break-word !important; line-height: 1.25 !important; height: auto !important; min-height: 72px !important; font-weight: 900 !important; }
         body.capturing-mode .status-badge-container { min-height: 84px !important; height: auto !important; overflow: hidden !important; padding: 6px 8px !important; white-space: normal !important; }
 
-        /* MODO OSCURO */
+        /* MODO OSCURO CON CONSTRASTE ULTRA NEGRITA */
         body.dark-theme { background-color: #030712 !important; color: #f8fafc !important; }
         body.dark-theme .hmi-master-wrapper { background-color: #0f172a !important; border-color: #ea580c !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.95) !important; }
         body.dark-theme .hmi-card, body.dark-theme #parte-1-container, body.dark-theme #parte-2-container { background-color: #1e293b !important; border-color: #ea580c !important; color: #f8fafc !important; }
         body.dark-theme .silo-wrapper, body.dark-theme .cisterna-truck-card, body.dark-theme .bg-slate-50 { background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%) !important; border-color: #334155 !important; color: #f8fafc !important; }
         body.dark-theme .cisterna-svg-container { background-color: #090d16 !important; border-color: #334155 !important; }
         body.dark-theme .silo-hmi-row, body.dark-theme .cisterna-hmi-row { background: rgba(15, 23, 42, 0.95) !important; border-color: #334155 !important; color: #f8fafc !important; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important; }
-        body.dark-theme .silo-label { color: #fb923c !important; }
-        body.dark-theme .text-slate-900, body.dark-theme .text-slate-800, body.dark-theme .text-slate-700, body.dark-theme .text-slate-600 { color: #cbd5e1 !important; }
-        body.dark-theme .text-slate-500, body.dark-theme .text-slate-400 { color: #94a3b8 !important; }
-        body.dark-theme .text-orange-950, body.dark-theme .text-orange-900, body.dark-theme .text-orange-800 { color: #ffedd5 !important; }
-        body.dark-theme .text-orange-700 { color: #fdba74 !important; }
+        body.dark-theme .silo-label { color: #fb923c !important; font-weight: 900 !important; }
+        body.dark-theme .text-slate-900, body.dark-theme .text-slate-800, body.dark-theme .text-slate-700, body.dark-theme .text-slate-600 { color: #cbd5e1 !important; font-weight: 900 !important; }
+        body.dark-theme .text-slate-500, body.dark-theme .text-slate-400 { color: #94a3b8 !important; font-weight: 900 !important; }
+        body.dark-theme .text-orange-950, body.dark-theme .text-orange-900, body.dark-theme .text-orange-800 { color: #ffedd5 !important; font-weight: 900 !important; }
+        body.dark-theme .text-orange-700 { color: #fdba74 !important; font-weight: 900 !important; }
         body.dark-theme .silo-input-field, body.dark-theme .hmi-input, body.dark-theme .hmi-select { background-color: #030712 !important; color: #ffffff !important; border-color: #ea580c !important; font-weight: 900 !important; }
-        body.dark-theme .silo-label { color: #fdba74 !important; font-weight: 900 !important; }
-        body.dark-theme .silo-status-select option, body.dark-theme .hmi-select option { background-color: #0f172a !important; color: #ffffff !important; }
+        body.dark-theme .silo-status-select option, body.dark-theme .hmi-select option { background-color: #0f172a !important; color: #ffffff !important; font-weight: 900 !important; }
         body.dark-theme .silo-hmi-row.bg-orange-50 { background-color: rgba(124, 45, 18, 0.4) !important; border-color: #ea580c !important; }
         body.dark-theme .bg-white { background-color: #0f172a !important; color: #f8fafc !important; border-color: #334155 !important; }
         body.dark-theme #main-header, body.dark-theme .bg-slate-900 { background-color: #020617 !important; border-color: #ea580c !important; }
@@ -137,7 +136,7 @@
 <body class="uppercase font-bold">
 
     <!-- BARRA SUPERIOR DE AYUDA MÓVIL / ZOOM INDUSTRIAL -->
-    <div class="max-w-[1750px] mx-auto mb-3 bg-slate-800 text-slate-200 px-4 py-2.5 rounded-xl text-sm flex justify-between items-center shadow-lg border border-slate-700 font-bold">
+    <div class="max-w-[1750px] mx-auto mb-3 bg-slate-800 text-slate-200 px-4 py-2.5 rounded-xl text-sm flex justify-between items-center shadow-lg border border-slate-700 font-black">
         <div class="flex items-center gap-3">
             <span class="font-black flex items-center gap-2">
                 <i data-lucide="monitor" class="w-5 h-5 text-orange-400"></i> HMI VISTA INDUSTRIAL (ENLACE FIREBASE ACTIVO)
@@ -165,7 +164,7 @@
     <!-- CONTENEDOR INDUSTRIAL MAESTRO -->
     <div id="hmi-master-container" class="hmi-master-wrapper space-y-6">
 
-        <!-- CABECERA PRINCIPAL REORGANIZADA SEGÚN INDICACIONES -->
+        <!-- CABECERA PRINCIPAL REORGANIZADA -->
         <header id="main-header" class="bg-slate-900 border-4 border-orange-500 p-5 rounded-3xl shadow-2xl flex justify-between items-stretch gap-4">
             
             <!-- LOGO Y TÍTULO PLANTA -->
@@ -182,7 +181,7 @@
                 </div>
             </div>
 
-            <!-- BLOQUE REPORTADO POR + BADGE AUTO-GUARDADO ABAJO -->
+            <!-- BLOQUE REPORTADO POR + BADGE AUTO-GUARDADO -->
             <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[280px]">
                 <div class="bg-slate-800 p-3 px-5 rounded-2xl border-2 border-orange-500/60 flex items-center gap-3 shadow-inner h-full">
                     <i data-lucide="user" class="w-7 h-7 text-orange-400 shrink-0"></i>
@@ -205,7 +204,6 @@
                     </div>
                 </div>
 
-                <!-- BADGE AUTO-GUARDADO UBICADO DEBAJO DE REPORTADO POR -->
                 <div id="autosave-badge-header" class="bg-slate-800 border-2 border-emerald-500/80 text-emerald-400 text-xs px-3.5 py-2 rounded-xl font-black flex items-center justify-center gap-2 shadow w-full">
                     <span class="relative flex h-3 w-3">
                         <span id="autosave-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -215,7 +213,7 @@
                 </div>
             </div>
 
-            <!-- BLOQUE TURNO + BOTÓN GUARDAR EN NUBE ABAJO -->
+            <!-- BLOQUE TURNO + BOTÓN GUARDAR -->
             <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[260px]">
                 <div class="bg-slate-800 p-3 px-5 rounded-2xl border-2 border-orange-500/60 flex items-center gap-3 shadow-inner h-full">
                     <i data-lucide="clock" class="w-7 h-7 text-orange-400 shrink-0"></i>
@@ -230,13 +228,12 @@
                     </div>
                 </div>
 
-                <!-- BOTÓN GUARDAR EN NUBE UBICADO DEBAJO DE TURNO -->
                 <button onclick="guardarDatosEnNube()" id="btn-guardar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-sm px-4 py-2.5 rounded-xl border-2 border-emerald-400 transition shadow-xl cursor-pointer font-black tracking-wide w-full h-[42px]">
                     <i data-lucide="cloud-upload" class="w-5 h-5"></i> Guardar en Nube (Manual)
                 </button>
             </div>
 
-            <!-- BLOQUE RELOJ/FECHA + BOTÓN GENERAR JPG ABAJO -->
+            <!-- BLOQUE RELOJ/FECHA + BOTÓN GENERAR JPG -->
             <div class="flex flex-col justify-between gap-2.5 flex-1 min-w-[240px]">
                 <div class="text-right bg-slate-800 p-3 px-5 rounded-2xl border-2 border-orange-500/60 shadow-inner flex flex-col justify-center h-full">
                     <div id="live-clock" class="text-2xl font-digital text-orange-400 font-black leading-none">--:--:--</div>
@@ -247,7 +244,6 @@
                     </div>
                 </div>
 
-                <!-- BOTÓN GENERAR JPG UBICADO DEBAJO DEL RELOJ -->
                 <button onclick="generarCapturasDuales()" id="btn-capturar" class="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 via-red-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-sm px-4 py-2.5 rounded-xl border-2 border-orange-400 transition shadow-xl cursor-pointer font-black tracking-wide w-full h-[42px]">
                     <i data-lucide="images" class="w-5 h-5"></i> Generar 2 Imágenes JPG
                 </button>
@@ -363,7 +359,7 @@
 
                                 <div class="silo-overlay-panel">
                                     <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
-                                        <span class="silo-label text-orange-700 text-sm">PRODUCTO / ESTATUS:</span>
+                                        <span class="silo-label text-orange-700 text-sm font-black">PRODUCTO / ESTATUS:</span>
                                         <select id="silo1-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo1', this.value); evaluarEstatusSilo(1); sincronizarAtributosDOM();">
                                             <option value="LECHE CRUDA" selected>LECHE CRUDA</option>
                                             <option value="CIP">CIP</option>
@@ -375,7 +371,7 @@
                                     </div>
 
                                     <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
-                                        <span class="silo-label text-orange-700 text-sm">ETAPA / ESTADO:</span>
+                                        <span class="silo-label text-orange-700 text-sm font-black">ETAPA / ESTADO:</span>
                                         <select id="silo1-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-etapa-silo1', this.value); evaluarEstatusSilo(1); sincronizarAtributosDOM();">
                                             <option value="">-- N/A (SIN PRODUCTO) --</option>
                                             <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
@@ -388,29 +384,29 @@
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-sm">TEMP:</span>
+                                        <span class="silo-label text-sm font-black">TEMP:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="text" id="silo1-temp-input" class="silo-input-field w-24" value="2.4" oninput="sincronizarAtributosDOM();">
-                                            <span class="silo-label text-slate-600 text-sm">°C</span>
+                                            <input type="text" id="silo1-temp-input" class="silo-input-field w-24 font-black" value="2.4" oninput="sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm font-black">°C</span>
                                         </div>
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-sm">HPO:</span>
-                                        <input type="text" id="silo1-hpo-input" class="silo-input-field w-28" value="19" oninput="sincronizarAtributosDOM();">
+                                        <span class="silo-label text-sm font-black">HPO:</span>
+                                        <input type="text" id="silo1-hpo-input" class="silo-input-field w-28 font-black" value="19" oninput="sincronizarAtributosDOM();">
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-sm">NIVEL:</span>
+                                        <span class="silo-label text-sm font-black">NIVEL:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="number" id="silo1-pct" class="silo-input-field w-24" value="48" min="0" max="100" oninput="calcularLitros(1); sincronizarAtributosDOM();">
-                                            <span class="silo-label text-slate-600 text-sm">%</span>
+                                            <input type="number" id="silo1-pct" class="silo-input-field w-24 font-black" value="48" min="0" max="100" oninput="calcularLitros(1); sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm font-black">%</span>
                                         </div>
                                     </div>
 
                                     <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
                                         <span id="silo1-readout-lts" class="text-xl font-digital font-black text-orange-950 whitespace-nowrap shrink-0">28,800</span>
-                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0">LTS</span>
+                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
                                     </div>
                                 </div>
 
@@ -457,7 +453,7 @@
 
                                 <div class="silo-overlay-panel">
                                     <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
-                                        <span class="silo-label text-orange-700 text-sm">PRODUCTO / ESTATUS:</span>
+                                        <span class="silo-label text-orange-700 text-sm font-black">PRODUCTO / ESTATUS:</span>
                                         <select id="silo2-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo2', this.value); evaluarEstatusSilo(2); sincronizarAtributosDOM();">
                                             <option value="LECHE CRUDA">LECHE CRUDA</option>
                                             <option value="CIP">CIP</option>
@@ -473,7 +469,7 @@
                                     </div>
 
                                     <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
-                                        <span class="silo-label text-orange-700 text-sm">ETAPA / ESTADO:</span>
+                                        <span class="silo-label text-orange-700 text-sm font-black">ETAPA / ESTADO:</span>
                                         <select id="silo2-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-silo2', this.value); evaluarEstatusSilo(2); sincronizarAtributosDOM();">
                                             <option value="" selected>-- N/A (SIN PRODUCTO) --</option>
                                             <option value="EN ESPERA DE LIBERACION">EN ESPERA DE LIBERACION</option>
@@ -486,29 +482,29 @@
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-sm">TEMP:</span>
+                                        <span class="silo-label text-sm font-black">TEMP:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="text" id="silo2-temp-input" class="silo-input-field w-24" value="21.6" oninput="sincronizarAtributosDOM();">
-                                            <span class="silo-label text-slate-600 text-sm">°C</span>
+                                            <input type="text" id="silo2-temp-input" class="silo-input-field w-24 font-black" value="21.6" oninput="sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm font-black">°C</span>
                                         </div>
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-sm">HPO:</span>
-                                        <input type="text" id="silo2-hpo-input" class="silo-input-field w-28 opacity-50 cursor-not-allowed" value="N/A" disabled oninput="sincronizarAtributosDOM();">
+                                        <span class="silo-label text-sm font-black">HPO:</span>
+                                        <input type="text" id="silo2-hpo-input" class="silo-input-field w-28 opacity-50 cursor-not-allowed font-black" value="N/A" disabled oninput="sincronizarAtributosDOM();">
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-sm">NIVEL:</span>
+                                        <span class="silo-label text-sm font-black">NIVEL:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="number" id="silo2-pct" class="silo-input-field w-24" value="50" min="0" max="100" oninput="calcularLitros(2); sincronizarAtributosDOM();">
-                                            <span class="silo-label text-slate-600 text-sm">%</span>
+                                            <input type="number" id="silo2-pct" class="silo-input-field w-24 font-black" value="50" min="0" max="100" oninput="calcularLitros(2); sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm font-black">%</span>
                                         </div>
                                     </div>
 
                                     <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
                                         <span id="silo2-readout-lts" class="text-xl font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000</span>
-                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0">LTS</span>
+                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
                                     </div>
                                 </div>
 
@@ -555,7 +551,7 @@
 
                                 <div class="silo-overlay-panel">
                                     <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
-                                        <span class="silo-label text-orange-700 text-sm">PRODUCTO / ESTATUS:</span>
+                                        <span class="silo-label text-orange-700 text-sm font-black">PRODUCTO / ESTATUS:</span>
                                         <select id="silo3-select" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-silo3', this.value); evaluarEstatusSilo(3); sincronizarAtributosDOM();">
                                             <option value="CIP">CIP</option>
                                             <option value="VACIO Y LIMPIO">VACIO Y LIMPIO</option>
@@ -570,7 +566,7 @@
                                     </div>
 
                                     <div class="silo-hmi-row flex-col items-start gap-1 min-h-[82px] justify-center">
-                                        <span class="silo-label text-orange-700 text-sm">ETAPA / ESTADO:</span>
+                                        <span class="silo-label text-orange-700 text-sm font-black">ETAPA / ESTADO:</span>
                                         <select id="silo3-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-etapa-silo3', this.value); evaluarEstatusSilo(3); sincronizarAtributosDOM();">
                                             <option value="">-- N/A (SIN PRODUCTO) --</option>
                                             <option value="EN ESPERA DE LIBERACION" selected>EN ESPERA DE LIBERACION</option>
@@ -582,29 +578,29 @@
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-sm">TEMP:</span>
+                                        <span class="silo-label text-sm font-black">TEMP:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="text" id="silo3-temp-input" class="silo-input-field w-24" value="26.1" oninput="sincronizarAtributosDOM();">
-                                            <span class="silo-label text-slate-600 text-sm">°C</span>
+                                            <input type="text" id="silo3-temp-input" class="silo-input-field w-24 font-black" value="26.1" oninput="sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm font-black">°C</span>
                                         </div>
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-sm">HPO:</span>
-                                        <input type="text" id="silo3-hpo-input" class="silo-input-field w-28" value="-" oninput="sincronizarAtributosDOM();">
+                                        <span class="silo-label text-sm font-black">HPO:</span>
+                                        <input type="text" id="silo3-hpo-input" class="silo-input-field w-28 font-black" value="-" oninput="sincronizarAtributosDOM();">
                                     </div>
 
                                     <div class="silo-hmi-row">
-                                        <span class="silo-label text-sm">NIVEL:</span>
+                                        <span class="silo-label text-sm font-black">NIVEL:</span>
                                         <div class="flex items-center gap-1">
-                                            <input type="number" id="silo3-pct" class="silo-input-field w-24" value="50" min="0" max="100" oninput="calcularLitros(3); sincronizarAtributosDOM();">
-                                            <span class="silo-label text-slate-600 text-sm">%</span>
+                                            <input type="number" id="silo3-pct" class="silo-input-field w-24 font-black" value="50" min="0" max="100" oninput="calcularLitros(3); sincronizarAtributosDOM();">
+                                            <span class="silo-label text-slate-600 text-sm font-black">%</span>
                                         </div>
                                     </div>
 
                                     <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
                                         <span id="silo3-readout-lts" class="text-xl font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000</span>
-                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0">LTS</span>
+                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
                                     </div>
                                 </div>
 
@@ -627,7 +623,7 @@
                 <div><span>Sistema HMI Planta El Tunal</span></div>
                 <div class="font-black text-slate-900 bg-slate-100 px-5 py-2.5 rounded-xl border-2 border-orange-500 flex items-center gap-2.5 shadow-sm">
                     <i data-lucide="user" class="w-6 h-6 text-orange-700"></i>
-                    <span class="whitespace-nowrap">Reportado por: <span id="footer-reportado-1" class="text-orange-800 font-black">LUIS SOTO</span></span>
+                    <span class="whitespace-nowrap font-black">Reportado por: <span id="footer-reportado-1" class="text-orange-800 font-black">LUIS SOTO</span></span>
                 </div>
             </div>
         </div>
@@ -685,7 +681,7 @@
                 
                 <div class="grid grid-cols-3 gap-6">
                     
-                    <!-- TANQUE 01 -->
+                    <!-- TANQUE 01 (TANQUE DE JUGO) - CAMPOS AMPLIADOS Y DESTACADOS -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
@@ -718,24 +714,24 @@
 
                             <div class="silo-overlay-panel">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-sm">CANTIDAD:</span>
+                                    <span class="silo-label text-sm font-black">CANTIDAD:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="tq01-kg-input" class="silo-input-field w-28 text-base" value="0" min="0" max="30000" oninput="calcularLlenadoTanque('tq01'); sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 text-sm">KG</span>
+                                        <input type="number" id="tq01-kg-input" class="silo-input-field w-28 text-base font-black" value="0" min="0" max="30000" oninput="calcularLlenadoTanque('tq01'); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm font-black">KG</span>
                                     </div>
                                 </div>
 
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-sm">TEMP:</span>
+                                    <span class="silo-label text-sm font-black">TEMP:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="text" id="tq01-temp-input" class="silo-input-field w-24 text-base" value="31.8" oninput="sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 text-sm">°C</span>
+                                        <input type="text" id="tq01-temp-input" class="silo-input-field w-24 text-base font-black" value="31.8" oninput="sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm font-black">°C</span>
                                     </div>
                                 </div>
 
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
-                                    <span class="silo-label text-sm text-orange-700">PRODUCTO:</span>
-                                    <select id="tq01-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white " onchange="toggleOtroInput('otro-tq01', this.value); evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01'); sincronizarAtributosDOM();">
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[82px]">
+                                    <span class="silo-label text-orange-700 text-sm font-black">PRODUCTO:</span>
+                                    <select id="tq01-prod" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-tq01', this.value); evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01'); sincronizarAtributosDOM();">
                                         <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="CIP">CIP</option>
@@ -752,12 +748,12 @@
                                         <option value="TE DE FRUTOS ROJOS">TE DE FRUTOS ROJOS</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
+                                    <input type="text" id="otro-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
                                 </div>
 
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
-                                    <span class="silo-label text-sm text-orange-700">ETAPA:</span>
-                                    <select id="tq01-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white  opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq01', this.value); evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[82px]">
+                                    <span class="silo-label text-orange-700 text-sm font-black">ETAPA:</span>
+                                    <select id="tq01-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq01', this.value); evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
                                         <option value="" selected>-- N/A (SIN PRODUCTO) --</option>
                                         <option value="EN PREPARACION">EN PREPARACION</option>
                                         <option value="EN ENFRIAMIENTO">EN ENFRIAMIENTO</option>
@@ -767,12 +763,12 @@
                                         <option value="PRODUCCION CON EL INDIRECT">PRODUCCION CON EL INDIRECT</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-etapa-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
+                                    <input type="text" id="otro-etapa-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
                                 </div>
 
                                 <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap min-h-[44px] overflow-visible items-center">
                                     <span id="tq01-pct-display" class="text-base font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0%</span>
-                                    <span class="silo-label ml-1 text-[11px] text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30.000 KG)</span>
+                                    <span class="silo-label ml-1 text-xs text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30.000 KG)</span>
                                 </div>
                             </div>
 
@@ -786,7 +782,7 @@
                         </div>
                     </div>
 
-                    <!-- TANQUE 02 -->
+                    <!-- TANQUE 02 (TANQUE DE JUGO) - CAMPOS AMPLIADOS Y DESTACADOS -->
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
@@ -819,24 +815,24 @@
 
                             <div class="silo-overlay-panel">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-sm">CANTIDAD:</span>
+                                    <span class="silo-label text-sm font-black">CANTIDAD:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="tq02-kg-input" class="silo-input-field w-28 text-base" value="0" min="0" max="30000" oninput="calcularLlenadoTanque('tq02'); sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 text-sm">KG</span>
+                                        <input type="number" id="tq02-kg-input" class="silo-input-field w-28 text-base font-black" value="0" min="0" max="30000" oninput="calcularLlenadoTanque('tq02'); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm font-black">KG</span>
                                     </div>
                                 </div>
 
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-sm">TEMP:</span>
+                                    <span class="silo-label text-sm font-black">TEMP:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="text" id="tq02-temp-input" class="silo-input-field w-24 text-base" value="20.0" oninput="sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 text-sm">°C</span>
+                                        <input type="text" id="tq02-temp-input" class="silo-input-field w-24 text-base font-black" value="20.0" oninput="sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm font-black">°C</span>
                                     </div>
                                 </div>
 
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
-                                    <span class="silo-label text-sm text-orange-700">PRODUCTO:</span>
-                                    <select id="tq02-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white " onchange="toggleOtroInput('otro-tq02', this.value); evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02'); sincronizarAtributosDOM();">
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[82px]">
+                                    <span class="silo-label text-orange-700 text-sm font-black">PRODUCTO:</span>
+                                    <select id="tq02-prod" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="toggleOtroInput('otro-tq02', this.value); evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02'); sincronizarAtributosDOM();">
                                         <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="CIP">CIP</option>
@@ -852,12 +848,12 @@
                                         <option value="TE DE LIMON">TE DE LIMON</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
+                                    <input type="text" id="otro-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
                                 </div>
 
-                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
-                                    <span class="silo-label text-sm text-orange-700">ETAPA:</span>
-                                    <select id="tq02-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white  opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq02', this.value); evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
+                                <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[82px]">
+                                    <span class="silo-label text-orange-700 text-sm font-black">ETAPA:</span>
+                                    <select id="tq02-etapa" class="silo-input-field silo-status-select font-black text-orange-950 bg-white opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq02', this.value); evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
                                         <option value="" selected>-- N/A (SIN PRODUCTO) --</option>
                                         <option value="EN PREPARACION">EN PREPARACION</option>
                                         <option value="EN ENFRIAMIENTO">EN ENFRIAMIENTO</option>
@@ -867,12 +863,12 @@
                                         <option value="PRODUCCION CON EL INDIRECT">PRODUCCION CON EL INDIRECT</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-etapa-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
+                                    <input type="text" id="otro-etapa-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
                                 </div>
 
                                 <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap min-h-[44px] overflow-visible items-center">
                                     <span id="tq02-pct-display" class="text-base font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0.0%</span>
-                                    <span class="silo-label ml-1 text-[11px] text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30.000 KG)</span>
+                                    <span class="silo-label ml-1 text-xs text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30.000 KG)</span>
                                 </div>
                             </div>
 
@@ -941,7 +937,7 @@
 
                             <div class="input-group mt-1">
                                 <label class="text-sm text-slate-600 font-black block mb-1">Estatus</label>
-                                <select id="almix-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('almix'); toggleOtroInput('otro-almix', this.value); sincronizarAtributosDOM();">
+                                <select id="almix-status" class="hmi-select w-full text-sm font-black" onchange="actualizarBadgeGenerico('almix'); toggleOtroInput('otro-almix', this.value); sincronizarAtributosDOM();">
                                     <option value="PRODUCCION CON EL TANQUE 01">PRODUCCION CON EL TANQUE 01</option>
                                     <option value="PRODUCCION CON EL TANQUE 02">PRODUCCION CON EL TANQUE 02</option>
                                     <option value="CIP">CIP</option>
@@ -950,7 +946,7 @@
                                     <option value="INACTIVO" selected>INACTIVO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
-                                <input type="text" id="otro-almix" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('almix'); sincronizarAtributosDOM();">
+                                <input type="text" id="otro-almix" class="hmi-input w-full mt-2 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('almix'); sincronizarAtributosDOM();">
                             </div>
                         </div>
 
@@ -1016,7 +1012,7 @@
 
                             <div class="input-group">
                                 <label class="text-sm text-slate-600 font-black block mb-1">Estatus</label>
-                                <select id="lacta-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('lacta'); toggleOtroInput('otro-lacta', this.value); sincronizarAtributosDOM();">
+                                <select id="lacta-status" class="hmi-select w-full text-sm font-black" onchange="actualizarBadgeGenerico('lacta'); toggleOtroInput('otro-lacta', this.value); sincronizarAtributosDOM();">
                                     <option value="CIP" selected>CIP</option>
                                     <option value="POR CIP">POR CIP</option>
                                     <option value="AIC">AIC</option>
@@ -1028,7 +1024,7 @@
                                     <option value="PRODUCCION DESDE EL SILO 2 AL SILO 3">PRODUCCION DESDE EL SILO 2 AL SILO 3</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
-                                <input type="text" id="otro-lacta" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('lacta'); sincronizarAtributosDOM();">
+                                <input type="text" id="otro-lacta" class="hmi-input w-full mt-2 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('lacta'); sincronizarAtributosDOM();">
                             </div>
                         </div>
                     </div>
@@ -1067,7 +1063,7 @@
 
                             <div class="input-group">
                                 <label class="text-sm text-slate-600 font-black block mb-1">Estatus</label>
-                                <select id="flex-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('flex'); toggleOtroInput('otro-flex', this.value); sincronizarAtributosDOM();">
+                                <select id="flex-status" class="hmi-select w-full text-sm font-black" onchange="actualizarBadgeGenerico('flex'); toggleOtroInput('otro-flex', this.value); sincronizarAtributosDOM();">
                                     <option value="CIP" selected>CIP</option>
                                     <option value="POR CIP">POR CIP</option>
                                     <option value="AIC">AIC</option>
@@ -1079,7 +1075,7 @@
                                     <option value="PRODUCCION DESDE EL TANQUE 02">PRODUCCION DESDE EL TANQUE 02</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
-                                <input type="text" id="otro-flex" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('flex'); sincronizarAtributosDOM();">
+                                <input type="text" id="otro-flex" class="hmi-input w-full mt-2 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('flex'); sincronizarAtributosDOM();">
                             </div>
                         </div>
                     </div>
@@ -1118,7 +1114,7 @@
 
                             <div class="input-group">
                                 <label class="text-sm text-slate-600 font-black block mb-1">Estatus</label>
-                                <select id="aldose-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('aldose'); toggleOtroInput('otro-aldose', this.value); sincronizarAtributosDOM();">
+                                <select id="aldose-status" class="hmi-select w-full text-sm font-black" onchange="actualizarBadgeGenerico('aldose'); toggleOtroInput('otro-aldose', this.value); sincronizarAtributosDOM();">
                                     <option value="CIP">CIP</option>
                                     <option value="POR CIP">POR CIP</option>
                                     <option value="PRODUCCION">PRODUCCION</option>
@@ -1127,7 +1123,7 @@
                                     <option value="INACTIVO Y LIMPIO" selected>INACTIVO Y LIMPIO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
-                                <input type="text" id="otro-aldose" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('aldose'); sincronizarAtributosDOM();">
+                                <input type="text" id="otro-aldose" class="hmi-input w-full mt-2 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('aldose'); sincronizarAtributosDOM();">
                             </div>
                         </div>
                     </div>
@@ -1169,7 +1165,7 @@
 
                             <div class="input-group">
                                 <label class="text-sm text-slate-600 font-black block mb-1">Estatus</label>
-                                <select id="indirect-status" class="hmi-select w-full text-xs font-black" onchange="actualizarBadgeGenerico('indirect'); toggleOtroInput('otro-indirect', this.value); sincronizarAtributosDOM();">
+                                <select id="indirect-status" class="hmi-select w-full text-sm font-black" onchange="actualizarBadgeGenerico('indirect'); toggleOtroInput('otro-indirect', this.value); sincronizarAtributosDOM();">
                                     <option value="CIP" selected>CIP</option>
                                     <option value="POR CIP">POR CIP</option>
                                     <option value="INACTIVO Y LIMPIO">INACTIVO Y LIMPIO</option>
@@ -1180,7 +1176,7 @@
                                     <option value="MANTENIMIENTO">MANTENIMIENTO</option>
                                     <option value="OTRO">OTRO</option>
                                 </select>
-                                <input type="text" id="otro-indirect" class="hmi-input w-full mt-2 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('indirect'); sincronizarAtributosDOM();">
+                                <input type="text" id="otro-indirect" class="hmi-input w-full mt-2 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('indirect'); sincronizarAtributosDOM();">
                             </div>
                         </div>
                     </div>
@@ -1207,14 +1203,14 @@
                             <div id="alsafe1-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.6rem;">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-sm">CANTIDAD:</span>
+                                    <span class="silo-label text-sm font-black">CANTIDAD:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="alsafe1-lts-input" class="silo-input-field w-28 text-base" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe1'); sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 text-sm">LTS</span>
+                                        <input type="number" id="alsafe1-lts-input" class="silo-input-field w-28 text-base font-black" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe1'); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm font-black">LTS</span>
                                     </div>
                                 </div>
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[75px]">
-                                    <span class="silo-label text-sm text-orange-700">ESTATUS:</span>
+                                    <span class="silo-label text-sm text-orange-700 font-black">ESTATUS:</span>
                                     <select id="alsafe1-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusAlsafe('alsafe1'); toggleOtroInput('otro-alsafe1', this.value); sincronizarAtributosDOM();">
                                         <option value="CIP">CIP</option>
                                         <option value="POR CIP">POR CIP</option>
@@ -1223,7 +1219,7 @@
                                         <option value="ESTERILIZACION">ESTERILIZACION</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-alsafe1" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('alsafe1'); sincronizarAtributosDOM();">
+                                    <input type="text" id="otro-alsafe1" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('alsafe1'); sincronizarAtributosDOM();">
                                 </div>
                             </div>
                             <div class="silo-steel-ring"></div>
@@ -1254,14 +1250,14 @@
                             <div id="alsafe2-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.6rem;">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-sm">CANTIDAD:</span>
+                                    <span class="silo-label text-sm font-black">CANTIDAD:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="alsafe2-lts-input" class="silo-input-field w-28 text-base" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe2'); sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 text-sm">LTS</span>
+                                        <input type="number" id="alsafe2-lts-input" class="silo-input-field w-28 text-base font-black" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe2'); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm font-black">LTS</span>
                                     </div>
                                 </div>
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[75px]">
-                                    <span class="silo-label text-sm text-orange-700">ESTATUS:</span>
+                                    <span class="silo-label text-sm text-orange-700 font-black">ESTATUS:</span>
                                     <select id="alsafe2-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusAlsafe('alsafe2'); toggleOtroInput('otro-alsafe2', this.value); sincronizarAtributosDOM();">
                                         <option value="CIP">CIP</option>
                                         <option value="POR CIP">POR CIP</option>
@@ -1270,7 +1266,7 @@
                                         <option value="ESTERILIZACION">ESTERILIZACION</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-alsafe2" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('alsafe2'); sincronizarAtributosDOM();">
+                                    <input type="text" id="otro-alsafe2" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('alsafe2'); sincronizarAtributosDOM();">
                                 </div>
                             </div>
                             <div class="silo-steel-ring"></div>
@@ -1301,14 +1297,14 @@
                             <div id="tqcrema-liquid" class="silo-liquid-layer" style="height: 0%; background: linear-gradient(180deg, #ffffff 0%, #fff8e7 12%, #f3e5b8 35%, #ebd69d 70%, #d9bc71 100%);"><div class="silo-wave-effect" style="background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e2c884;"></div></div>
                             <div class="silo-overlay-panel" style="justify-content: center; gap: 0.6rem;">
                                 <div class="silo-hmi-row">
-                                    <span class="silo-label text-sm">NIVEL:</span>
+                                    <span class="silo-label text-sm font-black">NIVEL:</span>
                                     <div class="flex items-center gap-1">
-                                        <input type="number" id="tqcrema-pct-input" class="silo-input-field w-24 text-base" value="0" min="0" max="100" oninput="calcularLlenadoCrema(); sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 text-sm">%</span>
+                                        <input type="number" id="tqcrema-pct-input" class="silo-input-field w-24 text-base font-black" value="0" min="0" max="100" oninput="calcularLlenadoCrema(); sincronizarAtributosDOM();">
+                                        <span class="silo-label text-slate-600 text-sm font-black">%</span>
                                     </div>
                                 </div>
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[75px]">
-                                    <span class="silo-label text-sm text-orange-700">ESTATUS:</span>
+                                    <span class="silo-label text-sm text-orange-700 font-black">ESTATUS:</span>
                                     <select id="tqcrema-status" class="silo-input-field silo-status-select font-black text-orange-950 bg-white" onchange="evaluarEstatusCrema(); toggleOtroInput('otro-tqcrema', this.value); sincronizarAtributosDOM();">
                                         <option value="CIP">CIP</option>
                                         <option value="POR CIP">POR CIP</option>
@@ -1318,7 +1314,7 @@
                                         <option value="AIC">AIC</option>
                                         <option value="OTRO">OTRO</option>
                                     </select>
-                                    <input type="text" id="otro-tqcrema" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('tqcrema'); sincronizarAtributosDOM();">
+                                    <input type="text" id="otro-tqcrema" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRO..." oninput="actualizarBadgeGenerico('tqcrema'); sincronizarAtributosDOM();">
                                 </div>
                             </div>
                             <div class="silo-steel-ring"></div>
@@ -1334,7 +1330,7 @@
                 <div><span>Sistema HMI Planta El Tunal</span></div>
                 <div class="font-black text-slate-900 bg-slate-100 px-5 py-2.5 rounded-xl border-2 border-orange-500 flex items-center gap-2.5 shadow-sm">
                     <i data-lucide="user" class="w-6 h-6 text-orange-700"></i>
-                    <span class="whitespace-nowrap">Reportado por: <span id="footer-reportado-2" class="text-orange-800 font-black">LUIS SOTO</span></span>
+                    <span class="whitespace-nowrap font-black">Reportado por: <span id="footer-reportado-2" class="text-orange-800 font-black">LUIS SOTO</span></span>
                 </div>
             </div>
         </div>
@@ -1343,12 +1339,12 @@
 
     <!-- MODAL DE NOTIFICACIÓN -->
     <div id="notification-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white border-4 border-orange-500 rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center space-y-4 animate-fade-in font-bold">
+        <div class="bg-white border-4 border-orange-500 rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center space-y-4 animate-fade-in font-black">
             <div id="modal-icon-container" class="w-16 h-16 bg-emerald-100 border-2 border-emerald-500 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-inner">
                 <i id="modal-icon" data-lucide="check-circle" class="w-10 h-10"></i>
             </div>
             <h3 id="modal-title" class="text-xl font-black text-slate-900">¡Guardado Exitoso!</h3>
-            <p id="modal-message" class="text-base font-bold text-slate-600">Todos los datos se han guardado correctamente.</p>
+            <p id="modal-message" class="text-base font-black text-slate-600">Todos los datos se han guardado correctamente.</p>
             <button onclick="cerrarModal()" class="w-full bg-orange-600 hover:bg-orange-500 text-white text-base font-black py-3 rounded-xl border-2 border-orange-400 transition shadow-md cursor-pointer">
                 Aceptar
             </button>
@@ -1394,9 +1390,8 @@
             }
         }
 
-        // SINCRONIZADOR CRÍTICO DE ATRIBUTOS HTML/DOM (SOLUCIONA EL ERROR AL TOMAR CAPTURAS)
+        // SINCRONIZADOR CRÍTICO DE ATRIBUTOS HTML/DOM
         function sincronizarAtributosDOM() {
-            // Sincronizar todos los inputs en el DOM
             document.querySelectorAll('input').forEach(inp => {
                 if (inp.type === 'checkbox' || inp.type === 'radio') {
                     if (inp.checked) inp.setAttribute('checked', 'checked');
@@ -1406,7 +1401,6 @@
                 }
             });
 
-            // Sincronizar todos los select y sus opciones en el DOM HTML
             document.querySelectorAll('select').forEach(sel => {
                 const currentVal = sel.value;
                 sel.setAttribute('value', currentVal);
@@ -1432,7 +1426,7 @@
             actualizarIndicadorAutoGuardado("cambio", "Guardando cambios...");
             clearTimeout(timerAutoGuardado);
             timerAutoGuardado = setTimeout(() => {
-                guardarDatosEnNube(true); // Guardado silencioso en background
+                guardarDatosEnNube(true);
             }, 1500);
         }
 
@@ -1479,7 +1473,6 @@
             if (window.lucide) lucide.createIcons();
         }
 
-        // GUARDAR DATOS EN FIREBASE (MANUAL O SILENCIOSO)
         function actualizarHoraUltimaModificacion(dateObj) {
             let fecha = dateObj;
             if (!fecha) fecha = new Date();
@@ -1633,7 +1626,7 @@
             });
         }
 
-        // CONTROLADOR MAPEO CONFIGURACIÓN DE BADGES & ÍCONOS
+        // MAPEO CONFIGURACIÓN DE BADGES & ÍCONOS CON ULTRA NEGRITA
         const ESTADOS_CONFIG = {
             'PRODUCCION CON EL FLEX': { icon: 'play-circle', bgBox: 'bg-orange-600', textCol: 'text-orange-950 font-black', bgCont: 'bg-orange-100/80 border-orange-500' },
             'PRODUCCION CON EL INDIRECT': { icon: 'play-circle', bgBox: 'bg-orange-600', textCol: 'text-orange-950 font-black', bgCont: 'bg-orange-100/80 border-orange-500' },
@@ -1724,7 +1717,6 @@
             return el.value;
         }
 
-        // EVALUAR Y DESHABILITAR/HABILITAR SILOS
         function evaluarEstatusSilo(siloNum) {
             const prodSelect = document.getElementById(`silo${siloNum}-select`);
             const etapaSelect = document.getElementById(`silo${siloNum}-etapa`);
@@ -1841,8 +1833,6 @@
             actualizarBadgeGenerico('tqcrema');
         }
 
-        // PATIO DE CISTERNAS
-        
         let reportadoPersonalizadoActivo = false;
         function toggleEditarReportadoPor() {
             reportadoPersonalizadoActivo = !reportadoPersonalizadoActivo;
@@ -1914,20 +1904,13 @@
                     </div>
                     <div class="cisterna-svg-container flex flex-col items-center">
                         <svg viewBox="0 0 240 90" class="w-full h-auto max-h-24 my-1 drop-shadow-sm">
-                            <!-- Chassis -->
                             <rect x="30" y="48" width="172" height="7" rx="2" fill="#334155"/>
-                            <!-- Tanker Body -->
                             <rect x="32" y="18" width="128" height="32" rx="15" fill="url(#tankerMetal)" stroke="#64748b" stroke-width="2"/>
-                            <!-- Tank top hatches -->
                             <rect x="56" y="14" width="22" height="5" rx="1.5" fill="#475569"/>
                             <rect x="112" y="14" width="22" height="5" rx="1.5" fill="#475569"/>
-                            <!-- Cab (Orange) -->
                             <path d="M 158 24 C 165 24, 185 24, 198 33 C 202 36, 202 50, 202 52 L 158 52 Z" fill="#ea580c" stroke="#c2410c" stroke-width="1.5"/>
-                            <!-- Windshield -->
                             <path d="M 166 28 L 186 28 C 191 33, 192 38, 192 38 L 166 38 Z" fill="#7dd3fc" stroke="#0284c7" stroke-width="1"/>
-                            <!-- Headlight -->
                             <rect x="197" y="44" width="4" height="6" rx="1" fill="#facc15"/>
-                            <!-- Wheels -->
                             <circle cx="52" cy="56" r="9" fill="#1e293b" stroke="#475569" stroke-width="2"/>
                             <circle cx="52" cy="56" r="3.5" fill="#94a3b8"/>
                             <circle cx="78" cy="56" r="9" fill="#1e293b" stroke="#475569" stroke-width="2"/>
@@ -1947,7 +1930,7 @@
                         <div class="cisterna-overlay-fields w-full">
                             <div class="cisterna-hmi-row flex-col items-start gap-1 justify-center">
                                 <span class="text-xs font-black text-orange-700 font-mono">ESTATUS:</span>
-                                <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white " onchange="cambiarEstatusCisterna(${index}, this.value)">
+                                <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white" onchange="cambiarEstatusCisterna(${index}, this.value)">
                                     <option value="EN ESPERA DE DESCARGA" ${c.estatus === 'EN ESPERA DE DESCARGA' ? 'selected' : ''}>EN ESPERA DE DESCARGA</option>
                                     <option value="EN DESCARGA AL SILO 1" ${c.estatus === 'EN DESCARGA AL SILO 1' ? 'selected' : ''}>EN DESCARGA AL SILO 1</option>
                                     <option value="EN DESCARGA AL SILO 2" ${c.estatus === 'EN DESCARGA AL SILO 2' ? 'selected' : ''}>EN DESCARGA AL SILO 2</option>
@@ -2139,10 +2122,8 @@
         function cerrarModal() { document.getElementById('notification-modal').classList.add('hidden'); }
 
         async function generarCapturasDuales() {
-            // Asegurar sincronización 100% de atributos DOM antes de renderizar canvas/JPEG
             sincronizarAtributosDOM();
 
-            // Re-ejecutar refresco de badges para coincidir de forma impecable
             evaluarEstatusSilo(1); evaluarEstatusSilo(2); evaluarEstatusSilo(3);
             evaluarEstadoTanque('tq01'); evaluarEstadoTanque('tq02');
             actualizarColorLiquidoTanque('tq01'); actualizarColorLiquidoTanque('tq02');
@@ -2233,7 +2214,6 @@
             sincronizarAtributosDOM();
             escucharDatosNube();
 
-            // Escuchadores para Auto-Guardado Automático al modificar cualquier input/select
             const masterContainer = document.getElementById('hmi-master-container');
             if (masterContainer) {
                 masterContainer.addEventListener('input', programarAutoGuardado);
