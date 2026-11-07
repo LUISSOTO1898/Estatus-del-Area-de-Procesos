@@ -16,22 +16,31 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; font-weight: 700 !important; }
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #0f172a; margin: 0; padding: 12px; font-weight: 700 !important; }
-        .font-black, .font-digital, h1, h2, h3, h4, th, td, label, select, input, button, .silo-label, .silo-input-field, .hmi-input, .hmi-select, .status-badge-text { font-weight: 900 !important; }
+        * { box-sizing: border-box; font-weight: 800 !important; }
+        html, body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #0f172a; margin: 0; padding: 12px; font-weight: 800 !important; font-size: 112% !important; }
+        .font-black, .font-digital, h1, h2, h3, h4, th, td, label, select, input, button, .silo-label, .silo-input-field, .hmi-input, .hmi-select, .status-badge-text, .nowrap-title { font-weight: 900 !important; }
         
-        .hmi-master-wrapper { width: 1420px; margin: 0 auto; background-color: #ffffff; border-radius: 2rem; border: 4px solid #f97316; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); padding: 24px; }
-        .silo-wrapper { position: relative; width: 100%; background: linear-gradient(160deg, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%); border-radius: 1.5rem; padding: 1.25rem 1rem; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), inset 0 1px 2px #ffffff; border: 2.5px solid #cbd5e1; display: flex; flex-direction: column; align-items: center; }
-        .silo-tank-body { position: relative; width: 100%; height: 540px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
-        .juice-tank-body { position: relative; width: 100%; height: 450px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
-        .alsafe-tank-body { position: relative; width: 100%; height: 290px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 1.5rem 1.5rem 1rem 1rem; box-shadow: inset 0 0 15px rgba(148, 163, 184, 0.3), 0 6px 15px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        /* Escalado de fuentes (Reducción ~10% para optimizar encuadre) */
+        .text-xs { font-size: 0.85rem !important; }
+        .text-sm { font-size: 0.98rem !important; }
+        .text-base { font-size: 1.12rem !important; }
+        .text-lg { font-size: 1.26rem !important; }
+        .text-xl { font-size: 1.4rem !important; }
+        .text-2xl { font-size: 1.68rem !important; }
+        .text-3xl { font-size: 2.1rem !important; }
+
+        /* ANCHO AMPLIADO DEL CONTENEDOR INDUSTRIAL MAESTRO (1750px) */
+        .hmi-master-wrapper { width: 1750px; max-width: 1800px; margin: 0 auto; background-color: #ffffff; border-radius: 2rem; border: 4px solid #f97316; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); padding: 24px; }
+        .silo-wrapper { position: relative; width: 100%; background: linear-gradient(160deg, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%); border-radius: 1.5rem; padding: 1.25rem 0.85rem; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), inset 0 1px 2px #ffffff; border: 2.5px solid #cbd5e1; display: flex; flex-direction: column; align-items: center; }
+        .silo-tank-body { position: relative; width: 100%; height: 590px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .juice-tank-body { position: relative; width: 100%; height: 500px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 2rem 2rem 1.25rem 1.25rem; box-shadow: inset 0 0 20px rgba(148, 163, 184, 0.3), 0 8px 20px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .alsafe-tank-body { position: relative; width: 100%; height: 330px; background: linear-gradient(90deg, #cbd5e1 0%, #e2e8f0 12%, #f8fafc 35%, #ffffff 50%, #f1f5f9 70%, #e2e8f0 90%, #cbd5e1 100%); border-radius: 1.5rem 1.5rem 1rem 1rem; box-shadow: inset 0 0 15px rgba(148, 163, 184, 0.3), 0 6px 15px rgba(0,0,0,0.06); border: 2.5px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
         .silo-cap-top { width: 100%; height: 28px; background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #94a3b8 100%); border-bottom: 2px solid #64748b; border-radius: 50% / 100% 100% 0 0; z-index: 10; box-shadow: inset 0 2px 4px rgba(255,255,255,0.9); }
         .silo-steel-ring { width: 100%; height: 7px; background: linear-gradient(180deg, #94a3b8 0%, #f8fafc 50%, #64748b 100%); border-top: 1px solid rgba(255,255,255,0.8); border-bottom: 1px solid rgba(100, 116, 139, 0.5); z-index: 12; }
         .silo-cone-bottom { width: 80%; height: 36px; margin: -2px auto 0 auto; background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%); clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%); border-top: 2px solid #64748b; z-index: 8; }
         .silo-legs { display: flex; justify-content: space-between; width: 85%; height: 20px; margin-top: -6px; }
         .silo-leg { width: 10px; height: 100%; background: linear-gradient(90deg, #475569, #94a3b8, #334155); border-radius: 2px; }
         
-        /* CORRECCIÓN DE MANCHAS EN HTML-TO-IMAGE: Se fuerza el radio inferior del líquido */
         .silo-liquid-layer { 
             position: absolute; bottom: 0; left: 0; right: 0; transition: height 0.6s ease-out; z-index: 5; 
             box-shadow: inset 0 6px 12px rgba(255, 255, 255, 0.6), inset 0 -6px 16px rgba(0, 0, 0, 0.2), 0 -4px 12px rgba(0, 0, 0, 0.15); 
@@ -49,25 +58,27 @@
         .cisterna-truck-card { position: relative; background: linear-gradient(160deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%); border: 2.5px solid #cbd5e1; border-radius: 1.25rem; padding: 0.75rem; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06); display: flex; flex-direction: column; gap: 0.5rem; }
         .cisterna-svg-container { position: relative; width: 100%; background: #f1f5f9; border: 2px solid #94a3b8; border-radius: 1rem; padding: 0.5rem; box-shadow: inset 0 2px 6px rgba(0,0,0,0.05); }
         .cisterna-overlay-fields { display: flex; flex-direction: column; gap: 0.45rem; margin-top: 0.35rem; }
-        .cisterna-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(4px); border: 1.5px solid #cbd5e1; border-radius: 0.5rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04); }
+        .cisterna-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(4px); border: 1.5px solid #cbd5e1; border-radius: 0.5rem; padding: 0.4rem 0.6rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04); white-space: nowrap !important; flex-wrap: nowrap !important; }
         .silo-gauge-fill { width: 100%; border-top: 2px solid #ea580c; transition: height 0.6s ease-out; background: linear-gradient(180deg, #ffffff 0%, #f3e5b8 40%, #d9bc71 100%); }
         .silo-overlay-panel { position: absolute; inset: 0; right: 32px; z-index: 20; display: flex; flex-direction: column; justify-content: space-between; padding: 0.65rem 0.55rem; gap: 0.3rem; }
-        .silo-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border: 1.5px solid #cbd5e1; border-radius: 0.65rem; padding: 0.45rem 0.65rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); line-height: 1.2; }
+        .silo-hmi-row { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border: 1.5px solid #cbd5e1; border-radius: 0.65rem; padding: 0.45rem 0.65rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); line-height: 1.2; white-space: normal !important; word-break: break-word; }
         
-        /* AUMENTO ASIMÉTRICO +25% EN FUENTES Y AJUSTE DE RECUADROS */
-        .silo-label { color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; font-size: 1.15rem; letter-spacing: 0.02em; }
-        .silo-input-field { background: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; border-radius: 0.6rem; padding: 0 0.5rem; height: 44px; line-height: 40px; font-size: 1.25rem; outline: none; text-align: center; display: flex; align-items: center; justify-content: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; box-shadow: inset 0 1px 2px rgba(0,0,0,0.06); }
-        .silo-status-select { font-size: 1.08rem !important; font-weight: 900 !important; height: 46px !important; line-height: 1.2 !important; padding: 0.2rem 0.3rem !important; text-align: center !important; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100%; color: #020617 !important; }
-        .font-digital { font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; }
-        .hmi-input, .hmi-select { background-color: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; border-radius: 0.65rem; padding: 0 0.6rem; font-size: 1.3rem; height: 50px; line-height: 44px; outline: none; transition: all 0.2s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-        .hmi-select { color: #9a3412; font-weight: 900 !important; font-size: 1.2rem; text-align: center !important; }
+        /* FUENTES Y NEGRITAS INDUSTRIALES CON ALTURA ADECUADA PARA 2 FILAS */
+        .silo-label { color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; font-size: 1.15rem !important; letter-spacing: 0.01em; white-space: nowrap !important; word-break: keep-all !important; flex-shrink: 0 !important; }
+        .silo-input-field { background: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; border-radius: 0.6rem; padding: 0.25rem 0.4rem; min-height: 48px !important; height: auto !important; line-height: 1.2 !important; font-size: 1.2rem; outline: none; text-align: center; display: flex; align-items: center; justify-content: center; text-overflow: clip; overflow: visible; white-space: normal !important; word-break: break-word !important; box-shadow: inset 0 1px 2px rgba(0,0,0,0.06); }
+        .silo-status-select { font-size: 1.15rem !important; font-weight: 900 !important; min-height: 72px !important; height: auto !important; line-height: 1.25 !important; padding: 0.35rem 0.5rem !important; text-align: center !important; text-align-last: center; text-overflow: clip; overflow: visible; white-space: normal !important; word-break: break-word !important; width: 100%; color: #020617 !important; border-radius: 0.6rem; }
+        .font-digital { font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; white-space: normal !important; word-break: break-word; }
+        .hmi-input, .hmi-select { background-color: #ffffff; border: 2.5px solid #64748b; color: #020617; font-family: 'Share Tech Mono', monospace, sans-serif; font-weight: 900 !important; border-radius: 0.65rem; padding: 0.35rem 0.5rem; font-size: 1.18rem !important; min-height: 72px !important; height: auto !important; line-height: 1.25 !important; outline: none; transition: all 0.2s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; text-align-last: center; text-overflow: clip; overflow: visible; white-space: normal !important; word-break: break-word !important; }
+        .hmi-select { color: #9a3412; font-weight: 900 !important; font-size: 1.18rem !important; text-align: center !important; text-align-last: center; min-height: 72px !important; height: auto !important; }
         .hmi-input:focus, .hmi-select:focus { border-color: #ea580c; box-shadow: 0 0 10px rgba(234, 88, 12, 0.4); background-color: #fff7ed; }
-        .status-badge-container { min-height: 64px; border-width: 2.5px; border-radius: 0.85rem; padding: 0.5rem 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; margin-bottom: 0.5rem; overflow: hidden; }
-        .status-badge-text { font-size: 1.05rem; line-height: 1.2; font-weight: 900 !important; text-transform: uppercase; text-align: left; overflow: hidden; word-break: break-word; letter-spacing: 0.01em; }
+        
+        /* AJUSTE DE BADGES DE ESTATUS CON DOBLE FILA / MULTILÍNEA DE TAMAÑO GRANDE */
+        .status-badge-container { min-height: 84px !important; height: auto !important; border-width: 2.5px; border-radius: 0.85rem; padding: 0.5rem 0.75rem; display: flex; align-items: center; justify-content: flex-start; gap: 0.6rem; width: 100%; margin-bottom: 0.5rem; overflow: hidden; white-space: normal !important; }
+        .status-badge-text { font-size: 1.16rem !important; line-height: 1.2 !important; font-weight: 900 !important; text-transform: uppercase; text-align: left; overflow: hidden; white-space: normal !important; word-break: break-word !important; letter-spacing: 0.01em; text-overflow: clip; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
         @keyframes waveFlow { 0% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(-25%) rotate(4deg); } 100% { transform: translateX(-50%) rotate(0deg); } }
         .input-group { margin-top: 0.85rem; padding-top: 0.35rem; }
         
-        /* Normalización crítica para exportación fiel con html-to-image sin recortes de texto ni títulos */
+        /* CORRECCIÓN ESTRICTA PARA CAPTURA SIN SALIR DEL CUADRO */
         h1, h2, h3, h4, p, span { line-height: 1.25; font-weight: 900 !important; }
         body.capturing-mode * { text-rendering: geometricPrecision !important; -webkit-font-smoothing: antialiased !important; }
         body.capturing-mode h1,
@@ -76,17 +87,18 @@
         body.capturing-mode h4,
         body.capturing-mode p,
         body.capturing-mode span,
-        body.capturing-mode div { line-height: 1.3 !important; overflow: visible !important; }
+        body.capturing-mode div { line-height: 1.25 !important; overflow: visible !important; }
         body.capturing-mode #display-turno-copy,
-        body.capturing-mode #display-turno-copy-2 { white-space: nowrap !important; overflow: visible !important; display: block !important; line-height: 1.2 !important; max-width: none !important; }
+        body.capturing-mode #display-turno-copy-2,
+        body.capturing-mode .nowrap-title { white-space: nowrap !important; word-break: keep-all !important; overflow: visible !important; display: inline-block !important; max-width: none !important; }
+        body.capturing-mode .status-badge-text { white-space: normal !important; word-break: break-word !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; max-width: 100% !important; line-height: 1.2 !important; }
+        body.capturing-mode .font-digital,
+        body.capturing-mode .silo-label, body.capturing-mode .cisterna-hmi-row span, body.capturing-mode .silo-hmi-row span { white-space: nowrap !important; word-break: keep-all !important; flex-shrink: 0 !important; overflow: visible !important; }
         body.capturing-mode .hmi-card { overflow: visible !important; padding-bottom: 2rem !important; }
-        body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; text-overflow: ellipsis !important; overflow: hidden !important; white-space: nowrap !important; line-height: 1.2 !important; }
-        body.capturing-mode .status-badge-container { min-height: 60px !important; height: auto !important; overflow: visible !important; padding-top: 6px !important; padding-bottom: 6px !important; }
-        body.capturing-mode .status-badge-text { font-size: 0.9rem !important; line-height: 1.18 !important; word-break: break-word !important; white-space: normal !important; overflow: visible !important; font-weight: 900 !important; }
+        body.capturing-mode select { appearance: none !important; -webkit-appearance: none !important; -moz-appearance: none !important; background-image: none !important; padding-right: 0.2rem !important; text-overflow: clip !important; overflow: visible !important; white-space: normal !important; word-break: break-word !important; line-height: 1.25 !important; height: auto !important; min-height: 72px !important; }
+        body.capturing-mode .status-badge-container { min-height: 84px !important; height: auto !important; overflow: hidden !important; padding: 6px 8px !important; white-space: normal !important; }
 
-        /* ==========================================
-           ESTILOS DE MODO OSCURO HMI (INDUSTRIAL DARK)
-           ========================================== */
+        /* MODO OSCURO */
         body.dark-theme { background-color: #030712 !important; color: #f8fafc !important; }
         body.dark-theme .hmi-master-wrapper { background-color: #0f172a !important; border-color: #ea580c !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.95) !important; }
         body.dark-theme .hmi-card, body.dark-theme #parte-1-container, body.dark-theme #parte-2-container { background-color: #1e293b !important; border-color: #ea580c !important; color: #f8fafc !important; }
@@ -119,13 +131,13 @@
         body.dark-theme .status-badge-text.text-blue-900 { color: #93c5fd !important; }
         body.dark-theme .status-badge-container.bg-slate-100 { background-color: rgba(30, 41, 59, 0.5) !important; border-color: #475569 !important; }
         body.dark-theme .status-badge-text.text-slate-900 { color: #cbd5e1 !important; }
-    </style>
+</style>
 
 </head>
 <body class="uppercase font-bold">
 
     <!-- BARRA SUPERIOR DE AYUDA MÓVIL / ZOOM INDUSTRIAL -->
-    <div class="max-w-7xl mx-auto mb-3 bg-slate-800 text-slate-200 px-4 py-2.5 rounded-xl text-sm flex justify-between items-center shadow-lg border border-slate-700 font-bold">
+    <div class="max-w-[1750px] mx-auto mb-3 bg-slate-800 text-slate-200 px-4 py-2.5 rounded-xl text-sm flex justify-between items-center shadow-lg border border-slate-700 font-bold">
         <div class="flex items-center gap-3">
             <span class="font-black flex items-center gap-2">
                 <i data-lucide="monitor" class="w-5 h-5 text-orange-400"></i> HMI VISTA INDUSTRIAL (ENLACE FIREBASE ACTIVO)
@@ -322,7 +334,7 @@
                         <div class="silo-wrapper">
                             <div class="flex justify-between items-center w-full mb-2 px-1">
                                 <span class="text-xl font-black text-slate-900 flex items-center gap-2 font-digital">
-                                    <i data-lucide="cylinder" class="w-6 h-6 text-orange-600"></i> SILO 1
+                                    <i data-lucide="cylinder" class="w-6 h-6 text-orange-600"></i> SILO&nbsp;1
                                 </span>
                                 <span class="w-4 h-4 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
                             </div>
@@ -332,7 +344,7 @@
                                     <i id="silo1-icon-symbol" data-lucide="droplets" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 1</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO&nbsp;1</div>
                                     <div id="silo1-icon-text" class="status-badge-text text-amber-900">LECHE CRUDA</div>
                                 </div>
                             </div>
@@ -396,9 +408,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-2">
-                                        <span id="silo1-readout-lts" class="text-xl font-digital font-black text-orange-950">28,800</span>
-                                        <span class="silo-label ml-1 text-sm text-orange-700">LTS</span>
+                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
+                                        <span id="silo1-readout-lts" class="text-xl font-digital font-black text-orange-950 whitespace-nowrap shrink-0">28,800</span>
+                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0">LTS</span>
                                     </div>
                                 </div>
 
@@ -416,7 +428,7 @@
                         <div class="silo-wrapper">
                             <div class="flex justify-between items-center w-full mb-2 px-1">
                                 <span class="text-xl font-black text-slate-900 flex items-center gap-2 font-digital">
-                                    <i data-lucide="cylinder" class="w-6 h-6 text-orange-600"></i> SILO 2
+                                    <i data-lucide="cylinder" class="w-6 h-6 text-orange-600"></i> SILO&nbsp;2
                                 </span>
                                 <span class="w-4 h-4 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
                             </div>
@@ -426,7 +438,7 @@
                                     <i id="silo2-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 2</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO&nbsp;2</div>
                                     <div id="silo2-icon-text" class="status-badge-text text-emerald-900">VACIO Y LIMPIO</div>
                                 </div>
                             </div>
@@ -494,9 +506,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-2">
-                                        <span id="silo2-readout-lts" class="text-xl font-digital font-black text-orange-950">30,000</span>
-                                        <span class="silo-label ml-1 text-sm text-orange-700">LTS</span>
+                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
+                                        <span id="silo2-readout-lts" class="text-xl font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000</span>
+                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0">LTS</span>
                                     </div>
                                 </div>
 
@@ -514,7 +526,7 @@
                         <div class="silo-wrapper">
                             <div class="flex justify-between items-center w-full mb-2 px-1">
                                 <span class="text-xl font-black text-slate-900 flex items-center gap-2 font-digital">
-                                    <i data-lucide="cylinder" class="w-6 h-6 text-orange-600"></i> SILO 3
+                                    <i data-lucide="cylinder" class="w-6 h-6 text-orange-600"></i> SILO&nbsp;3
                                 </span>
                                 <span class="w-4 h-4 rounded-full bg-emerald-500 animate-pulse shadow-md" title="Operativo"></span>
                             </div>
@@ -524,7 +536,7 @@
                                     <i id="silo3-icon-symbol" data-lucide="clock" class="w-5 h-5"></i>
                                 </div>
                                 <div class="text-left flex-1 min-w-0">
-                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO 3</div>
+                                    <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO SILO&nbsp;3</div>
                                     <div id="silo3-icon-text" class="status-badge-text text-purple-900">EN ESPERA DE LIBERACION</div>
                                 </div>
                             </div>
@@ -590,9 +602,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-2">
-                                        <span id="silo3-readout-lts" class="text-xl font-digital font-black text-orange-950">30,000</span>
-                                        <span class="silo-label ml-1 text-sm text-orange-700">LTS</span>
+                                    <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
+                                        <span id="silo3-readout-lts" class="text-xl font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000</span>
+                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0">LTS</span>
                                     </div>
                                 </div>
 
@@ -677,7 +689,7 @@
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
-                                <i data-lucide="flask-conical" class="w-6 h-6 text-orange-600"></i> TANQUE 01
+                                <i data-lucide="flask-conical" class="w-6 h-6 text-orange-600"></i> TANQUE&nbsp;01
                             </span>
                             <span class="text-xs font-black bg-amber-200 text-amber-900 px-3 py-1 rounded-md shadow-sm">Preparación</span>
                         </div>
@@ -723,7 +735,7 @@
 
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
                                     <span class="silo-label text-sm text-orange-700">PRODUCTO:</span>
-                                    <select id="tq01-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-10" onchange="toggleOtroInput('otro-tq01', this.value); evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01'); sincronizarAtributosDOM();">
+                                    <select id="tq01-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white " onchange="toggleOtroInput('otro-tq01', this.value); evaluarEstadoTanque('tq01'); actualizarColorLiquidoTanque('tq01'); sincronizarAtributosDOM();">
                                         <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="CIP">CIP</option>
@@ -745,7 +757,7 @@
 
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
                                     <span class="silo-label text-sm text-orange-700">ETAPA:</span>
-                                    <select id="tq01-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-10 opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq01', this.value); evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
+                                    <select id="tq01-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white  opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq01', this.value); evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
                                         <option value="" selected>-- N/A (SIN PRODUCTO) --</option>
                                         <option value="EN PREPARACION">EN PREPARACION</option>
                                         <option value="EN ENFRIAMIENTO">EN ENFRIAMIENTO</option>
@@ -758,9 +770,9 @@
                                     <input type="text" id="otro-etapa-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
                                 </div>
 
-                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-2">
-                                    <span id="tq01-pct-display" class="text-lg font-digital font-black text-orange-950">0%</span>
-                                    <span class="silo-label ml-1 text-xs text-orange-700">(MÁX 30.000 KG)</span>
+                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap min-h-[44px] overflow-visible items-center">
+                                    <span id="tq01-pct-display" class="text-base font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0%</span>
+                                    <span class="silo-label ml-1 text-[11px] text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30.000 KG)</span>
                                 </div>
                             </div>
 
@@ -778,7 +790,7 @@
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
-                                <i data-lucide="flask-conical" class="w-6 h-6 text-orange-600"></i> TANQUE 02
+                                <i data-lucide="flask-conical" class="w-6 h-6 text-orange-600"></i> TANQUE&nbsp;02
                             </span>
                             <span class="text-xs font-black bg-amber-200 text-amber-900 px-3 py-1 rounded-md shadow-sm">Preparación</span>
                         </div>
@@ -824,7 +836,7 @@
 
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
                                     <span class="silo-label text-sm text-orange-700">PRODUCTO:</span>
-                                    <select id="tq02-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-10" onchange="toggleOtroInput('otro-tq02', this.value); evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02'); sincronizarAtributosDOM();">
+                                    <select id="tq02-prod" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white " onchange="toggleOtroInput('otro-tq02', this.value); evaluarEstadoTanque('tq02'); actualizarColorLiquidoTanque('tq02'); sincronizarAtributosDOM();">
                                         <option value="VACIO Y LIMPIO" selected>VACIO Y LIMPIO</option>
                                         <option value="POR CIP">POR CIP</option>
                                         <option value="CIP">CIP</option>
@@ -845,7 +857,7 @@
 
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[78px]">
                                     <span class="silo-label text-sm text-orange-700">ETAPA:</span>
-                                    <select id="tq02-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-10 opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq02', this.value); evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
+                                    <select id="tq02-etapa" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white  opacity-50 cursor-not-allowed" disabled onchange="toggleOtroInput('otro-etapa-tq02', this.value); evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
                                         <option value="" selected>-- N/A (SIN PRODUCTO) --</option>
                                         <option value="EN PREPARACION">EN PREPARACION</option>
                                         <option value="EN ENFRIAMIENTO">EN ENFRIAMIENTO</option>
@@ -858,9 +870,9 @@
                                     <input type="text" id="otro-etapa-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-xs font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
                                 </div>
 
-                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-2">
-                                    <span id="tq02-pct-display" class="text-lg font-digital font-black text-orange-950">0.0%</span>
-                                    <span class="silo-label ml-1 text-xs text-orange-700">(MÁX 30.000 KG)</span>
+                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap min-h-[44px] overflow-visible items-center">
+                                    <span id="tq02-pct-display" class="text-base font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0.0%</span>
+                                    <span class="silo-label ml-1 text-[11px] text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30.000 KG)</span>
                                 </div>
                             </div>
 
@@ -942,9 +954,9 @@
                             </div>
                         </div>
 
-                        <div class="p-2.5 bg-white rounded-xl border border-slate-200 text-center mt-2">
-                            <span class="text-xs text-slate-500 font-black block">SISTEMA MEZCLADOR</span>
-                            <span class="text-sm font-digital font-black text-orange-600">ALMIX ALTA VELOCIDAD</span>
+                        <div class="p-2 bg-white rounded-xl border border-slate-200 text-center mt-2 whitespace-nowrap">
+                            <span class="text-xs text-slate-500 font-black block leading-tight">SISTEMA MEZCLADOR</span>
+                            <span class="text-sm font-digital font-black text-orange-600 block leading-tight">ALMIX ALTA VELOCIDAD</span>
                         </div>
                     </div>
 
@@ -1177,14 +1189,14 @@
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
-                                <i data-lucide="package" class="w-6 h-6 text-orange-600"></i> ALSAFE 1
+                                <i data-lucide="package" class="w-6 h-6 text-orange-600"></i> ALSAFE&nbsp;1
                             </span>
                             <span class="text-xs font-black bg-purple-100 text-purple-900 px-3 py-1 rounded-md shadow-sm">Aséptico</span>
                         </div>
                         <div id="alsafe1-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
                             <div id="alsafe1-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="alsafe1-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i></div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO ALSAFE 1</div>
+                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO ALSAFE&nbsp;1</div>
                                 <div id="alsafe1-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
@@ -1224,14 +1236,14 @@
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
-                                <i data-lucide="package" class="w-6 h-6 text-orange-600"></i> ALSAFE 2
+                                <i data-lucide="package" class="w-6 h-6 text-orange-600"></i> ALSAFE&nbsp;2
                             </span>
                             <span class="text-xs font-black bg-purple-100 text-purple-900 px-3 py-1 rounded-md shadow-sm">Aséptico</span>
                         </div>
                         <div id="alsafe2-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
                             <div id="alsafe2-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="alsafe2-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i></div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO ALSAFE 2</div>
+                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO ALSAFE&nbsp;2</div>
                                 <div id="alsafe2-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
@@ -1271,14 +1283,14 @@
                     <div class="silo-wrapper">
                         <div class="flex justify-between items-center w-full mb-2 px-1">
                             <span class="text-lg font-black text-slate-900 flex items-center gap-2 font-digital">
-                                <i data-lucide="droplet" class="w-6 h-6 text-orange-600"></i> TQ. CREMA
+                                <i data-lucide="droplet" class="w-6 h-6 text-orange-600"></i> TQ.&nbsp;CREMA
                             </span>
                             <span class="text-xs font-black bg-amber-100 text-amber-900 px-3 py-1 rounded-md shadow-sm">Almacén</span>
                         </div>
                         <div id="tqcrema-icon-container" class="status-badge-container bg-emerald-50 border-emerald-300">
                             <div id="tqcrema-icon-box" class="bg-emerald-600 text-white p-1.5 rounded-lg shadow shrink-0"><i id="tqcrema-icon-symbol" data-lucide="check-circle" class="w-5 h-5"></i></div>
                             <div class="text-left flex-1 min-w-0">
-                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TQ. CREMA</div>
+                                <div class="text-xs text-slate-800 font-black leading-none mb-0.5 tracking-wide">ESTADO TQ.&nbsp;CREMA</div>
                                 <div id="tqcrema-icon-text" class="status-badge-text text-emerald-900">INACTIVO Y LIMPIO</div>
                             </div>
                         </div>
@@ -1935,15 +1947,15 @@
                         <div class="cisterna-overlay-fields w-full">
                             <div class="cisterna-hmi-row flex-col items-start gap-1 justify-center">
                                 <span class="text-xs font-black text-orange-700 font-mono">ESTATUS:</span>
-                                <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white h-9" onchange="cambiarEstatusCisterna(${index}, this.value)">
+                                <select id="cist-select-${c.id}" class="silo-input-field w-full text-xs font-black text-orange-950 bg-white " onchange="cambiarEstatusCisterna(${index}, this.value)">
                                     <option value="EN ESPERA DE DESCARGA" ${c.estatus === 'EN ESPERA DE DESCARGA' ? 'selected' : ''}>EN ESPERA DE DESCARGA</option>
                                     <option value="EN DESCARGA AL SILO 1" ${c.estatus === 'EN DESCARGA AL SILO 1' ? 'selected' : ''}>EN DESCARGA AL SILO 1</option>
                                     <option value="EN DESCARGA AL SILO 2" ${c.estatus === 'EN DESCARGA AL SILO 2' ? 'selected' : ''}>EN DESCARGA AL SILO 2</option>
                                     <option value="VACIO" ${c.estatus === 'VACIO' ? 'selected' : ''}>VACIO</option>
                                 </select>
                             </div>
-                            <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">LITROS:</span><input type="text" id="cist-litros-${c.id}" class="silo-input-field w-26 text-xs font-black" value="${c.litros}" oninput="cisternas[${index}].litros = this.value; sincronizarAtributosDOM();"></div>
-                            <div class="cisterna-hmi-row"><span class="text-xs font-black text-slate-800 font-mono">HPO:</span><input type="text" class="silo-input-field w-24 text-xs font-black" value="${c.hpo}" oninput="cisternas[${index}].hpo = this.value; sincronizarAtributosDOM();"></div>
+                            <div class="cisterna-hmi-row flex items-center justify-between gap-1"><span class="text-xs font-black text-slate-800 font-mono whitespace-nowrap shrink-0">LITROS:</span><input type="text" id="cist-litros-${c.id}" class="silo-input-field w-28 !text-sm font-black shrink-0 text-center" value="${c.litros}" oninput="cisternas[${index}].litros = this.value; sincronizarAtributosDOM();"></div>
+                            <div class="cisterna-hmi-row flex items-center justify-between gap-1"><span class="text-xs font-black text-slate-800 font-mono whitespace-nowrap shrink-0">HPO:</span><input type="text" class="silo-input-field w-28 !text-sm font-black shrink-0 text-center" value="${c.hpo}" oninput="cisternas[${index}].hpo = this.value; sincronizarAtributosDOM();"></div>
                         </div>
                     </div>
                 `;
