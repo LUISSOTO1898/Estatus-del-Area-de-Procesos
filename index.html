@@ -16,6 +16,14 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
+
+        .silo-litros-readout { font-size: 0.97rem !important; }
+        .tq-pct-row { font-size: 0.9rem !important; padding: 0.2rem 0.4rem !important; min-height: 38px !important; }
+        .tq-pct-row span { font-size: 0.9rem !important; }
+
+        .lts-label { font-size: 0.97rem !important; }
+        body.capturing-mode .lts-label { font-size: 0.97rem !important; }
+
         * { box-sizing: border-box; font-weight: 900 !important; }
         html, body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #0f172a; margin: 0; padding: 12px; font-weight: 900 !important; font-size: 123% !important; }
         input, select, option, button, textarea, span, p, div, label, h1, h2, h3, h4, th, td, text, tspan { font-weight: 900 !important; }
@@ -411,8 +419,8 @@
                                     </div>
 
                                     <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
-                                        <span id="silo1-readout-lts" class="text-sm font-digital font-black text-orange-950 whitespace-nowrap shrink-0">28,800 </span>
-                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
+                                        <span id="silo1-readout-lts" class="silo-litros-readout font-digital font-black text-orange-950 whitespace-nowrap shrink-0">28,800 </span>
+                                        <span class="silo-label ml-1 lts-label text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
                                     </div>
                                 </div>
 
@@ -509,8 +517,8 @@
                                     </div>
 
                                     <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
-                                        <span id="silo2-readout-lts" class="text-sm font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000 </span>
-                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
+                                        <span id="silo2-readout-lts" class="silo-litros-readout font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000 </span>
+                                        <span class="silo-label ml-1 lts-label text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
                                     </div>
                                 </div>
 
@@ -605,8 +613,8 @@
                                     </div>
 
                                     <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap overflow-visible">
-                                        <span id="silo3-readout-lts" class="text-sm font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000 </span>
-                                        <span class="silo-label ml-1 text-sm text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
+                                        <span id="silo3-readout-lts" class="silo-litros-readout font-digital font-black text-orange-950 whitespace-nowrap shrink-0">30,000 </span>
+                                        <span class="silo-label ml-1 lts-label text-orange-700 whitespace-nowrap shrink-0 font-black">LTS</span>
                                     </div>
                                 </div>
 
@@ -772,9 +780,9 @@
                                     <input type="text" id="otro-etapa-tq01" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq01'); sincronizarAtributosDOM();">
                                 </div>
 
-                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap min-h-[44px] overflow-visible items-center">
-                                    <span id="tq01-pct-display" class="text-xs font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0% </span>
-                                    <span class="silo-label ml-1 text-[0.7rem] text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30K KG)</span>
+                                <div class="silo-hmi-row tq-pct-row justify-center bg-orange-50 border-2 border-orange-400 py-1 px-1 whitespace-nowrap flex-nowrap overflow-visible items-center">
+                                    <span id="tq01-pct-display" class="font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0% </span>
+                                    <span class="silo-label ml-1 text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30K KG)</span>
                                 </div>
                             </div>
 
@@ -872,9 +880,9 @@
                                     <input type="text" id="otro-etapa-tq02" class="silo-input-field w-full mt-1 hidden uppercase text-sm font-black" placeholder="OTRA ETAPA..." oninput="evaluarEstadoTanque('tq02'); sincronizarAtributosDOM();">
                                 </div>
 
-                                <div class="silo-hmi-row justify-center bg-orange-50 border-2 border-orange-400 py-1.5 px-1 whitespace-nowrap flex-nowrap min-h-[44px] overflow-visible items-center">
-                                    <span id="tq02-pct-display" class="text-xs font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0.0% </span>
-                                    <span class="silo-label ml-1 text-[0.7rem] text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30K KG)</span>
+                                <div class="silo-hmi-row tq-pct-row justify-center bg-orange-50 border-2 border-orange-400 py-1 px-1 whitespace-nowrap flex-nowrap overflow-visible items-center">
+                                    <span id="tq02-pct-display" class="font-digital font-black text-orange-950 whitespace-nowrap shrink-0">0.0% </span>
+                                    <span class="silo-label ml-1 text-orange-700 whitespace-nowrap shrink-0 font-black">(MÁX 30K KG)</span>
                                 </div>
                             </div>
 
@@ -1212,7 +1220,7 @@
                                     <span class="silo-label text-sm font-black">CANT:</span>
                                     <div class="flex items-center gap-1">
                                         <input type="number" id="alsafe1-lts-input" class="silo-input-field w-24 text-base font-black" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe1'); sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 font-black" style="font-size: 0.97rem !important;">LTS</span>
+                                        <span class="silo-label lts-label text-slate-600 font-black">LTS</span>
                                     </div>
                                 </div>
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[75px]">
@@ -1259,7 +1267,7 @@
                                     <span class="silo-label text-sm font-black">CANT:</span>
                                     <div class="flex items-center gap-1">
                                         <input type="number" id="alsafe2-lts-input" class="silo-input-field w-24 text-base font-black" value="0" min="0" max="20000" oninput="calcularLlenadoAlsafe('alsafe2'); sincronizarAtributosDOM();">
-                                        <span class="silo-label text-slate-600 font-black" style="font-size: 0.97rem !important;">LTS</span>
+                                        <span class="silo-label lts-label text-slate-600 font-black">LTS</span>
                                     </div>
                                 </div>
                                 <div class="silo-hmi-row flex-col items-start gap-1 justify-center min-h-[75px]">
